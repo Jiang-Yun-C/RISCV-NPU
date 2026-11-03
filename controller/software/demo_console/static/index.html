@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f5f2">
+  <meta name="description" content="NexusRV 676 板端 NPU 推理演示台，本地串口交互与实板记录回放。">
+  <title>NexusRV 676 · 板端推理演示台</title>
+  <link rel="icon" type="image/svg+xml" href="mark.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+<svg class="svg-library" aria-hidden="true"><defs>
+  <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="3"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 2v4m6-4v4M9 18v4m6-4v4M2 9h4m-4 6h4m12-6h4m-4 6h4"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 3v17h17M9 15v-4m5 4V6m5 9V9"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 11a9 9 0 1 1 2.5 7M3 5v6h6m3-4v5l3 2"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5m6-5v5M7 8h10v4a5 5 0 0 1-10 0V8Zm5 9v5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-5-5 5 5-5 5"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 11 7-11 7V5Z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14m8-14v14"/></symbol>
+  <symbol id="i-full" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></symbol>
+  <symbol id="i-record" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5m8-10 5 5-5 5M14 4l-4 16"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m-5 5 5-5 5 5M4 16v4h16v-4"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10 5-3v10l-5-3"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M15 8V3H3v12h5"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.5"/></symbol>
+</defs></svg>
+
+<aside class="rail" aria-label="主导航">
+  <a class="brand-mark" href="/" aria-label="NexusRV 首页"><svg><use href="#i-chip"/></svg></a>
+  <div class="rail-divider"></div>
+  <button class="rail-item active" data-view="demo" aria-label="演示台" aria-current="page"><svg><use href="#i-grid"/></svg><span>演示台</span></button>
+  <button class="rail-item" data-view="performance" aria-label="运行指标"><svg><use href="#i-chart"/></svg><span>指标</span></button>
+  <button class="rail-item" data-view="history" aria-label="演示记录"><svg><use href="#i-history"/></svg><span>记录</span></button>
+  <div class="rail-bottom"><span class="rail-vertical">BUILT TO COMPUTE</span><button id="rail-connect" class="rail-item" aria-label="连接板卡"><svg><use href="#i-plug"/></svg></button><span class="rail-version">v1.0</span></div>
+</aside>
+
+<div class="shell">
+  <header class="topbar">
+    <div class="wordmark">NEXUS<span>RV</span><span class="wordmark-divider"></span><span class="board-number">676</span></div>
+    <div class="topbar-right">
+      <button id="connection-status" class="connection-pill"><span class="status-dot"></span><span id="connection-label">设备未连接</span></button>
+      <span class="topbar-divider"></span>
+      <button id="record-button" class="button subtle"><svg><use href="#i-record"/></svg><span>录制演示</span></button>
+      <button id="present-button" class="button subtle"><svg><use href="#i-full"/></svg><span>全屏演示</span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div>
+        <div class="eyebrow"><span class="tiny-square"></span> ON-DEVICE INTELLIGENCE <span class="edition">/ DEMO CONSOLE</span></div>
+        <h1 id="page-title">让智能，运行在板上<span class="title-dot">。</span></h1>
+        <p id="page-description">从一句指令到一次真实计算，直观看见 RISC-V 与 NPU 的协作。</p>
+      </div>
+      <div class="mode-switch" role="group" aria-label="数据来源">
+        <button id="mode-live" class="selected"><span class="mode-dot"></span> 实时演示</button>
+        <button id="mode-replay"><svg><use href="#i-history"/></svg> 实测回放</button>
+      </div>
+    </section>
+
+    <div id="source-banner" class="source-banner" hidden><svg><use href="#i-history"/></svg><div><strong id="source-title">历史实板记录</strong><span id="source-detail">按记录顺序展示，不代表现场执行。</span></div><button id="import-button" class="button small">导入记录<svg><use href="#i-upload"/></svg></button></div>
+
+    <section id="view-demo" class="view">
+      <div class="workspace">
+        <section class="input-panel panel">
+          <div class="section-label"><span>01</span><h2>输入任务</h2><span class="micro-label">INPUT</span></div>
+          <div id="live-controls">
+            <div class="preset-row"><button class="preset selected" data-preset="greeting">中文问候</button><button class="preset" data-preset="token">单步推理</button><button class="preset" data-preset="custom">自定义</button></div>
+            <div class="input-field"><label id="input-label" for="prompt">发送给板端模型的指令</label><textarea id="prompt" rows="3" spellcheck="false" placeholder="输入一句中文指令…">你好</textarea><div class="input-meta"><span id="byte-count">6 / 4096 bytes</span><kbd>Ctrl ↵</kbd></div></div>
+            <div class="request-options"><label for="request-kind">输入类型</label><select id="request-kind"><option value="text">中文 / 英文文本</option><option value="ids">Token ID 序列</option></select></div>
+            <div id="token-options" class="request-options" hidden><label for="max-new">生成上限</label><input id="max-new" type="number" min="1" max="128" value="32"><span>tokens</span></div>
+            <label class="stream-choice"><input id="stream-enabled" type="checkbox" checked disabled>流式显示正文<span>连接支持流式的服务后可切换</span></label>
+            <p id="request-hint" class="field-hint">板端完成分词与推理 · 文本生成上限 128 tokens</p>
+            <button id="run-button" class="button primary full"><svg><use href="#i-plug"/></svg><span>连接板卡，开始演示</span><svg class="trailing"><use href="#i-arrow"/></svg></button>
+            <button id="cancel-button" class="button secondary full" hidden disabled>停止生成</button>
+            <label class="stream-choice"><input id="prefix-enabled" type="checkbox" checked disabled>复用固定系统提示词<span>冷 / 热请求分别记录</span></label>
+            <div class="request-options"><label for="timeout-seconds">请求期限</label><input id="timeout-seconds" type="number" min="1" max="86400" value="86400"><span>秒</span><button id="timeout-apply" class="button small" disabled>应用</button></div>
+          </div>
+          <div id="replay-controls" hidden>
+            <label class="field-label" for="replay-select">选择已采集的板端任务</label><select id="replay-select" class="large-select"></select>
+            <div class="replay-prompt"><span>原始请求</span><p id="replay-prompt">你好</p></div>
+            <div class="replay-note"><svg><use href="#i-info"/></svg><p>使用真实串口输出，按事件顺序回放。原始记录没有逐行时间戳。</p></div>
+            <div class="replay-actions"><button id="replay-play" class="button primary"><svg><use href="#i-play"/></svg><span>播放记录</span></button><button id="replay-end" class="button secondary">查看结果</button></div>
+          </div>
+          <div class="input-footer"><svg><use href="#i-chip"/></svg><span>Qwen2.5 · 0.5B <span class="muted">/ W8 项目基线</span></span><span class="offline-tag">LOCAL</span></div>
+        </section>
+
+        <section class="output-panel">
+          <div class="output-header"><div class="section-label"><span>02</span><h2>板端输出</h2></div><span id="output-source" class="source-tag"><span></span> LIVE UART</span></div>
+          <div id="output-body" class="output-body" aria-live="polite" aria-atomic="true">
+            <div id="output-empty" class="output-empty"><div class="chip-emblem"><svg><use href="#i-chip"/></svg><span class="emblem-orbit"></span></div><h3>一次真实的板端推理</h3><p>连接开发板，发送第一条指令。<br>计算发生在板上，结果呈现在这里。</p></div>
+            <div id="output-running" class="output-running" hidden><div class="compute-wave"><i></i><i></i><i></i><i></i><i></i></div><span class="running-eyebrow">COMPUTING ON BOARD</span><h3 id="running-title">等待板端计算</h3><p id="running-detail">第一个完整字符到达后立即显示。</p><div class="running-clock" id="running-clock">00:00</div></div>
+            <div id="output-result" class="output-result" hidden><div class="result-label"><svg><use href="#i-check"/></svg><span id="result-state">请求完成</span></div><div id="result-text" class="result-text"></div><div id="result-meta" class="result-meta"></div></div>
+          </div>
+          <div class="output-footer"><span id="output-status"><span class="status-dot"></span> 等待连接</span><div><button id="copy-result" class="icon-button" aria-label="复制结果" title="复制结果"><svg><use href="#i-copy"/></svg></button><button id="log-button" class="output-tool"><svg><use href="#i-code"/></svg> 串口日志</button><button id="export-button" class="output-tool"><svg><use href="#i-download"/></svg> 导出</button></div></div>
+        </section>
+      </div>
+
+      <div class="metrics-strip" aria-label="本次请求实测指标">
+        <article class="metric"><div class="metric-label">板内请求耗时<svg><use href="#i-clock"/></svg></div><div class="metric-value" id="metric-time">—<small>s</small></div><span class="metric-foot">总计时 / 不含串口往返</span></article>
+        <article class="metric"><div class="metric-label">板内首 token</div><div class="metric-value" id="metric-first">—<small>s</small></div><span class="metric-foot">内部生成时刻 / 非用户可见 TTFT</span></article>
+        <article class="metric"><div class="metric-label">Decode 计算速度</div><div class="metric-value" id="metric-speed">—<small>tok/s</small></div><span class="metric-foot">模型 decode 计算 / 不含串口输出</span></article>
+        <article class="metric"><div class="metric-label">加速后端调用<span class="teal-mini">CORAL</span></div><div class="metric-value" id="metric-calls">—<small>次</small></div><span class="metric-foot" id="metric-fallback">CPU 回退 — 次</span></article>
+      </div>
+
+      <section class="latency-strip" aria-label="正文首字时间">
+        <div><span>正文首字到达</span><strong id="latency-receive">—</strong><small id="latency-receive-note">串口写入开始 → 收到完整字符</small></div>
+        <div><span>首字写入页面</span><strong id="latency-dom">—</strong><small>浏览器提交 → DOM 更新</small></div>
+        <div><span>下个帧回调</span><strong id="latency-frame">—</strong><small>调度时间，不代表像素显示时间</small></div>
+      </section>
+
+      <section class="pipeline-panel panel">
+        <div class="pipeline-heading"><div><span class="eyebrow">THE COMPUTE PATH</span><h2>看得见的计算路径</h2></div><span id="pipeline-caption">等待串口事件</span></div>
+        <div class="pipeline">
+          <div class="pipeline-node" id="node-host"><div class="node-icon"><svg><use href="#i-code"/></svg></div><div><strong>PC 演示端</strong><span>提交任务 · 呈现结果</span></div><span class="node-index">01</span></div>
+          <div class="pipeline-link"><span></span><svg><use href="#i-arrow"/></svg></div>
+          <div class="pipeline-node" id="node-cpu"><div class="node-icon"><svg><use href="#i-chip"/></svg></div><div><strong>RISC-V 主控</strong><span>分词 · 调度 · 数值运算</span></div><span class="node-index">02</span></div>
+          <div class="pipeline-link"><span></span><svg><use href="#i-arrow"/></svg></div>
+          <div class="pipeline-node accelerator" id="node-npu"><div class="node-icon"><svg><use href="#i-chip"/></svg></div><div><strong>Coral 加速后端</strong><span>W8 线性计算</span></div><span class="node-index">03</span></div>
+          <div class="pipeline-link"><span></span><svg><use href="#i-arrow"/></svg></div>
+          <div class="pipeline-node" id="node-result"><div class="node-icon"><svg><use href="#i-check"/></svg></div><div><strong>板端结果</strong><span>文本 · Token · 实测统计</span></div><span class="node-index">04</span></div>
+        </div>
+      </section>
+    </section>
+
+    <section id="view-performance" class="view" hidden>
+      <div class="performance-grid"><section class="panel detail-panel"><div class="section-label"><span>01</span><h2>本次请求统计</h2><span class="micro-label">MEASURED</span></div><div id="performance-stats" class="stat-list"><div class="empty-state">完成一次推理或查看实测回放后，这里会显示板端计数。</div></div></section><section class="panel detail-panel"><div class="section-label"><span>02</span><h2>算子时间分布</h2><span class="micro-label">PROFILE</span></div><label class="request-options" for="profile-phase">统计区间<select id="profile-phase"><option value="REQUEST">本次请求</option><option value="PREFILL">Prefill</option><option value="DECODE">Decode</option><option value="CUMULATIVE">启动以来累计</option></select></label><p id="profile-caption" class="field-hint">收到板端 PROFILE CUMULATIVE 后显示平台累计值。</p><div id="profile-bars" class="profile-bars"></div><p class="profile-note">linear / head 包含驱动及等待时间；各算子仍有 CPU 参与。</p></section></div>
+      <section class="panel detail-panel identity-panel"><div><span class="eyebrow">DEVICE CONTEXT</span><h2>设备与运行环境</h2></div><div class="device-facts"><div><span>目标开发板</span><strong>MES2L676-200HP</strong></div><div><span>串口参数</span><strong>115200 默认 · 8N1</strong></div><div><span>计时换算</span><strong>125 MHz 项目时钟</strong></div><div><span>当前模型身份</span><strong id="identity-status">尚未收到启动身份</strong></div></div><button id="memory-button" class="button secondary"><svg><use href="#i-chart"/></svg>读取 DDR 占用</button><p id="memory-status" class="field-hint">读取当前服务的 MEMORY 计数；不触发压力测试。</p></section>
+    </section>
+
+    <section id="view-history" class="view" hidden><section class="panel detail-panel"><div class="history-heading"><div><span class="eyebrow">SESSION ARCHIVE</span><h2>每一次计算，都有记录</h2><p class="field-hint">现场记录保存在当前浏览器，可导出留存；历史实测回放不会混入现场记录。</p></div><button id="history-import" class="button secondary"><svg><use href="#i-upload"/></svg>导入记录</button></div><div id="history-list"></div></section></section>
+
+    <footer class="page-footer"><span><span class="tiny-square"></span> NEXUSRV 676 <span class="footer-slash">/</span> RISC-V × CORAL</span><div><span id="footer-source">实时串口 · 尚未连接</span><button id="camera-button"><svg><use href="#i-camera"/></svg> 实物画面</button></div></footer>
+  </main>
+</div>
+
+<dialog id="connect-dialog"><div class="dialog-heading"><div><span class="eyebrow">CONNECT YOUR BOARD</span><h2>连接，让演示开始</h2></div><button class="icon-button close-dialog" aria-label="关闭"><svg><use href="#i-close"/></svg></button></div><p class="dialog-description">连接已运行 T25 模型服务的开发板。从串口接收板端生成的正文与运行统计。</p><div class="connection-card"><div class="connection-chip"><svg><use href="#i-chip"/></svg></div><div><strong>MES2L676-200HP</strong><span>CP2102 · 115200 默认 · 8N1</span></div><span class="teal-mini">UART</span></div><label class="field-label" for="baud-rate">与当前板端一致的波特率</label><select id="baud-rate" class="large-select"><option value="115200">115200 · 当前生产配置</option><option value="500000">500000 · 历史配置</option></select><label class="field-label" for="transport-kind">连接方式</label><select id="transport-kind" class="large-select"><option value="browser">浏览器 USB 串口直连 · Chrome / Edge</option><option value="python">本地 Python 串口服务</option></select><p id="transport-hint" class="field-hint">在系统弹窗中选择 CP2102。Windows 浏览器可直接连接 COM 口，无需把串口映射到 WSL。</p><div id="python-port-field" hidden><label class="field-label" for="python-port">本机串口</label><div class="port-row"><select id="python-port" class="large-select"></select><button id="refresh-ports" class="button secondary">刷新</button></div></div><p id="connect-error" class="form-error" role="alert"></p><button id="connect-confirm" class="button primary full"><svg><use href="#i-plug"/></svg><span>选择并连接串口</span></button><div class="connected-actions" id="connected-actions" hidden><p id="connected-info"></p><button id="sync-button" class="button secondary">同步服务</button><button id="disconnect-button" class="button danger">断开连接</button></div><p class="dialog-footnote">连接后发送空行等待 READY。当前工具不执行位流下载、复位或 SD 重载。</p></dialog>
+
+<dialog id="log-dialog" class="log-dialog"><div class="dialog-heading"><div><span class="eyebrow">RAW UART TRANSCRIPT</span><h2>原始串口记录</h2></div><button class="icon-button close-dialog" aria-label="关闭"><svg><use href="#i-close"/></svg></button></div><div class="log-toolbar"><span id="log-source">尚无数据</span><button id="download-raw" class="button secondary small"><svg><use href="#i-download"/></svg>下载原始文本</button></div><pre id="raw-log" tabindex="0">等待串口数据…</pre></dialog>
+<div id="camera-dock" class="camera-dock" hidden><div><span><span class="status-dot"></span> BOARD CAMERA</span><button id="camera-close" class="icon-button" aria-label="关闭实物画面"><svg><use href="#i-close"/></svg></button></div><video id="board-video" autoplay muted playsinline></video></div>
+<input id="import-file" type="file" accept=".json,.txt,.log,.bin" hidden>
+<div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>

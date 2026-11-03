@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "application-t20-v1",
+  "$ref": "#/$defs/program",
+  "$comment": "CPU additionally enforces depth <= 2, total nodes <=32, actions <=8, no duplicate selected device/value, epoch/freshness and request IDs.",
+  "$defs": {
+    "program": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "$ref": "#/$defs/node"
+      }
+    },
+    "node": {
+      "oneOf": [
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "led"
+            },
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1
+            }
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "pwm"
+            },
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "read"
+            },
+            {
+              "enum": [
+                "temperature",
+                "light"
+              ]
+            }
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "reject"
+            },
+            {
+              "const": "UNSUPPORTED"
+            }
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "if"
+            },
+            {
+              "enum": [
+                "temperature",
+                "light"
+              ]
+            },
+            {
+              "enum": [
+                ">",
+                "<",
+                ">=",
+                "<="
+              ]
+            },
+            {
+              "type": "integer",
+              "minimum": -100000,
+              "maximum": 100000
+            },
+            {
+              "$ref": "#/$defs/program"
+            },
+            {
+              "$ref": "#/$defs/program"
+            }
+          ],
+          "minItems": 6,
+          "maxItems": 6
+        }
+      ]
+    }
+  }
+}

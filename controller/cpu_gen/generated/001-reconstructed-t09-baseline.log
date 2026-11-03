@@ -1,0 +1,3 @@
+patching file src/main/scala/vexriscv/ip/DataCache.scala
+patching file src/main/scala/vexriscv/ip/InstructionCache.scala
+patching file src/main/scala/vexriscv/plugin/Fetcher.scala

@@ -1,0 +1,179 @@
+{
+  "embed.q": {
+    "offset": 0,
+    "shape": [
+      64,
+      64
+    ],
+    "dtype": "int8"
+  },
+  "embed.s": {
+    "offset": 4096,
+    "shape": [
+      64,
+      1
+    ],
+    "dtype": "float32"
+  },
+  "q.q": {
+    "offset": 4352,
+    "shape": [
+      64,
+      64
+    ],
+    "dtype": "int8"
+  },
+  "q.s": {
+    "offset": 8448,
+    "shape": [
+      64,
+      1
+    ],
+    "dtype": "float32"
+  },
+  "q.bias": {
+    "offset": 8704,
+    "shape": [
+      64
+    ],
+    "dtype": "float32"
+  },
+  "k.q": {
+    "offset": 8960,
+    "shape": [
+      64,
+      64
+    ],
+    "dtype": "int8"
+  },
+  "k.s": {
+    "offset": 13056,
+    "shape": [
+      64,
+      1
+    ],
+    "dtype": "float32"
+  },
+  "k.bias": {
+    "offset": 13312,
+    "shape": [
+      64
+    ],
+    "dtype": "float32"
+  },
+  "v.q": {
+    "offset": 13568,
+    "shape": [
+      64,
+      64
+    ],
+    "dtype": "int8"
+  },
+  "v.s": {
+    "offset": 17664,
+    "shape": [
+      64,
+      1
+    ],
+    "dtype": "float32"
+  },
+  "v.bias": {
+    "offset": 17920,
+    "shape": [
+      64
+    ],
+    "dtype": "float32"
+  },
+  "o.q": {
+    "offset": 18176,
+    "shape": [
+      64,
+      64
+    ],
+    "dtype": "int8"
+  },
+  "o.s": {
+    "offset": 22272,
+    "shape": [
+      64,
+      1
+    ],
+    "dtype": "float32"
+  },
+  "gate.q": {
+    "offset": 22528,
+    "shape": [
+      64,
+      64
+    ],
+    "dtype": "int8"
+  },
+  "gate.s": {
+    "offset": 26624,
+    "shape": [
+      64,
+      1
+    ],
+    "dtype": "float32"
+  },
+  "up.q": {
+    "offset": 26880,
+    "shape": [
+      64,
+      64
+    ],
+    "dtype": "int8"
+  },
+  "up.s": {
+    "offset": 30976,
+    "shape": [
+      64,
+      1
+    ],
+    "dtype": "float32"
+  },
+  "down.q": {
+    "offset": 31232,
+    "shape": [
+      64,
+      64
+    ],
+    "dtype": "int8"
+  },
+  "down.s": {
+    "offset": 35328,
+    "shape": [
+      64,
+      1
+    ],
+    "dtype": "float32"
+  },
+  "norm1": {
+    "offset": 35584,
+    "shape": [
+      64
+    ],
+    "dtype": "float32"
+  },
+  "norm2": {
+    "offset": 35840,
+    "shape": [
+      64
+    ],
+    "dtype": "float32"
+  },
+  "norm": {
+    "offset": 36096,
+    "shape": [
+      64
+    ],
+    "dtype": "float32"
+  },
+  "inv": {
+    "offset": 36352,
+    "shape": [
+      32
+    ],
+    "dtype": "float32"
+  }
+}

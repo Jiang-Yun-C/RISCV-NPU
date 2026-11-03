@@ -1,0 +1,394 @@
+{
+  "pairs": [
+    {
+      "pair": 1,
+      "cold": {
+        "name": "pair1-cold",
+        "command": ":text 24 请只回答：你好。",
+        "session": "0000000000000014",
+        "text": "你好。",
+        "ids": [
+          108386,
+          1773,
+          151645
+        ],
+        "metrics": {
+          "session": 20,
+          "prompt": 35,
+          "generated": 3,
+          "stop": 1,
+          "kv": 37,
+          "tokenizer_ticks": 2023986,
+          "prefill_ticks": 8525312724,
+          "decode_ticks": 900229585,
+          "total_ticks": 9441503726,
+          "first_token_ticks": 8532697376,
+          "stack_peak_bytes": 11660,
+          "cpu_calls": 0,
+          "ce_calls": 2019,
+          "fallback_calls": 0,
+          "dispatch_ticks": 3396681584
+        },
+        "prefix": {
+          "session": 20,
+          "hit": 0,
+          "captured": 1,
+          "tokens": 21,
+          "prepare_ticks": 4461582641,
+          "restore_ticks": 35884
+        },
+        "action": null,
+        "host_cache_used": false,
+        "board_TTFT_s": 68.261579008,
+        "board_prefill_s": 68.202501792,
+        "board_decode_s": 7.20183668,
+        "decode_steps": 2,
+        "decode_steps_per_s": 0.2777069362811488,
+        "host_visible_TTFT_s": 68.3023341,
+        "host_first_token_record_s": 68.2812729,
+        "host_to_READY_s": 76.1293855,
+        "board_total_s": 75.532029808,
+        "timing_scope": "perf_counter host receive time including UART; visible preview decoded by unchanged production parser; browser paint not measured"
+      },
+      "warm": {
+        "name": "pair1-warm",
+        "command": ":text 24 请只回答：你好。",
+        "session": "0000000000000015",
+        "text": "你好。",
+        "ids": [
+          108386,
+          1773,
+          151645
+        ],
+        "metrics": {
+          "session": 21,
+          "prompt": 35,
+          "generated": 3,
+          "stop": 1,
+          "kv": 37,
+          "tokenizer_ticks": 2023621,
+          "prefill_ticks": 4063807662,
+          "decode_ticks": 900215675,
+          "total_ticks": 4979843653,
+          "first_token_ticks": 4071057073,
+          "stack_peak_bytes": 11660,
+          "cpu_calls": 0,
+          "ce_calls": 1011,
+          "fallback_calls": 0,
+          "dispatch_ticks": 1624948298
+        },
+        "prefix": {
+          "session": 21,
+          "hit": 1,
+          "captured": 0,
+          "tokens": 21,
+          "prepare_ticks": 0,
+          "restore_ticks": 22932
+        },
+        "action": null,
+        "host_cache_used": false,
+        "board_TTFT_s": 32.568456584,
+        "board_prefill_s": 32.510461296,
+        "board_decode_s": 7.2017254,
+        "decode_steps": 2,
+        "decode_steps_per_s": 0.2777112273678194,
+        "host_visible_TTFT_s": 32.6047442,
+        "host_first_token_record_s": 32.5883359,
+        "host_to_READY_s": 40.4363338,
+        "board_total_s": 39.838749224,
+        "timing_scope": "perf_counter host receive time including UART; visible preview decoded by unchanged production parser; browser paint not measured"
+      },
+      "bitwise_output_equal": true,
+      "TTFT_reduction_pct": 52.288744184802546
+    },
+    {
+      "pair": 2,
+      "cold": {
+        "name": "pair2-cold",
+        "command": ":text 24 请只回答：欢迎。",
+        "session": "0000000000000016",
+        "text": "欢迎",
+        "ids": [
+          100437,
+          151645
+        ],
+        "metrics": {
+          "session": 22,
+          "prompt": 35,
+          "generated": 2,
+          "stop": 1,
+          "kv": 36,
+          "tokenizer_ticks": 2039562,
+          "prefill_ticks": 8525652776,
+          "decode_ticks": 448278816,
+          "total_ticks": 8985976774,
+          "first_token_ticks": 8533041169,
+          "stack_peak_bytes": 11660,
+          "cpu_calls": 0,
+          "ce_calls": 1850,
+          "fallback_calls": 0,
+          "dispatch_ticks": 3196075158
+        },
+        "prefix": {
+          "session": 22,
+          "hit": 0,
+          "captured": 1,
+          "tokens": 21,
+          "prepare_ticks": 4461627625,
+          "restore_ticks": 28822
+        },
+        "action": null,
+        "host_cache_used": false,
+        "board_TTFT_s": 68.264329352,
+        "board_prefill_s": 68.205222208,
+        "board_decode_s": 3.586230528,
+        "decode_steps": 1,
+        "decode_steps_per_s": 0.2788443163908062,
+        "host_visible_TTFT_s": 68.3004338,
+        "host_first_token_record_s": 68.2840296,
+        "host_to_READY_s": 72.4824852,
+        "board_total_s": 71.887814192,
+        "timing_scope": "perf_counter host receive time including UART; visible preview decoded by unchanged production parser; browser paint not measured"
+      },
+      "warm": {
+        "name": "pair2-warm",
+        "command": ":text 24 请只回答：欢迎。",
+        "session": "0000000000000017",
+        "text": "欢迎",
+        "ids": [
+          100437,
+          151645
+        ],
+        "metrics": {
+          "session": 23,
+          "prompt": 35,
+          "generated": 2,
+          "stop": 1,
+          "kv": 36,
+          "tokenizer_ticks": 2035087,
+          "prefill_ticks": 4063762759,
+          "decode_ticks": 448307705,
+          "total_ticks": 4523989630,
+          "first_token_ticks": 4071023508,
+          "stack_peak_bytes": 11660,
+          "cpu_calls": 0,
+          "ce_calls": 842,
+          "fallback_calls": 0,
+          "dispatch_ticks": 1424239681
+        },
+        "prefix": {
+          "session": 23,
+          "hit": 1,
+          "captured": 0,
+          "tokens": 21,
+          "prepare_ticks": 0,
+          "restore_ticks": 22994
+        },
+        "action": null,
+        "host_cache_used": false,
+        "board_TTFT_s": 32.568188064,
+        "board_prefill_s": 32.510102072,
+        "board_decode_s": 3.58646164,
+        "decode_steps": 1,
+        "decode_steps_per_s": 0.2788263476310317,
+        "host_visible_TTFT_s": 32.604501,
+        "host_first_token_record_s": 32.5880871,
+        "host_to_READY_s": 36.7868174,
+        "board_total_s": 36.19191704,
+        "timing_scope": "perf_counter host receive time including UART; visible preview decoded by unchanged production parser; browser paint not measured"
+      },
+      "bitwise_output_equal": true,
+      "TTFT_reduction_pct": 52.29105980655794
+    },
+    {
+      "pair": 3,
+      "cold": {
+        "name": "pair3-cold",
+        "command": ":text 24 请只回答：收到。",
+        "session": "0000000000000018",
+        "text": "收到",
+        "ids": [
+          104381,
+          151645
+        ],
+        "metrics": {
+          "session": 24,
+          "prompt": 35,
+          "generated": 2,
+          "stop": 1,
+          "kv": 36,
+          "tokenizer_ticks": 2032876,
+          "prefill_ticks": 8525460158,
+          "decode_ticks": 448279278,
+          "total_ticks": 8985782351,
+          "first_token_ticks": 8532845777,
+          "stack_peak_bytes": 11660,
+          "cpu_calls": 0,
+          "ce_calls": 1850,
+          "fallback_calls": 0,
+          "dispatch_ticks": 3195813207
+        },
+        "prefix": {
+          "session": 24,
+          "hit": 0,
+          "captured": 1,
+          "tokens": 21,
+          "prepare_ticks": 4461558045,
+          "restore_ticks": 35870
+        },
+        "action": null,
+        "host_cache_used": false,
+        "board_TTFT_s": 68.262766216,
+        "board_prefill_s": 68.203681264,
+        "board_decode_s": 3.586234224,
+        "decode_steps": 1,
+        "decode_steps_per_s": 0.2788440290117537,
+        "host_visible_TTFT_s": 68.3037446,
+        "host_first_token_record_s": 68.2824397,
+        "host_to_READY_s": 72.4809468,
+        "board_total_s": 71.886258808,
+        "timing_scope": "perf_counter host receive time including UART; visible preview decoded by unchanged production parser; browser paint not measured"
+      },
+      "warm": {
+        "name": "pair3-warm",
+        "command": ":text 24 请只回答：收到。",
+        "session": "0000000000000019",
+        "text": "收到",
+        "ids": [
+          104381,
+          151645
+        ],
+        "metrics": {
+          "session": 25,
+          "prompt": 35,
+          "generated": 2,
+          "stop": 1,
+          "kv": 36,
+          "tokenizer_ticks": 2035349,
+          "prefill_ticks": 4063895771,
+          "decode_ticks": 448304319,
+          "total_ticks": 4524131332,
+          "first_token_ticks": 4071171287,
+          "stack_peak_bytes": 11660,
+          "cpu_calls": 0,
+          "ce_calls": 842,
+          "fallback_calls": 0,
+          "dispatch_ticks": 1424037355
+        },
+        "prefix": {
+          "session": 25,
+          "hit": 1,
+          "captured": 0,
+          "tokens": 21,
+          "prepare_ticks": 0,
+          "restore_ticks": 30634
+        },
+        "action": null,
+        "host_cache_used": false,
+        "board_TTFT_s": 32.569370296,
+        "board_prefill_s": 32.511166168,
+        "board_decode_s": 3.586434552,
+        "decode_steps": 1,
+        "decode_steps_per_s": 0.2788284535799888,
+        "host_visible_TTFT_s": 32.6103607,
+        "host_first_token_record_s": 32.5893205,
+        "host_to_READY_s": 36.7879595,
+        "board_total_s": 36.193050656,
+        "timing_scope": "perf_counter host receive time including UART; visible preview decoded by unchanged production parser; browser paint not measured"
+      },
+      "bitwise_output_equal": true,
+      "TTFT_reduction_pct": 52.28823544457224
+    }
+  ],
+  "statistics": {
+    "cold": {
+      "board_TTFT_s": {
+        "n": 3,
+        "minimum": 68.261579008,
+        "median": 68.262766216,
+        "mean": 68.26289152533333,
+        "maximum": 68.264329352,
+        "sample_sd": 0.001379447299231645
+      },
+      "host_visible_TTFT_s": {
+        "n": 3,
+        "minimum": 68.3004338,
+        "median": 68.3023341,
+        "mean": 68.30217083333334,
+        "maximum": 68.3037446,
+        "sample_sd": 0.0016614274475122163
+      },
+      "board_prefill_s": {
+        "n": 3,
+        "minimum": 68.202501792,
+        "median": 68.203681264,
+        "mean": 68.20380175466667,
+        "maximum": 68.205222208,
+        "sample_sd": 0.0013642046414720664
+      },
+      "decode_steps_per_s": {
+        "n": 3,
+        "minimum": 0.2777069362811488,
+        "median": 0.2788440290117537,
+        "mean": 0.2784650938945696,
+        "maximum": 0.2788443163908062,
+        "sample_sd": 0.0006565837690177823
+      },
+      "host_to_READY_s": {
+        "n": 3,
+        "minimum": 72.4809468,
+        "median": 72.4824852,
+        "mean": 73.69760583333333,
+        "maximum": 76.1293855,
+        "sample_sd": 2.105983108213055
+      }
+    },
+    "warm": {
+      "board_TTFT_s": {
+        "n": 3,
+        "minimum": 32.568188064,
+        "median": 32.568456584,
+        "mean": 32.568671648,
+        "maximum": 32.569370296,
+        "sample_sd": 0.0006197640829624043
+      },
+      "host_visible_TTFT_s": {
+        "n": 3,
+        "minimum": 32.604501,
+        "median": 32.6047442,
+        "mean": 32.6065353,
+        "maximum": 32.6103607,
+        "sample_sd": 0.003315124496909269
+      },
+      "board_prefill_s": {
+        "n": 3,
+        "minimum": 32.510102072,
+        "median": 32.510461296,
+        "mean": 32.510576512,
+        "maximum": 32.511166168,
+        "sample_sd": 0.0005413234885871548
+      },
+      "decode_steps_per_s": {
+        "n": 3,
+        "minimum": 0.2777112273678194,
+        "median": 0.2788263476310317,
+        "mean": 0.2784553428596133,
+        "maximum": 0.2788284535799888,
+        "sample_sd": 0.0006444237795123811
+      },
+      "host_to_READY_s": {
+        "n": 3,
+        "minimum": 36.7868174,
+        "median": 36.7879595,
+        "mean": 38.003703566666665,
+        "maximum": 40.4363338,
+        "sample_sd": 2.1067196574754905
+      }
+    }
+  },
+  "best_observed_full_requests": {
+    "board_TTFT_s": 32.568188064,
+    "host_visible_TTFT_s": 32.604501,
+    "host_to_READY_s": 36.7868174
+  }
+}

@@ -1,0 +1,9 @@
+# CoreMark 实板测试完成
+
+195.543209 CoreMark，1.564346 CoreMark/MHz，配置频率125MHz。
+性能/校验各5000次、均超过10秒、官方与独立最终CRC通过；以REPORT.md、VALIDATION.json及原始UART为准。
+源码CID78f2636b1cfb5619b3b5932a02443e19d9e0536b2c6fea097bc6a12b8089fc36；实现EID623e811cf2c3c36408522a58bb34bf2515ff6dae5ce297437c0eeb9c18b4f30d；实板证据EID25ef315ad6e7649cb5701dd64d9282c5a1652b756ffe87c1dc08301e0422e57b。
+当前现场保留此CoreMark专用配置，主配置累计9、模型装载累计8；本轮不写SD/Flash/NVM，不加载模型或发UART命令。
+全部本任务进程、采集器和锁应已退出，核对FINAL_POSTCONDITIONS.json。禁止重启任何完成/失败/暂停执行器。
+旧演示封存源和产物保持，测后保留基准是用户明确选择；未来恢复演示使用新明确任务，不直接重启旧run/resume。
+只读复验：make coremark-current-verify。未实测Fmax/CPU单独LUT/完整PHY/T30；T27 OPEN、production_GO=false。

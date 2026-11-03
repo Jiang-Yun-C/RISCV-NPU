@@ -1,0 +1,145 @@
+{
+  "status": "OBSERVED_NATIVE110_ID0_FULL1G_MASKS_ONE_HOUR_NOT_FORMAL_ADAPTER_QUALIFICATION",
+  "ip": "Originalnative200H HMIC1.10 sources generatedbySP6.4;rebuiltinrc3",
+  "physical_dq_bits": 32,
+  "user_data_bits": 256,
+  "user_strobe_bits": 32,
+  "address_bits": 28,
+  "interface": "Simplified AXI4; address valid/ready; write ready requests; read valid output; no WVALID/B/RREADY ports in generated module",
+  "burst_length": {
+    "verified": "LEN+1; physicalfullsweepLEN15/16beats;selectivebyteLEN0/1beat",
+    "max_bytes_per_burst": 512
+  },
+  "write_id": {
+    "status": "ID0_ONLY_VERIFIED_NATIVE110",
+    "policy": "NonzeroIDs,multiple outstanding andgeneric AXIadapter notqualified;old1.3 model mismatch is recordedinlegacycontract,notasnative1.10 fact"
+  },
+  "strobe": {
+    "documented_polarity": "1 enables write byte",
+    "selective_masks_verified": true,
+    "physical_scope": "32singlebyte writes andindependentreadback aftereach full1GiB addresspass",
+    "evidence": "evidence/T22_NATIVE_IMPL/rc3-native110-20261010-v7-full1g/functional-summary.json"
+  },
+  "address": {
+    "unit": "4-byte physical x32 word;each256bit beat advances8words",
+    "mapping": "ROW[27:13],BANK[12:10],COL[9:0]",
+    "boundary_rule": "Burstmustnotcrosscolumnboundary;512byte sweeps aligned128words",
+    "high_address_alias_test": true,
+    "verified_window_bytes": 1073741824,
+    "maximum_burst_word_address": 268435328
+  },
+  "write_data_timing": {
+    "verified": "DataadvancesonWREADY;WLASTlastbeat checked;RVALID/RLAST/RID0 checked",
+    "completion_policy": "NoBchannel;1024core-cycle conservative write drain",
+    "scope": "ActualfixedID0 BIST workload,notarbitraryordering/completion/concurrency contract"
+  },
+  "calibration": {
+    "ddr_init_done": true,
+    "training_retries": 0,
+    "errors": 0,
+    "evidence": "evidence/T22_NATIVE_IMPL/rc3-native110-20261010-v7-full1g/functional-summary.json"
+  },
+  "evidence": "evidence/T23_NATIVE/native110-full1g-stress-20261010-v1/manifest.json",
+  "additional_model_evidence": [
+    "evidence/T22_NATIVE_CTRL/native110-capacity-model-20261010-v1/manifest.json"
+  ],
+  "unverified": [
+    "Actual board operation of new adapter and actual CPU/NPU integration/competition",
+    "New adapter bitstream complete timing/calibration/capacity/one-hour/bandwidth",
+    "Complete PHY/corner and external IO timing, cold boot/physical key reset",
+    "Native nonzero IDs/multiple outstanding not used by this serialized adapter; capability remains unqualified"
+  ],
+  "legacy_hmic13_contract": {
+    "status": "EXPERIMENTAL_NOT_QUALIFIED",
+    "ip": "HMIC_S installed index1.3; generated 100H RTL ported to 200H",
+    "physical_dq_bits": 32,
+    "user_data_bits": 256,
+    "user_strobe_bits": 32,
+    "address_bits": 28,
+    "interface": "Simplified AXI4; address valid/ready; write ready requests; read valid output; no WVALID/B/RREADY ports in generated module",
+    "burst_length": {
+      "simulation_model_verified": "LEN+1; LEN=0=>1 and LEN=15=>16",
+      "max_bytes_per_burst": 512,
+      "warning": "Bundled old UG042003 R-D-37(V1.0) says direct LEN with 0=>16, contradicting generated example and tested model; do not use that old rule; verify actual RTL/board before qualification"
+    },
+    "write_id": {
+      "status": "UNQUALIFIED_LAST_BEAT_MODEL_MISMATCH",
+      "observation": "Last beat gives ID0 for tested nonzero IDs including a one-beat burst. First/middle beats of multibeat bursts match. Read IDs match.",
+      "policy": "No multi-ID bridge qualification from this evidence"
+    },
+    "strobe": {
+      "documented_polarity": "1 enables write byte",
+      "full_mask_generated_example": "0xffffffff",
+      "selective_masks_verified": false,
+      "model_verified": "1 enables write byte. Real controller→DFI plus64 selective write/readback cases in synthetic4KiB DFI memory; board masks still unverified."
+    },
+    "address": {
+      "documented_unit_inference": "One physical x32 word (4 bytes); each user beat advances8 words. Not board verified.",
+      "documented_mapping": "ROW[27:13], BANK[12:10], COL[9:0]",
+      "boundary_rule_documented": "Column wraps at boundary, rather than incrementing row/bank automatically",
+      "high_address_alias_test": false,
+      "controller_model_scope": "4KiB COL[9:0] window verified with decoded DFI commands; bank/row high-bit mapping still unverified on board."
+    },
+    "write_data_timing": {
+      "scope": "Controller simulation model only, PHY replaced.64-cycle modeled drain; actual candidate1024-cycle conservative guard. Does not qualify arbitrary ordering or synthesis/physical equivalence.",
+      "model_verified": "Changing256-bit data advanced after WREADY;137 user beats reassembled from548 enabled DFI64-bit quarters, zero data/mask mismatches. Reduced capacity tester also passed320 writes/320 reads at ID0."
+    },
+    "unverified": [
+      "Physical calibration and actual IP/model consistency",
+      "Variable write data timing, byte masks and ordering",
+      "Address aliasing/high bits/full capacity",
+      "Actual payload bandwidth and one-hour stress"
+    ],
+    "evidence": "evidence/T22_ADAPT/standard-200pro-20261009-v1/ddr-controller-port-probe.json",
+    "additional_model_evidence": [
+      "evidence/T22_VENDOR/standard-200pro-20261010-v1/controller-data-result.json",
+      "evidence/T22_VENDOR/standard-200pro-20261010-v1/capacity-controller-result.json"
+    ]
+  },
+  "stress": {
+    "status": "PASS_FULL_CAPACITY_MASK_AND_ONE_HOUR_STRESS",
+    "verified_window_seconds": 3664.812,
+    "verified_pass_delta": 192,
+    "evidence": "evidence/T23_NATIVE/native110-full1g-stress-20261010-v1/manifest.json"
+  },
+  "source_implementation_evidence": "evidence/T22_NATIVE_IMPL/rc3-native110-20261010-v7-full1g/manifest.json",
+  "historical_observation_date": "2026-10-10",
+  "component_validation_20261011": {
+    "status": "PASS",
+    "source": "board/mes2l676-200hp/ddr_capacity_bist_native110.v",
+    "source_sha256": "3f1ec1af20e175bd82584a12aa8a1312555f20e5182ae48964cd8b7cc32ec402",
+    "evidence": "evidence/T22/platform-20261011-v4-final/manifest.json",
+    "checks": 82817,
+    "scope": "Exact native110-v7 BIST; 4KiB independent simplified-port environment, request delays/read-valid gaps, 32 masks, six error classes, interrupted-write reset recovery; excludes physical PHY, generic bridge, multi-ID and concurrency"
+  },
+  "current_replay_20261011": {
+    "status": "FAIL_CONFIGURATION_DONE",
+    "evidence": "evidence/T22_BOARD/native110-captured-20261011-v3/manifest.json",
+    "configuration_done": false,
+    "fresh_calibration_observed": false,
+    "ddr_read_write_verified": false,
+    "current_image": "Minimum PLL/RAM/UART/LED without DDR",
+    "current_image_evidence": "evidence/T22_BOARD/minimum-final-restore-20261011-v2/manifest.json"
+  },
+  "digital_adapter_20261011": {
+    "status": "PASS_DIGITAL_AND_CONTROLLER_MODEL_AND_SYNTH_MAPPED_FUNCTIONAL",
+    "source": "rtl/soc/nx_ddr_adapter.sv",
+    "source_sha256": "87cfaff577ee0b8c2840aa8da1fb6cc71b1be9d528967faeb94766c12092d781",
+    "contract": "docs/spec/ddr-t23-adapter.md",
+    "upstream_data_bits": [
+      32,
+      64,
+      128
+    ],
+    "upstream_id_bits": 6,
+    "native_id": 0,
+    "accepted_outstanding": 1,
+    "supported_burst": "Naturally aligned INCR within one AXI4KiB page; invalid descriptors DECERR",
+    "completion": "Buffer complete upstream write; native <=16 beat chunks; drain then masked readback before B OKAY",
+    "component_evidence": "evidence/T23/adapter-acceptance-20261011-v5/manifest.json",
+    "native_model_evidence": "evidence/T23_NATIVE_ADAPTER/native-adapter-20261011-v5/manifest.json",
+    "synthesis_evidence": "evidence/T23_SYNTH/adapter-synth-20261011-v2/manifest.json",
+    "mapped_evidence": "evidence/T23_NETLIST/mapped-adapter-20261011-v2/manifest.json",
+    "board_tested": false
+  }
+}

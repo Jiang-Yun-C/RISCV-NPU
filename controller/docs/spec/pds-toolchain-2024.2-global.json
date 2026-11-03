@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "version": "2024.2",
+  "build": "178169",
+  "home": "/software/eda/pango/PDS_2024.2",
+  "resolved_home": "/software/eda/pango/PDS_2024.2",
+  "entries": {
+    "gui": "/usr/local/bin/pds2024",
+    "shell": "/usr/local/bin/pds2024_shell",
+    "doctor": "/usr/local/bin/pds2024-doctor"
+  },
+  "binary_sha256": {
+    "pds": "6235210e2304abad2116198a17f13c68221cf4231205dcce20f3e8aa18217127",
+    "pds_shell": "c1c4c3d8c0676e06a8856aa3a277d75deb1934446f83cdded32ef6adf81e0a0e",
+    "cdt_cfg_shell": "1ea41983daf801fa3d1e81c450ceb02c00160ff620c8112614fec3c800b047d2"
+  },
+  "license": {
+    "path": "/software/eda/pango/licenses/pds-2024.2-00155dbab2cf.lic",
+    "sha256": "72300ec2c2f161154de49fb88b61c64b1f941288e152707cc5910dc7f9887e72",
+    "hostid": "00155dbab2cf"
+  },
+  "installation_evidence": "/software/eda/pango/installation/20261012-global-2024.2-v1",
+  "scope": "tool_readiness_only",
+  "sandbox_target": "Logos2 PG2L200H FBB676 -6; target ADS/map only, board and DDR not qualified",
+  "namespace": "pds2024-global",
+  "target_ads_evidence": "/home/Jiang/RISCV+NPU/evidence/PDS_TOOLCHAIN/global2024-target-ads-20261012-v2/manifest.json",
+  "bootstrap": {
+    "entry": "/usr/local/bin/pds2024-run",
+    "namespace": "pds2024-global",
+    "virtual_interface": "pdslic0",
+    "mac": "00:15:5d:ba:b2:cf",
+    "ipv4": "192.0.2.1/32",
+    "external_routes": false,
+    "creates_namespace_on_first_use_after_reboot": true,
+    "command_user": "invoking Linux account",
+    "wsl_distribution": "EDA-RHEL8",
+    "physical_mac_modified": false,
+    "rc3_default_changed": false,
+    "source_candidate_retained": "/home/Jiang/RISCV+NPU/build/PDS_CANDIDATE/t22-timing-20261012-v1/tool/PDS_2024.2-ads-CentOS7.3-x64"
+  }
+}

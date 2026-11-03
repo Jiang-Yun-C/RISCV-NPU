@@ -1,0 +1,18 @@
+{
+  "producer": "T12",
+  "test_mode": "PRELOAD",
+  "endianness": "little",
+  "numeric_version": "w8a8-g64-fp32-v1",
+  "layout": "contiguous, 16B aligned, explicit JSON offsets",
+  "files": {
+    "small.bin": "2bb7d7e755f98146270b7fd92e160a81f5731bb00fddc9ddfd032285bce514aa",
+    "small_weights.h": "bd5c208c128e7b6c982539ba878fbd71bd096ecbbacdc496f7627245ca1b1f85",
+    "t11_tile.h": "4ecb08b1524743789d213127720f3a2a8959e25f070c5960d91a3ddc3811f033",
+    "t11-tile.bin": "d5fa89014795429590adb95de305d295a995da62dcb1d678b5353d8d6d7bb47d",
+    "small-layout.json": "c0f30156d69cd62c5012a80681ccbb27e12284c64e5cc9b7210e52d746a1a6fe",
+    "golden.json": "a1d18918cb4b55579f501a05b147a0763156480d3caa7551f324c737a68c4016",
+    "text_inputs.h": "df5c79e22fc1b334ce6b35f8bed5f322331804be931573badd252e6d2fa6f87a"
+  },
+  "generator_sha256": "9860e2db0a72709ab4e0a1168ee3c585edde7df03b9e60ccd117d73e9eec1c3a",
+  "official_tokenizer": "original model lock, never adapted serializer"
+}

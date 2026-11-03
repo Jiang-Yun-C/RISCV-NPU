@@ -1,0 +1,103 @@
+{
+  "schema_version": 2,
+  "model_type": "Qwen2.5-0.5B-Instruct application-adapted, merged FP32",
+  "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+  "revision": "7ae557604adf67be50417f59c2c2f167def9a775+lora:67afea83b45b9fccbbccdfe3165e8e0bf7a65164abcad964517b19cc8f7ca261",
+  "base_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "base_model_lock_sha256": "c3e9f05a90421a04e7b512b676c573d94ab3be43339d6d4031ab4495e18b89e9",
+  "local_path": "models/application-v2/20261003T053706.799909Z-ab1e0c42/merged",
+  "dtype": "float32",
+  "parameters": 494032768,
+  "training_run": "evidence/T02_V2_TRAIN/20261003T053706.799909Z-ab1e0c42",
+  "training_manifest_sha256": "8edb14049f2574d64b903415825e16245dce25258dff8208fab0d1356ffc9681",
+  "adapter": {
+    "path": "evidence/T02_V2_TRAIN/20261003T053706.799909Z-ab1e0c42/artifacts/adapter-step-256.safetensors",
+    "sha256": "67afea83b45b9fccbbccdfe3165e8e0bf7a65164abcad964517b19cc8f7ca261",
+    "rank": 8,
+    "alpha": 16,
+    "trainable_parameters": 4399104,
+    "selected_step": 256
+  },
+  "files": {
+    "added_tokens.json": {
+      "sha256": "58b54bbe36fc752f79a24a271ef66a0a0830054b4dfad94bde757d851968060b",
+      "bytes": 605
+    },
+    "config.json": {
+      "sha256": "57c2bbb6c62915ad8900ca692a7c84d11ccb19f32aaf9c4150308f01b4557109",
+      "bytes": 1226
+    },
+    "vocab.json": {
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+      "bytes": 2776833
+    },
+    "model.safetensors": {
+      "sha256": "bec2c2a2d2c27ddaf6c4fedd0e191d371f2cdac674507d66412dfaa75c859b8c",
+      "bytes": 1976163472
+    },
+    "generation_config.json": {
+      "sha256": "da7d43d773bb1c2606bbd062d9af2e8aa2b73de104b1f8f0a93e31bf3b1426a3",
+      "bytes": 242
+    },
+    "tokenizer.json": {
+      "sha256": "9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa",
+      "bytes": 11421896
+    },
+    "tokenizer_config.json": {
+      "sha256": "0a04a9d7d4a62b28482bdfe726c122756de85714fb64166ace92ae75b8f57614",
+      "bytes": 4686
+    },
+    "merges.txt": {
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+      "bytes": 1671853
+    },
+    "special_tokens_map.json": {
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd",
+      "bytes": 613
+    },
+    "chat_template.jinja": {
+      "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+      "bytes": 2507
+    }
+  },
+  "license": "Apache-2.0",
+  "note": "Changed model weights; same network/parameter count. Never describe as unmodified official weights.",
+  "checker_hardening": {
+    "training_sha256": "a66b6849921b6def84b85ad896015bcab568b4a6ce51cf75b23ae521ea70d9e6",
+    "release_sha256": "03a8cf1eff9dd96a8a720e3a9071e853d67cae9926205932f1c3f17665bd2d35",
+    "change": "Reject malformed sensor operands as FORMAT; handle nonobject/oversized states. Full fresh dev evaluation required before freeze."
+  },
+  "runtime_hardening": {
+    "training_common_sha256": "1d23c444492568531768c7bd0d577e5de72e85269383fa464b0b20486a32740c",
+    "release_common_sha256": "5577bb99c63096a2fd17d9419a6d7c171720d281e35f8bb312426d16d961c748",
+    "change": "Explicit use_model_defaults=False preserves the greedy policy used with the original generation-config version 4.37.0 after export changes it to 4.57.6. Use the original pinned Qwen tokenizer, avoiding export serialization and tokenizer-family heuristics. Fresh dev qualification required."
+  },
+  "tokenizer_local_path": "models/Qwen2.5-0.5B-Instruct/7ae557604adf67be50417f59c2c2f167def9a775",
+  "tokenizer_files": {
+    "config.json": {
+      "sha256": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "bytes": 659,
+      "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/resolve/7ae557604adf67be50417f59c2c2f167def9a775/config.json"
+    },
+    "tokenizer.json": {
+      "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "bytes": 7031645,
+      "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/resolve/7ae557604adf67be50417f59c2c2f167def9a775/tokenizer.json"
+    },
+    "tokenizer_config.json": {
+      "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+      "bytes": 7305,
+      "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/resolve/7ae557604adf67be50417f59c2c2f167def9a775/tokenizer_config.json"
+    },
+    "vocab.json": {
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+      "bytes": 2776833,
+      "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/resolve/7ae557604adf67be50417f59c2c2f167def9a775/vocab.json"
+    },
+    "merges.txt": {
+      "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3",
+      "bytes": 1671839,
+      "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/resolve/7ae557604adf67be50417f59c2c2f167def9a775/merges.txt"
+    }
+  }
+}

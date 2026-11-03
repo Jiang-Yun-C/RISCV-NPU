@@ -1,0 +1,102 @@
+package nexusrv
+import spinal.core._
+import spinal.lib._
+import vexriscv._
+import vexriscv.ip.{DataCacheConfig, InstructionCacheConfig}
+import vexriscv.ip.fpu.FpuParameter
+import vexriscv.plugin._
+
+
+class T09IBus(prediction: BranchPrediction) extends IBusCachedPlugin(
+  resetVector = 0x00010000L, prediction = prediction, historyRamSizeLog2 = 8,
+  compressedGen = false, injectorStage = true, config = InstructionCacheConfig(
+    cacheSize = 16384, bytePerLine = 32, wayCount = 2,
+    addressWidth = 32, cpuDataWidth = 32, memDataWidth = 32,
+    catchIllegalAccess = true, catchAccessFault = true,
+    asyncTagMemory = false, twoCycleCache = true, twoCycleRam = true, bypassGen = true)) {
+  override def build(pipeline: VexRiscv): Unit = {
+    super.build(pipeline)
+    iBus.setAsDirectionLess()
+    master(iBus.toAxi4ReadOnly()).setName("iAxi")
+  }
+}
+
+// Read-only observations; never drive execution state or results.
+class T09TracePlugin(prediction: Boolean) extends Plugin[VexRiscv] {
+  override def build(pipeline: VexRiscv): Unit = {
+    import pipeline._
+    import pipeline.config._
+    val branch = service(classOf[BranchPlugin])
+    pipeline plug new Area {
+      val trace_retire = out(Bool()).setName("trace_retire")
+      val trace_pc = out(UInt(32 bits)).setName("trace_pc")
+      val trace_instruction = out(Bits(32 bits)).setName("trace_instruction")
+      val trace_stall = out(Bool()).setName("trace_stall")
+      val trace_branch = out(Bool()).setName("trace_branch")
+      val trace_branch_pc = out(UInt(32 bits)).setName("trace_branch_pc")
+      val trace_mispredict = out(Bool()).setName("trace_mispredict")
+      trace_retire := writeBack.arbitration.isFiring
+      trace_pc := writeBack.input(PC)
+      trace_instruction := writeBack.input(FORMAL_INSTRUCTION)
+      trace_stall := execute.arbitration.isValid && execute.arbitration.isStuck
+      trace_branch := memory.arbitration.isFiring && memory.input(INSTRUCTION)(6 downto 0) === B"1100011"
+      trace_branch_pc := memory.input(PC)
+      trace_mispredict := trace_branch && (if(prediction) branch.decodePrediction.rsp.wasWrong else branch.jumpInterface.valid)
+    }
+  }
+}
+
+object GenT09 extends App {
+  require(args.length == 2, "GenT09 <output-directory> <soft|hard|nopredict>")
+  val withFpu = args(1) == "hard"
+  require(Set("soft", "hard", "nopredict").contains(args(1)))
+  SpinalConfig(targetDirectory = args(0)).generateVerilog {
+  val csr = CsrPluginConfig.small(0x00010000L).copy(
+    catchIllegalAccess = true,
+    misaExtensionsInit = (1 << 8) | (1 << 12) | (if(withFpu) 1 << 5 else 0),
+    misaAccess = CsrAccess.READ_ONLY,
+    mtvecAccess = CsrAccess.READ_WRITE,
+    mbadaddrAccess = CsrAccess.READ_WRITE,
+    mcauseAccess = CsrAccess.READ_WRITE,
+    wfiGenAsWait = true,
+    mscratchGen = true,
+    mcycleAccess = CsrAccess.READ_ONLY,
+    minstretAccess = CsrAccess.READ_ONLY,
+    ecallGen = true,
+    ebreakGen = true
+  )
+  val config = VexRiscvConfig(plugins = List(
+    new T09IBus(prediction = if(args(1) == "nopredict") NONE else DYNAMIC)
+      .newTightlyCoupledPort(TightlyCoupledPortParameter("rom", a => a >= U(0x10000,32 bits) && a < U(0x20000,32 bits))),
+    new DAxiCachedPlugin(DataCacheConfig(
+      cacheSize = 16384, bytePerLine = 32, wayCount = 2,
+      addressWidth = 32, cpuDataWidth = 32, memDataWidth = 32,
+      catchAccessError = true, catchIllegal = true, catchUnaligned = true)),
+    new DecoderSimplePlugin(catchIllegalInstruction = true),
+    new RegFilePlugin(regFileReadyKind = vexriscv.plugin.SYNC, zeroBoot = true),
+    new IntAluPlugin,
+    new SrcPlugin(separatedAddSub = false, executeInsertion = true),
+    new FullBarrelShifterPlugin,
+    new HazardSimplePlugin(bypassExecute = true, bypassMemory = true,
+      bypassWriteBack = true, bypassWriteBackBuffer = true,
+      pessimisticUseSrc = false, pessimisticWriteRegFile = false,
+      pessimisticAddressMatch = false),
+    new MulPlugin,
+    new DivPlugin,
+    new CsrPlugin(csr),
+    new BranchPlugin(earlyBranch = false, catchAddressMisaligned = true,
+      fenceiGenAsAJump = true),
+    new StaticMemoryTranslatorPlugin(ioRange = a => !(a >= U(0xb4000000L, 32 bits) && a < U(0xba000000L, 32 bits))),
+    new T09TracePlugin(args(1) != "nopredict")
+  ))
+  if(withFpu) {
+    config.add(new FpuPlugin(p = FpuParameter(
+      withDouble = false, asyncRegFile = false, withDivSqrt = false,
+      withDiv = true, withSqrt = true)))
+  }
+    val cpu = new VexRiscv(config)
+    cpu.setDefinitionName("T09Cpu")
+    cpu
+  }
+  println("T09_GENERATED profile=" + args(1) + " stages=5 icache=16384/2/32 dcache=16384/2/32 predictor=" + (if(args(1) == "nopredict") "NONE" else "DYNAMIC"))
+}

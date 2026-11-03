@@ -1,0 +1,173 @@
+--- a/src/main/scala/vexriscv/ip/DataCache.scala
++++ b/src/main/scala/vexriscv/ip/DataCache.scala
+@@ -1085,6 +1085,26 @@
+     assert(!(io.cpu.writeBack.isValid && !io.cpu.writeBack.haltIt && io.cpu.writeBack.isStuck), "writeBack stuck by another plugin is not allowed", ERROR)
+   }
+ 
++  val t09Policy = sys.props.getOrElse("nexusrv.cachePolicy", "global")
++  val t09PerSet = t09Policy != "global"
++  require(Set("global", "rr", "lru").contains(t09Policy))
++  if(t09PerSet) require(wayCount == 2 && !withInvalidate && !withExclusive)
++  val t09Replacement = t09PerSet generate Mem(Bool(), wayLineCount)
++  val t09ReplaceWrite = t09PerSet generate t09Replacement.writePort
++  if(t09PerSet) {
++    t09ReplaceWrite.valid := False
++    t09ReplaceWrite.address.assignDontCare()
++    t09ReplaceWrite.data.assignDontCare()
++    if(t09Policy == "lru") {
++      when(io.cpu.writeBack.isValid && !io.cpu.writeBack.isStuck && !io.cpu.writeBack.haltIt && stageB.waysHit &&
++           !io.cpu.writeBack.accessError && !io.cpu.writeBack.mmuException && !io.cpu.writeBack.unalignedAccess) {
++        t09ReplaceWrite.valid := True
++        t09ReplaceWrite.address := stageB.mmuRsp.physicalAddress(lineRange)
++        t09ReplaceWrite.data := !stageB.waysHits(1)
++      }
++    }
++  }
++
+   val loader = new Area{
+     val valid = RegInit(False) setWhen(stageB.loaderValid)
+     val baseAddress =  stageB.mmuRsp.physicalAddress
+@@ -1123,8 +1143,24 @@
+       killReg := False
+     }
+ 
+-    when(done){
+-      waysAllocator := (waysAllocator ## waysAllocator.msb).resized
++    if(!t09PerSet) {
++      when(done){ waysAllocator := (waysAllocator ## waysAllocator.msb).resized }
++    } else {
++      val victim = t09Replacement.readAsync(baseAddress(lineRange))
++      val valids = B(stageB.tagsReadRsp.map(_.valid)) & ~stageB.wayInvalidate
++      when(stageB.loaderValid && !valid) {
++        waysAllocator := (!valids(0)) ? B"01" | ((!valids(1)) ? B"10" | (victim ? B"10" | B"01"))
++      }
++      when(done) {
++        t09ReplaceWrite.valid := True
++        t09ReplaceWrite.address := baseAddress(lineRange)
++        t09ReplaceWrite.data := !waysAllocator(1)
++      }
++      when(tagsWriteCmd.valid && !tagsWriteCmd.data.valid) {
++        t09ReplaceWrite.valid := True
++        t09ReplaceWrite.address := tagsWriteCmd.address
++        t09ReplaceWrite.data := False
++      }
+     }
+ 
+     io.cpu.redo setWhen(valid.rise())
+--- a/src/main/scala/vexriscv/ip/InstructionCache.scala
++++ b/src/main/scala/vexriscv/ip/InstructionCache.scala
+@@ -321,6 +321,21 @@
+   })
+ 
+ 
++  // T09 two-way experiment, selected only by the recorded generator option.
++  val t09Policy = sys.props.getOrElse("nexusrv.cachePolicy", "global")
++  val t09PerSet = t09Policy != "global"
++  require(Set("global", "rr", "lru").contains(t09Policy))
++  if(t09PerSet) require(wayCount == 2 && twoCycleCache && twoCycleRam && !reducedBankWidth)
++  val t09AllocateValids = t09PerSet generate Bits(2 bits)
++  val t09HitWay = t09PerSet generate Bool()
++  val t09Replacement = t09PerSet generate Mem(Bool(), wayLineCount)
++  val t09ReplaceWrite = t09PerSet generate t09Replacement.writePort
++  if(t09PerSet) {
++    t09ReplaceWrite.valid := False
++    t09ReplaceWrite.address.assignDontCare()
++    t09ReplaceWrite.data.assignDontCare()
++  }
++
+   val lineLoader = new Area{
+     val fire = False
+     val valid = RegInit(False) clearWhen(fire)
+@@ -361,7 +376,18 @@
+     io.mem.cmd.address := address(tagRange.high downto lineRange.low) @@ U(0,lineRange.low bit)
+     io.mem.cmd.size := log2Up(p.bytePerLine)
+ 
+-    val wayToAllocate = Counter(wayCount, fire)
++    val legacyWayToAllocate = !t09PerSet generate Counter(wayCount, fire)
++    val selectedWay = t09PerSet generate (Reg(UInt(1 bits)) init(0))
++    val wayToAllocate = UInt(log2Up(wayCount) bits)
++    if(!t09PerSet) wayToAllocate := legacyWayToAllocate.value
++    else {
++      wayToAllocate := selectedWay
++      val victim = t09Replacement.readAsync(io.cpu.fill.payload(lineRange))
++      when(io.cpu.fill.valid) {
++        selectedWay := (!t09AllocateValids(0)) ? U(0,1 bits) |
++                       ((!t09AllocateValids(1)) ? U(1,1 bits) | victim.asUInt)
++      }
++    }
+     val wordIndex = KeepAttribute(Reg(UInt(log2Up(memWordPerLine) bits)) init(0))
+ 
+ 
+@@ -386,7 +412,7 @@
+         writeBank.address := address(lineRange) @@ wordIndex
+         writeBank.data := io.mem.rsp.data
+       } else {
+-        val sel = U(bankId) - wayToAllocate.value
++        val sel = U(bankId) - wayToAllocate
+         val groupSel = wayToAllocate(log2Up(bankCount)-1 downto log2Up(bankCount/memToBankRatio))
+         val subSel = sel(log2Up(bankCount/memToBankRatio) -1 downto 0)
+         writeBank.valid := io.mem.rsp.valid && groupSel === (bankId >> log2Up(bankCount/memToBankRatio))
+@@ -468,6 +494,10 @@
+       val hits = tags.map(tag => tag.valid && tag.address === mmuRsp.physicalAddress(tagRange))
+       val valid = Cat(hits).orR
+       val wayId = OHToUInt(hits)
++      if(t09PerSet) {
++        t09AllocateValids := B(tags.map(_.valid))
++        t09HitWay := wayId(0)
++      }
+       val bankId = if(!reducedBankWidth) wayId else (wayId >> log2Up(bankCount/memToBankRatio)) @@ ((wayId + (mmuRsp.physicalAddress(log2Up(bankWidth/8), log2Up(bankCount) bits))).resize(log2Up(bankCount/memToBankRatio)))
+       val error = tags(wayId).error
+       val data = fetchStage.read.banksValue.map(bank => stage(bank.data)).read(bankId)
+@@ -484,5 +514,25 @@
+     io.cpu.decode.mmuException := !mmuRsp.refilling && mmuRsp.isPaging && (mmuRsp.exception || !mmuRsp.allowExecute)
+     io.cpu.decode.physicalAddress := mmuRsp.physicalAddress
+   })
+-}
+-
++
++  if(t09PerSet) {
++    if(t09Policy == "lru") {
++      when(io.cpu.decode.isValid && !io.cpu.decode.isStuck && decodeStage.hit.valid && !io.cpu.decode.error) {
++        t09ReplaceWrite.valid := True
++        t09ReplaceWrite.address := io.cpu.decode.physicalAddress(lineRange)
++        t09ReplaceWrite.data := !t09HitWay
++      }
++    }
++    when(lineLoader.fire) {
++      t09ReplaceWrite.valid := True
++      t09ReplaceWrite.address := lineLoader.address(lineRange)
++      t09ReplaceWrite.data := !lineLoader.wayToAllocate(0)
++    }
++    when(!lineLoader.flushCounter.msb) {
++      t09ReplaceWrite.valid := True
++      t09ReplaceWrite.address := lineLoader.flushCounter.resized
++      t09ReplaceWrite.data := False
++    }
++  }
++}
++
+--- a/src/main/scala/vexriscv/plugin/Fetcher.scala
++++ b/src/main/scala/vexriscv/plugin/Fetcher.scala
+@@ -631,6 +631,22 @@
+ 
+         historyWrite.valid clearWhen(branchContext.hazard || !branchStage.arbitration.isFiring)
+ 
++        // Empty the BTB before any fetch can use an uninitialized target.
++        // Use the physical RAM write port, after its optional -1 address shift.
++        val t09BtbBoot = RegInit(True)
++        val t09BtbAddress = Reg(UInt(historyRamSizeLog2 bits)) init(0)
++        when(t09BtbBoot) {
++          fetcherHalt := True
++          fetchPc.predictionPcLoad.valid := False
++          historyWriteDelayPatched.valid := True
++          historyWriteDelayPatched.address := t09BtbAddress
++          historyWriteDelayPatched.data.assignFromBits(B(0, historyWriteDelayPatched.data.getBitsWidth bits))
++          t09BtbAddress := t09BtbAddress + 1
++          when(t09BtbAddress.andR) { t09BtbBoot := False }
++        }
++        val t09BtbReady = out(Bool()).setName("trace_predictor_ready")
++        t09BtbReady := !t09BtbBoot
++
+         val compressor = compressedGen generate new Area{
+           val predictionBranch =  iBusRspContext.hit && !iBusRspContext.hazard && iBusRspContext.line.branchWish(1)
+           val unalignedWordIssue = iBusRsp.output.valid && predictionBranch && iBusRspContext.line.last2Bytes && Mux(decompressor.unaligned, !decompressor.isInputHighRvc, decompressor.isInputLowRvc && !decompressor.isInputHighRvc)

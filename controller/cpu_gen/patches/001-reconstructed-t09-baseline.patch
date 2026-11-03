@@ -1,0 +1,53 @@
+--- a/src/main/scala/vexriscv/ip/DataCache.scala
++++ b/src/main/scala/vexriscv/ip/DataCache.scala
+@@ -1123,7 +1123,7 @@
+       killReg := False
+     }
+ 
+-    when(!valid){
++    when(done){
+       waysAllocator := (waysAllocator ## waysAllocator.msb).resized
+     }
+ 
+--- a/src/main/scala/vexriscv/ip/InstructionCache.scala
++++ b/src/main/scala/vexriscv/ip/InstructionCache.scala
+@@ -361,7 +361,7 @@
+     io.mem.cmd.address := address(tagRange.high downto lineRange.low) @@ U(0,lineRange.low bit)
+     io.mem.cmd.size := log2Up(p.bytePerLine)
+ 
+-    val wayToAllocate = Counter(wayCount, !valid)
++    val wayToAllocate = Counter(wayCount, fire)
+     val wordIndex = KeepAttribute(Reg(UInt(log2Up(memWordPerLine) bits)) init(0))
+ 
+ 
+@@ -398,7 +398,7 @@
+ 
+     when(io.mem.rsp.valid) {
+       wordIndex := (wordIndex + 1).resized
+-      hadError.setWhen(io.mem.rsp.error)
++      hadError.setWhen(io.mem.rsp.error && !fire)
+       when(wordIndex === wordIndex.maxValue) {
+         fire := True
+       }
+--- a/src/main/scala/vexriscv/plugin/Fetcher.scala
++++ b/src/main/scala/vexriscv/plugin/Fetcher.scala
+@@ -506,6 +506,19 @@
+           historyWrite.data.history := branchContext.line.history + (moreJump ? S(-1) | S(1))
+           val sat = (branchContext.line.history === (moreJump ? S(branchContext.line.history.minValue) | S(branchContext.line.history.maxValue)))
+           historyWrite.valid := !branchContext.hazard && branchStage.arbitration.isFiring && branchStage.input(BRANCH_CTRL) === BranchCtrlEnum.B && !sat
++          // Reconstructed T09 contract: clear history through its existing port.
++          val boot = RegInit(True)
++          val bootAddress = Reg(UInt(historyRamSizeLog2 bits)) init(0)
++          when(boot) {
++            fetcherHalt := True
++            historyWrite.valid := True
++            historyWrite.address := bootAddress
++            historyWrite.data.history := 0
++            bootAddress := bootAddress + 1
++            when(bootAddress.andR) { boot := False }
++          }
++          val ready = out(Bool()).setName("trace_predictor_ready")
++          ready := !boot
+         })
+ 
+ 

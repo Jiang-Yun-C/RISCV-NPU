@@ -1,0 +1,318 @@
+{
+  "schema_version": 1,
+  "observed_on": "2026-10-04",
+  "contest": "2026年全国大学生嵌入式芯片与系统设计竞赛",
+  "track": "FPGA创新设计赛道",
+  "vendor": "紫光同创",
+  "topic": "选题一：基于紫光同创 RISCV 指令集 CPU 设计",
+  "project_match": "MATCHED_BY_EXISTING_PLATFORM_CPU_AND_AI_SCOPE; actual team registration not inspected",
+  "source_index": "http://www.fpgachina.cn/?page=download",
+  "sources": {
+    "pango": {
+      "path": "docs/sources/fpga-2026/pango-guide.pdf",
+      "sha256": "8581797a38a82bd7879a936e1c7a140c62c5285f432bfb8c18877cfe7974dcaf",
+      "bytes": 1348484,
+      "title": "全国大学生嵌入式芯片与系统设计竞赛2026 FPGA赛道选题指南-紫光同创",
+      "source_id": 21,
+      "updated_at": "2026-08-29 10:51:29",
+      "url": "http://www.fpgachina.cn/?page=download",
+      "pages": 17
+    },
+    "notice_pdf": {
+      "path": "docs/sources/fpga-2026/notice-first-round.pdf",
+      "sha256": "c17611b45a66121cd93f421e7fdee50f1743b1eb0cb5d9f930c57578d480ef9f",
+      "bytes": 779290,
+      "source_id": 18,
+      "updated_at": "2026-08-27 16:57:59",
+      "url": "http://www.fpgachina.cn/?page=download",
+      "pages": 7
+    },
+    "notice_web": {
+      "path": "docs/sources/fpga-2026/notice-current.html",
+      "sha256": "fea450deb7b33958a5f12d2f87f1346b018226c884daebb7ac5bc2e053fe503d",
+      "bytes": 20522,
+      "source_id": 53,
+      "updated_at": "2026-09-10 10:22:27",
+      "url": "http://www.fpgachina.cn/notice-details.html?id=53"
+    },
+    "catalog": {
+      "path": "docs/sources/fpga-2026/catalog.json",
+      "sha256": "502a32c021d00c8653441030111e5b14f0d82db2c2a3b46e1b16a118cef50b81",
+      "bytes": 14548,
+      "url": "http://www.fpgachina.cn/?page=download"
+    }
+  },
+  "derived_files": [
+    {
+      "path": "docs/sources/fpga-2026/pango-guide.txt",
+      "sha256": "daea7adbc60721f2b1c72e39fc7cf74f2faa2639ab004c937b9ac21d4e0433c8",
+      "bytes": 25122
+    },
+    {
+      "path": "docs/sources/fpga-2026/notice-current.txt",
+      "sha256": "4efff17516ca3a641ef75e65dbfc0d4f352c1a8768f75826147801f2a1452444",
+      "bytes": 7233
+    }
+  ],
+  "clauses": [
+    {
+      "id": "P01",
+      "source": "pango",
+      "locator": "纸页8；PDF第10页；二·基础1/2",
+      "summary": "RV32I；流水线至少三级，处理数据/分支冲突",
+      "mappings": [
+        "R02",
+        "R04"
+      ],
+      "tasks": [
+        "T03",
+        "T09"
+      ]
+    },
+    {
+      "id": "P02",
+      "source": "pango",
+      "locator": "纸页8；PDF第10页；二·基础3",
+      "summary": "集成 UART/GPIO 等基础外设",
+      "mappings": [
+        "R08",
+        "R13"
+      ],
+      "tasks": [
+        "T03",
+        "T20",
+        "T26"
+      ]
+    },
+    {
+      "id": "P03",
+      "source": "pango",
+      "locator": "纸页8；PDF第10页；二·高阶1",
+      "summary": "指令/数据 Cache 均为两路组相联并优化突发访存",
+      "mappings": [
+        "R03",
+        "R10"
+      ],
+      "tasks": [
+        "T09",
+        "T13",
+        "T14"
+      ]
+    },
+    {
+      "id": "P04",
+      "source": "pango",
+      "locator": "纸页8；PDF第10页；二·高阶2",
+      "summary": "动态预测及完整 RISC-V 异常/中断处理",
+      "mappings": [
+        "R04"
+      ],
+      "tasks": [
+        "T09",
+        "T21"
+      ]
+    },
+    {
+      "id": "P05",
+      "source": "pango",
+      "locator": "纸页8；PDF第10页；二·高阶3",
+      "summary": "边缘 AI 加速、YOLO 或轻量大模型，并结合传感器或显示实现应用",
+      "mappings": [
+        "R11",
+        "R13"
+      ],
+      "tasks": [
+        "T08",
+        "T15",
+        "T19",
+        "T25",
+        "T26",
+        "T31"
+      ]
+    },
+    {
+      "id": "P06",
+      "source": "pango",
+      "locator": "纸页8；PDF第10页；二·开头/三·1",
+      "summary": "Verilog/SystemVerilog；推荐或其他紫光同创 FPGA 板",
+      "mappings": [
+        "R01",
+        "R02"
+      ],
+      "tasks": [
+        "T03",
+        "T22",
+        "T24"
+      ]
+    },
+    {
+      "id": "P07",
+      "source": "pango",
+      "locator": "纸页9；PDF第11页；三·2/3",
+      "summary": "RV32 GCC 工具链与 CoreMark v1.0",
+      "mappings": [
+        "R02",
+        "R06"
+      ],
+      "tasks": [
+        "T01",
+        "T21",
+        "T30"
+      ]
+    },
+    {
+      "id": "P08",
+      "source": "pango",
+      "locator": "纸页9；PDF第11页；四·1",
+      "summary": "执行效率、满足约束的最高频率、单位 LUT 性能",
+      "mappings": [
+        "R06",
+        "R14"
+      ],
+      "tasks": [
+        "T30",
+        "T31"
+      ]
+    },
+    {
+      "id": "P09",
+      "source": "pango",
+      "locator": "纸页9；PDF第11页；四·2",
+      "summary": "实际应用、模型资源/时序/主频及 AI 延迟/识别率",
+      "mappings": [
+        "R11",
+        "R13",
+        "R14"
+      ],
+      "tasks": [
+        "T25",
+        "T26",
+        "T27",
+        "T30",
+        "T31"
+      ]
+    },
+    {
+      "id": "P10",
+      "source": "pango",
+      "locator": "纸页9；PDF第11页；四·3",
+      "summary": "模块化、约束、注释；性能报告与 CoreMark 的 ILA 波形分析",
+      "mappings": [
+        "R07",
+        "R16"
+      ],
+      "tasks": [
+        "T21",
+        "T30",
+        "T32"
+      ]
+    },
+    {
+      "id": "P11",
+      "source": "pango",
+      "locator": "纸页9；PDF第11页；五·1",
+      "summary": "CoreMark 迭代次数须使测量持续至少十秒",
+      "mappings": [
+        "R06"
+      ],
+      "tasks": [
+        "T30"
+      ]
+    },
+    {
+      "id": "P12",
+      "source": "pango",
+      "locator": "纸页9；PDF第11页；五·2",
+      "summary": "初赛自备板或用远程实验平台；决赛提供借板",
+      "mappings": [
+        "R01"
+      ],
+      "tasks": [
+        "T22"
+      ]
+    },
+    {
+      "id": "N01",
+      "source": "notice_web",
+      "locator": "四·一/二；与扫描PDF第3页的组别存在差异",
+      "summary": "团队人数/组别及资格审核；实际报名记录待核",
+      "mappings": [
+        "R16"
+      ],
+      "tasks": [
+        "T00",
+        "T32",
+        "T33"
+      ]
+    },
+    {
+      "id": "N02",
+      "source": "notice_pdf",
+      "locator": "第3页；四·三",
+      "summary": "初赛提交报告和视频，细则另行通知",
+      "mappings": [
+        "R16"
+      ],
+      "tasks": [
+        "T32",
+        "T33"
+      ]
+    },
+    {
+      "id": "N03",
+      "source": "notice_pdf",
+      "locator": "第4页；四·四",
+      "summary": "决赛含 FPGA 编程能力考核、实物介绍/演示与问答",
+      "mappings": [
+        "R16"
+      ],
+      "tasks": [
+        "T32",
+        "T33"
+      ]
+    },
+    {
+      "id": "N04",
+      "source": "notice_pdf",
+      "locator": "第5页；五·一",
+      "summary": "官方报名/提交/决赛日期；不转为项目排期",
+      "mappings": [
+        "R16"
+      ],
+      "tasks": [
+        "T00",
+        "T32",
+        "T33"
+      ]
+    },
+    {
+      "id": "N05",
+      "source": "notice_pdf",
+      "locator": "第6页；七·四",
+      "summary": "文档与视频发布/出版事项；不推导全部源码/IP 分发许可",
+      "mappings": [
+        "R16"
+      ],
+      "tasks": [
+        "T32",
+        "T33"
+      ]
+    }
+  ],
+  "official_dates": {
+    "registration_end_as_published": "2026-09-22 24:00",
+    "submission_as_published": "2026-11-04 18:00",
+    "finals_as_published": "2026-11-20 to 2026-11-22",
+    "timezone_note": "原文未显式标注时区；保留原文时间，不按工作区 America/New_York 换算。",
+    "project_schedule": false
+  },
+  "unresolved": [
+    "No numeric scoring weights published in reviewed topic section.",
+    "No explicit approval of reused CPU/accelerator cores or generated RTL found in reviewed notice/topic.",
+    "Actual team/year/group/registration approval not inspected.",
+    "Notice PDF lists two groups; newer official web body lists three including vocational group.",
+    "Final submission requirements announced separately; no 2026 detailed upload template present in captured download/news listings.",
+    "No evidence that AI model complexity alone has priority in scoring.",
+    "Hardware inventory, usable memory, tool licences and physical performance remain unverified."
+  ]
+}

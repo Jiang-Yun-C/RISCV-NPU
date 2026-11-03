@@ -1,0 +1,10 @@
+{
+  "origin": "board/mes2l676-200hp/t23_axi_bist.sv",
+  "origin_sha256": "c92b7a572c93d2b1e1b93a73f19267052e8c787e6cabbc3e16241e44f10213a0",
+  "quantum_bytes": 512,
+  "capacity_bits": 30,
+  "separate_stress_base": "0xad000000",
+  "separate_stress_bits": 24,
+  "full_and_stress_new_image_qualified": false,
+  "original_T23_unchanged": true
+}

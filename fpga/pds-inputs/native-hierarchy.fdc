@@ -1,0 +1,5 @@
+# ADS Synthesis User Guide (installed rc3), section 5.9: fixed prevents
+# optimization across the named module boundary. This is a synthesis
+# experiment, not a placement lock or a timing exception.
+define_attribute {v:ddr3_test} {syn_hier} {fixed}
+define_attribute {v:ddr3_test_ddrphy_top} {syn_hier} {fixed}

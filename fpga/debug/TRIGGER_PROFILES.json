@@ -1,0 +1,34 @@
+{
+  "LED_COMMIT": {
+    "trigger": "TU0",
+    "depth": 1024,
+    "pretrigger": 256,
+    "storage": "TU4",
+    "sample_clock_Hz": 125000000,
+    "executed_on_hardware": false
+  },
+  "NPU_IRQ": {
+    "trigger": "TU1",
+    "depth": 1024,
+    "pretrigger": 256,
+    "storage": "TU4",
+    "sample_clock_Hz": 125000000,
+    "executed_on_hardware": false
+  },
+  "UART_CANCEL": {
+    "trigger": "TU2",
+    "depth": 1024,
+    "pretrigger": 256,
+    "storage": "TU4",
+    "sample_clock_Hz": 125000000,
+    "executed_on_hardware": false
+  },
+  "STORE_FAULT": {
+    "trigger": "TU3",
+    "depth": 1024,
+    "pretrigger": 256,
+    "storage": "TU4",
+    "sample_clock_Hz": 125000000,
+    "executed_on_hardware": false
+  }
+}

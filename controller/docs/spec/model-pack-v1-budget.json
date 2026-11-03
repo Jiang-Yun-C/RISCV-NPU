@@ -1,0 +1,312 @@
+{
+  "status": "PASS",
+  "physical_qualification": "ASSUMED_1GiB_NOT_BOARD_VERIFIED",
+  "scope": "Concrete bounded allocation contract; T12 must enforce ceilings and measure its implementation peak; T23 validates board capacity",
+  "pack_file_bytes": 536731456,
+  "pack_sha256": "f55c1a1efd0188a3b792e695fb9f404080f0ffd10cae44d1831b595af6b37f71",
+  "model_storage_bytes": 525123200,
+  "tokenizer_storage_bytes": 11488512,
+  "max_context": 640,
+  "max_prefill_chunk": 8,
+  "kv_fp32_bytes": 15728640,
+  "assumed_ddr_bytes": 1073741824,
+  "conservative_reserved_bytes": 927776384,
+  "additional_free_bytes": 145965440,
+  "unmapped_margin_bytes": 67108864,
+  "allocations": {
+    "weights": [
+      {
+        "name": "sealed_unique_pack_tensors_and_metadata",
+        "offset": 0,
+        "bytes": 525123200,
+        "soc_address": 2147483648,
+        "purpose": "Final storage only; embedding/head alias counted once; no full FP32 copy"
+      }
+    ],
+    "kv": [
+      {
+        "name": "all_layers_k_v_fp32",
+        "offset": 0,
+        "bytes": 15728640,
+        "soc_address": 2818572288,
+        "purpose": "[layer,K/V,token,KV-head,dimension]"
+      }
+    ],
+    "workspace": [
+      {
+        "name": "hidden_ping",
+        "offset": 0,
+        "bytes": 28672,
+        "soc_address": 2885681152,
+        "purpose": "FP32 [M,hidden]"
+      },
+      {
+        "name": "hidden_pong",
+        "offset": 28672,
+        "bytes": 28672,
+        "soc_address": 2885709824,
+        "purpose": "FP32 [M,hidden]"
+      },
+      {
+        "name": "residual",
+        "offset": 57344,
+        "bytes": 28672,
+        "soc_address": 2885738496,
+        "purpose": "FP32 [M,hidden]"
+      },
+      {
+        "name": "norm1",
+        "offset": 86016,
+        "bytes": 28672,
+        "soc_address": 2885767168,
+        "purpose": "FP32 [M,hidden]"
+      },
+      {
+        "name": "norm2",
+        "offset": 114688,
+        "bytes": 28672,
+        "soc_address": 2885795840,
+        "purpose": "FP32 [M,hidden]"
+      },
+      {
+        "name": "q",
+        "offset": 143360,
+        "bytes": 28672,
+        "soc_address": 2885824512,
+        "purpose": "FP32 [M,hidden]"
+      },
+      {
+        "name": "q_rot",
+        "offset": 172032,
+        "bytes": 28672,
+        "soc_address": 2885853184,
+        "purpose": "FP32 [M,hidden]"
+      },
+      {
+        "name": "attention_out",
+        "offset": 200704,
+        "bytes": 28672,
+        "soc_address": 2885881856,
+        "purpose": "FP32 [M,hidden]"
+      },
+      {
+        "name": "k",
+        "offset": 229376,
+        "bytes": 4096,
+        "soc_address": 2885910528,
+        "purpose": "FP32 [M,KV-head,head-dim]"
+      },
+      {
+        "name": "v",
+        "offset": 233472,
+        "bytes": 4096,
+        "soc_address": 2885914624,
+        "purpose": "FP32 [M,KV-head,head-dim]"
+      },
+      {
+        "name": "k_rot",
+        "offset": 237568,
+        "bytes": 4096,
+        "soc_address": 2885918720,
+        "purpose": "FP32 [M,KV-head,head-dim]"
+      },
+      {
+        "name": "gate",
+        "offset": 241664,
+        "bytes": 155648,
+        "soc_address": 2885922816,
+        "purpose": "FP32 [M,intermediate]"
+      },
+      {
+        "name": "up",
+        "offset": 397312,
+        "bytes": 155648,
+        "soc_address": 2886078464,
+        "purpose": "FP32 [M,intermediate]"
+      },
+      {
+        "name": "swiglu",
+        "offset": 552960,
+        "bytes": 155648,
+        "soc_address": 2886234112,
+        "purpose": "FP32 [M,intermediate]"
+      },
+      {
+        "name": "scores",
+        "offset": 708608,
+        "bytes": 286720,
+        "soc_address": 2886389760,
+        "purpose": "FP32 [Q-head,M,context]"
+      },
+      {
+        "name": "probabilities",
+        "offset": 995328,
+        "bytes": 286720,
+        "soc_address": 2886676480,
+        "purpose": "FP32 [Q-head,M,context]"
+      },
+      {
+        "name": "reduction_products",
+        "offset": 1282048,
+        "bytes": 29360128,
+        "soc_address": 2886963200,
+        "purpose": "Worst padded FP32 QK/PV reduction, separate product/tree arenas"
+      },
+      {
+        "name": "reduction_tree",
+        "offset": 30642176,
+        "bytes": 29360128,
+        "soc_address": 2916323328,
+        "purpose": "Worst padded FP32 QK/PV reduction, separate product/tree arenas"
+      },
+      {
+        "name": "all_chunk_logits",
+        "offset": 60002304,
+        "bytes": 4861952,
+        "soc_address": 2945683456,
+        "purpose": "Complete vocabulary for M=8; streaming greedy may use less"
+      },
+      {
+        "name": "activation_q8",
+        "offset": 64864256,
+        "bytes": 38912,
+        "soc_address": 2950545408,
+        "purpose": "Largest activation [M,K]"
+      },
+      {
+        "name": "activation_scales",
+        "offset": 64903168,
+        "bytes": 2432,
+        "soc_address": 2950584320,
+        "purpose": "FP32 [M,G]"
+      },
+      {
+        "name": "group_dot_audit",
+        "offset": 64905600,
+        "bytes": 311296,
+        "soc_address": 2950586752,
+        "purpose": "INT32 [M,N-tile,G]"
+      },
+      {
+        "name": "linear_tile_output",
+        "offset": 65216896,
+        "bytes": 4096,
+        "soc_address": 2950898048,
+        "purpose": "FP32 [M,N-tile]"
+      },
+      {
+        "name": "dequantized_embedding_chunk",
+        "offset": 65220992,
+        "bytes": 28672,
+        "soc_address": 2950902144,
+        "purpose": "Only selected rows, never the whole model"
+      }
+    ],
+    "cpu_private": [
+      {
+        "name": "program_rodata",
+        "offset": 0,
+        "bytes": 8388608,
+        "soc_address": 3019898880,
+        "purpose": "Enforced link/load ceiling; actual T12 image pending"
+      },
+      {
+        "name": "bounded_heap",
+        "offset": 8388608,
+        "bytes": 8388608,
+        "soc_address": 3028287488,
+        "purpose": "No unbounded allocator in inference"
+      },
+      {
+        "name": "stack",
+        "offset": 67043328,
+        "bytes": 65536,
+        "soc_address": 3086942208,
+        "purpose": "T08 fixed stack"
+      }
+    ],
+    "tokenizer": [
+      {
+        "name": "original_tokenizer_files",
+        "offset": 0,
+        "bytes": 11488512,
+        "soc_address": 3087007744,
+        "purpose": "Exact original bytes"
+      },
+      {
+        "name": "bpe_vocab_and_merge_indices",
+        "offset": 11488512,
+        "bytes": 5630976,
+        "soc_address": 3098496256,
+        "purpose": "Bounded 16-byte index entries; T12 must enforce"
+      },
+      {
+        "name": "utf8_text_and_token_work",
+        "offset": 17119488,
+        "bytes": 1048576,
+        "soc_address": 3104127232,
+        "purpose": "Bounded text/token scratch"
+      }
+    ],
+    "shared_io": [
+      {
+        "name": "loader_double_buffer",
+        "offset": 0,
+        "bytes": 131072,
+        "soc_address": 3120562176,
+        "purpose": "Stream to final addresses; never retain whole file twice"
+      },
+      {
+        "name": "pack_header_directory",
+        "offset": 131072,
+        "bytes": 1048768,
+        "soc_address": 3120693248,
+        "purpose": "Bounded v1 maximum directory"
+      },
+      {
+        "name": "task_logs_and_transport",
+        "offset": 1179840,
+        "bytes": 2097152,
+        "soc_address": 3121742016,
+        "purpose": "Bounded request/log/transport buffers"
+      },
+      {
+        "name": "weight_tile_double_buffer",
+        "offset": 3276992,
+        "bytes": 1323008,
+        "soc_address": 3123839168,
+        "purpose": "Optional bounded tiles; direct DDR preferred"
+      }
+    ],
+    "reserved": [
+      {
+        "name": "unmapped_board_margin",
+        "offset": 0,
+        "bytes": 67108864,
+        "soc_address": 3154116608,
+        "purpose": "T08 forbids inference allocation"
+      }
+    ]
+  },
+  "allocated_bytes": {
+    "weights": 525123200,
+    "kv": 15728640,
+    "workspace": 65249664,
+    "cpu_private": 16842752,
+    "tokenizer": 18168064,
+    "shared_io": 4600000,
+    "reserved": 67108864
+  },
+  "region_capacity_bytes": {
+    "weights": 671088640,
+    "kv": 67108864,
+    "workspace": 134217728,
+    "cpu_private": 67108864,
+    "tokenizer": 33554432,
+    "shared_io": 33554432,
+    "reserved": 67108864
+  },
+  "full_model_dequantization": false,
+  "runtime_weight_transpose": false,
+  "shared_embedding_duplicate_bytes": 0
+}

@@ -1,0 +1,10 @@
+{
+  "component": "VexRiscv",
+  "upstream_commit_declared_by_project": "baf7dc82f855eddaf5b0a20a6802c526f127e38a",
+  "license_source_url": "https://raw.githubusercontent.com/SpinalHDL/VexRiscv/baf7dc82f855eddaf5b0a20a6802c526f127e38a/LICENSE",
+  "license_sha256": "230178ba3f6cb6cf94ec301a9208fa6870e62c1ed83f20543f059622c3619760",
+  "download_status": 200,
+  "generator_header_in_current_T09": "SpinalHDL v1.13.0 git d9d72474863badf47d8585d187f3e04ae4749c59",
+  "current_rtl_sha256": "be3866488f1782aeecf6d52c4a8ea933edd56b937f078fae0ae4f23be29d2008",
+  "scope": "Exact public upstream license restored. Original CPU generator source and local upstream patches are not present in the supplied export; this record does not independently reproduce its generation chain or establish competition reuse eligibility."
+}

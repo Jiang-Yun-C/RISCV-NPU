@@ -1,0 +1,776 @@
+{
+  "schema_version": 1,
+  "scope": "T22_PLATFORM_DONE_T23_CURRENT_ADAPTER_DDR_QUALIFIED_T24_COMPETITION_T30_PHY_OPEN",
+  "updated_date": "2026-10-13",
+  "board": {
+    "model": "MES2L676-200HP",
+    "marketing_name": "200Pro+",
+    "variant": "standard",
+    "selection_authority": "User confirmed standard MES2L676-200HP in this conversation on 2026-10-09",
+    "physical_core_revision": "V1.2",
+    "physical_base_revision": "V1.2",
+    "serial_number": null,
+    "physical_part_marking": null,
+    "ownership_or_connection_verified": true,
+    "reported_connection": {
+      "authority": "User confirmed JTAG on Windows and power switch ON in this conversation",
+      "power_switch": "ON",
+      "pcb_revisions_still_unverified": false
+    },
+    "physical_revision_authority": "User reply 实物为 V1.2 to the core/base revision question in this conversation",
+    "power_confirmation_20261010": {
+      "input": "original12V adapter",
+      "switch": "ON",
+      "continuous": true,
+      "reset_during_download": false,
+      "source": "user reply"
+    },
+    "identity_reuse_authority_20261011": {
+      "source": "User reply 按之前已有的记录来就可以",
+      "scope": "Prior standard200Pro+V1.2 and JTAG baseline accepted; unknown markings are not invented"
+    },
+    "power_cycle_20261011": {
+      "source": "User reply 已重新上电",
+      "completed": true,
+      "post_cycle_header_evidence": "evidence/T22_BOARD/post-power-header-20261011-v1/manifest.json"
+    },
+    "power_wiring_followup_20261011": {
+      "authority": "User reports 原厂12VDC正常，JTAG也接了电源脚 and 开关打在D-ON",
+      "dc_normal_reported": true,
+      "jtag_voltage_pin_connected": true,
+      "switch_position_reported": "D-ON",
+      "adapter_pin_function_verified": false,
+      "switch_location_and_meaning_verified": false,
+      "evidence": "evidence/T22_POWER/power-wiring-review-20261011-v1/review.json",
+      "root_cause_confirmed": false,
+      "switch_location_reported": "Development board"
+    },
+    "current_revision_correction_20261014": {
+      "updated_utc": "2026-10-14T11:26:00.704357+00:00",
+      "source": "User in current conversation",
+      "user_text": "当前板子是1.4没有这个了",
+      "reported_current_board_revision": "V1.4",
+      "old_core_base_V1_2_metadata_superseded": true,
+      "separate_core_base_revisions_not_inferred": true,
+      "J6_not_present_per_user": true,
+      "SCBV_voltage_change_programmed": false,
+      "board_model_retained": "standard MES2L676-200HP",
+      "jtag_target": "ATK 20210914 /0x10603899",
+      "retained_actual_G5_hour": "evidence/CE64_BOARD/ce64-s0-v2-cpu-ddr-board-20261014-v14-no-tlr-1m",
+      "retained_actual_G5_recovery": "evidence/CE64_BOARD/ce64-s0-v2-physical-20261014-v13-after-g5-baseline-recovery",
+      "source_constraint_reference_version": "Existing V1.2-labelled vendor inputs; not asserted to establish V1.4 jumper or voltage settings",
+      "flash_modified": false,
+      "qualification_promoted": false
+    },
+    "reported_current_revision": "V1.4",
+    "previous_revision_metadata_is_current": false
+  },
+  "fpga": {
+    "vendor": "Pango",
+    "family": "Logos2",
+    "documented_part": "PG2L200H-6IFBB676",
+    "pds_arch_reference": {
+      "family": "Logos2",
+      "device": "PG2L200H",
+      "package": "FBB676",
+      "speedgrade": "-6"
+    },
+    "sources": [
+      "LM-HW-STD",
+      "PG-DS",
+      "PG-PIN",
+      "PG-PRODUCT",
+      "PDS-200H-BSDL"
+    ],
+    "physical_identity_verified": false,
+    "documented_resources": {
+      "lut6": 159800,
+      "ff": 319600,
+      "drm_36kbit_blocks": 415,
+      "apm": 740,
+      "gpll": 10,
+      "ppll": 10,
+      "fbb676_user_io": 400,
+      "fbb676_hsst_lanes": 8
+    },
+    "jtag_device_identity_verified": true,
+    "jtag_idcode": "0x10603899",
+    "jtag_match_mask": "0x0fffffff",
+    "jtag_identity_evidence": "evidence/T22_PRECHECK/windows-rc3-20261009-v1/manifest.json"
+  },
+  "toolchain": {
+    "current_contract": "docs/spec/pds-toolchain.json",
+    "current_version": "2022.2-rc3",
+    "current_build": "113398",
+    "tool_readiness_evidence": "evidence/PDS_TOOLCHAIN/t22-completion-20261011-v1/manifest.json",
+    "pg2l200h_implementation_qualified": false,
+    "hmic_s_minimum_pds_documented": "2022.2-SP1.2",
+    "hmic_s_version_source": {
+      "id": "PG-DDR",
+      "pdf_page": 14,
+      "section": "2.3.1.1"
+    },
+    "current_hmic_compatibility": "INSTALLED_HMIC13_REJECTS200H;PROJECT_NATIVE110_SOURCE_REBUILD_PASSES_PHYSICAL_FULL1G_MASKS",
+    "iplist_hmic_version": "1.7",
+    "installed_hmic_index_version": "1.3",
+    "installed_hmic_index_target": "PG2L100H/FBG676",
+    "qualified_pds_contract": null,
+    "qualified_hmic_package": null,
+    "qualified_ip_generator_config": null,
+    "user_version_preference": "Retain installed PDS2022.2-rc3 and HMIC1.3; user2026-10-10 authorized project-local native200H/HMIC1.10 generated sources rebuilt inrc3; qualify actual implementation and board behavior separately",
+    "pg2l200h_offline_flow": "PASS_COMPILE_ADS_MAP_PNR_TIMING_BITSTREAM_SANDBOX",
+    "pg2l200h_offline_evidence": "evidence/T22_PRECHECK/windows-rc3-20261009-v1/manifest.json",
+    "hmic_generation_probe": {
+      "status": "FAIL_UNSUPPORTED_DEVICE",
+      "target": "Logos2/PG2L200H/FBB676/-6",
+      "actual_ip_version": "1.3",
+      "exit_code": 104,
+      "diagnostic": "IPCompiler 0006",
+      "license_checkout": "fabric_ipc PASS",
+      "pg2l100h_control": "PASS_GENERATION_ONLY",
+      "evidence": "evidence/T22_VERIFY/board-ip-20261009-v1/manifest.json"
+    },
+    "pg2l200h_module_ip_generation": {
+      "pll_version": "1.3",
+      "single_port_ram_version": "1.5",
+      "status": "PASS_GENERATION_ONLY",
+      "synthesis_performed": false,
+      "board_configuration": false,
+      "evidence": "evidence/T22_VERIFY/board-ip-20261009-v1/manifest.json"
+    },
+    "ddr_tool_ip_preparation": "NATIVE200H_HMIC110_REBUILT_IN_RC3_PHYSICAL_FULL1G_MASKS_PASS_FULL_TIMING_OPEN",
+    "experimental_hmic_port": {
+      "source": "100H generator using vendor UI parameter algorithms",
+      "target": "PG2L200H/FBB676/-6",
+      "installed_support_list_modified": false,
+      "project_local_cli_enum_adaptation": "dynamic R5 CA pad items only; support list unchanged",
+      "actual_requested_rate_mt_s": 750,
+      "result": "v10/v11 optimized native CRAM PASS DONE1; passive D2P1 locates WRLVL overflow and RDCAL failure, retries32 INIT0 zero traffic. SC_DLY_2X1 not proven fix. v12 reset125MHz rejected by strict timing, not loaded.",
+      "evidence": "evidence/T22_PHY/standard-200pro-20261010-v2-delay2x/status.json"
+    },
+    "ordinary_logic_board_function_evidence": "evidence/T22_BOARD/minimum-final-restore-20261011-v2/functional-summary.json",
+    "ordinary_logic_board_function_scope": "2026-10-11 final restore: DONE1,30samplesA6/A7 PLLlock/256x32DRM/heartbeat,57857bytesUART55; noDDR qualification",
+    "vendor_original_board_control": {
+      "status": "PASS_VENDOR_NATIVE_CALIBRATION_AND_BIST_ACTIVITY",
+      "image_origin": "Exactvendor200H/HMIC1.10 SP6.4 build146967, not recompiled inrc3",
+      "evidence": "evidence/T22_PHY/standard-200pro-20261010-v5-vendor-native/vendor-functional-summary.json",
+      "init_done": true,
+      "training_retry_count": 0,
+      "error_count": 0,
+      "uart_records": 260,
+      "observation_seconds": 30.078,
+      "independent_boundary_samples": 50,
+      "scope": "Functional control, not projectHMIC1.3/fulltiming/capacity qualification",
+      "late_recheck": {
+        "status": "FAIL_VENDOR_BIST_DATA",
+        "evidence": "evidence/T22_NATIVE_IMPL/rc3-native110-20261010-v1/pre-native-uart.json",
+        "init_done": true,
+        "training_retry_count": 0,
+        "error_count": 100,
+        "scope": "Later3s UART observation after continued operation; first error time unknown; original30s zero-error window preserved, no formal stress qualification"
+      }
+    },
+    "installation_selection_audit": {
+      "evidence": "evidence/T22_INSTALL/rc3-hmic-selection-20261010-v1/manifest.json",
+      "archive_file_count": 47847,
+      "archive_content_differences": 0,
+      "original_media_sha256": "PASS_6_OF_6",
+      "catalog_generator_difference_origin": "PRESENT_IN_ORIGINAL_TAR",
+      "native_200h_reproduction_exit": 104,
+      "same_parameter_100h_control_exit": 0,
+      "old_generated_wrapper_phy_hashes": "IDENTICAL_TO_FRESH_GENERATION",
+      "first_confirmed_mismatch": "100H-generated HMIC1.3 port used on200H; exact physical failure cause not isolated"
+    },
+    "native200h_generated_source_candidate": {
+      "status": "PASS_FULL_CAPACITY_MASK_AND_ONE_HOUR_STRESS",
+      "evidence": "evidence/T23_NATIVE/native110-full1g-stress-20261010-v1/manifest.json",
+      "ip_version": "1.10",
+      "source_origin_tool": "SP6.4/build146967",
+      "execution_tool": "rc3/build113398",
+      "scope": "Original native200H HMIC1.10 sources rebuilt in rc3; actual calibration,1GiB address/complement,32byte masks and3664.812s zero-error workload passed; fullPHY timing open",
+      "installed_ip_modified": false,
+      "board_loaded": false,
+      "user_authorized": true,
+      "source_implementation_evidence": "evidence/T22_NATIVE_IMPL/rc3-native110-20261010-v7-full1g/manifest.json",
+      "historical_observation_date": "2026-10-10",
+      "current_replay_evidence": "evidence/T22_BOARD/native110-captured-20261011-v3/manifest.json",
+      "current_replay_status": "FAIL_CONFIGURATION_DONE"
+    },
+    "minimum_platform_implementation_qualified": true,
+    "qualified_t23_tool": {
+      "version": "2024.2",
+      "build": "178169",
+      "contract": "docs/spec/pds-toolchain-t23-2024.2.json",
+      "implementation": "evidence/T23_BOARD_IMPL/adapter-20261012-v20-pds2024-documented-pnr/manifest.json",
+      "global_default_retained": "2022.2-rc3/build113398"
+    }
+  },
+  "memory": {
+    "type": "DDR3",
+    "physical_dq_width_reference": 32,
+    "documented_capacity_reference_bytes": 1073741824,
+    "capacity_reference_scope": "Dedicated standard200HP manual V1.2 PDF pages9/14/15 reference2x4Gbit x16; actual1GiB accessible window now measured in native110 v7. Physical chip markings remain open.",
+    "chips_reference": "2 x 4Gbit x16; XCCC256M16EP-EINAY or documented compatible parts",
+    "actual_chip_markings": [
+      "QN3B256M16H-16A",
+      "2542",
+      "H251017TW"
+    ],
+    "measured_capacity_bytes": 1073741824,
+    "measured_payload_bandwidth_bytes_per_second": {
+      "write_requested": 56073378.81233744,
+      "read_valid": 56253534.101067126,
+      "window_seconds": 3664.812,
+      "write_requested_payload_bytes": 205498391552,
+      "read_valid_payload_bytes": 206158626816,
+      "scope": "Actual workload includes write drain, read sweeps and selective-byte probes; not peak sequential bandwidth.",
+      "evidence": "evidence/T23_NATIVE/native110-full1g-stress-20261010-v1/functional-summary.json"
+    },
+    "controller_config": {
+      "ip": "Native200H HMIC1.10 generated source",
+      "execution_tool": "PDS2022.2-rc3/build113398",
+      "row": 15,
+      "column": 10,
+      "bank": 3,
+      "physical_dq_width": 32,
+      "user_data_bits": 256,
+      "nominal_data_rate_mt_s": 1000,
+      "nominal_user_clk_mhz": 125,
+      "nominal_reset_clk_mhz": 125,
+      "SC_DLY_2X": 1,
+      "scope": "Current frozen native110-v7,1GiB/masks verified2026-10-12; no controller/PHY/FDC/image change. Historical one-hour measurements remain2026-10-10. Full PHY/I/O signoff retained for final implementation."
+    },
+    "user_port_contract": "board/mes2l676-200hp/ddr-user-port.json",
+    "calibration_evidence": "evidence/T22_BOARD/native110-current-uart-20261012-v1/functional-summary.json",
+    "qualification_evidence": "evidence/T23_NATIVE/native110-full1g-stress-20261010-v1/manifest.json",
+    "experimental_controller_config": {
+      "row": 15,
+      "column": 10,
+      "bank": 3,
+      "physical_dq_width": 32,
+      "nominal_data_rate_mt_s": 750,
+      "nominal_user_clk_mhz": 93.75,
+      "scope": "generated settings; not measured hardware"
+    },
+    "experimental_user_port_contract": "board/mes2l676-200hp/ddr-user-port.json",
+    "experimental_calibration_result": {
+      "status": "FAIL_PHY_INIT",
+      "evidence": "evidence/T22_PHY/standard-200pro-20261010-v2-delay2x/postdone-passive-v1/functional-summary.json",
+      "training_reset_error_count": 32,
+      "ddr_init_done": false,
+      "user_read_write_beats": 0,
+      "first_fault": "RDCAL_ERROR at retry0; lane1 read check passes, lanes0/2/3 fail; later WL lane0/1 errors",
+      "root_cause": "UNCONFIRMED"
+    },
+    "experimental_user_clock_host_time_estimate_hz": 93745452.47733432,
+    "experimental_clock_scope": "30s passive post-DONE703 CRC frames/host time, approx93.75MHz; not pin frequency or DRAM qualification",
+    "reported_chip_marking_followup": {
+      "user_text": "MS7210",
+      "classification": "Documented HDMI transmitter, not accepted as DDR identity",
+      "evidence": "evidence/T22_PHY/standard-200pro-20261010-v1/chip-marking-followup.json"
+    },
+    "vendor_control_calibration_result": {
+      "status": "PASS_VENDOR_NATIVE_CALIBRATION_AND_BIST_ACTIVITY",
+      "image_origin": "Exactvendor200H/HMIC1.10 SP6.4 build146967, not recompiled inrc3",
+      "evidence": "evidence/T22_PHY/standard-200pro-20261010-v5-vendor-native/vendor-functional-summary.json",
+      "init_done": true,
+      "training_retry_count": 0,
+      "error_count": 0,
+      "uart_records": 260,
+      "observation_seconds": 30.078,
+      "independent_boundary_samples": 50,
+      "scope": "Functional control, not projectHMIC1.3/fulltiming/capacity qualification"
+    },
+    "capacity_test_result": {
+      "status": "PASS_FULL_CAPACITY_AND_BYTE_MASK_OBSERVATION_ONLY",
+      "verified_test_window_bytes": 1073741824,
+      "verified_passes": 7,
+      "errors": 0,
+      "training_retries": 0,
+      "capture_seconds": 150,
+      "valid_frames": 674,
+      "crc_failures": 0,
+      "word_address_max": 268435328,
+      "evidence": "evidence/T22_NATIVE_IMPL/rc3-native110-20261010-v7-full1g/functional-summary.json"
+    },
+    "stress_test_result": {
+      "status": "PASS_FULL_CAPACITY_MASK_AND_ONE_HOUR_STRESS",
+      "evidence": "evidence/T23_NATIVE/native110-full1g-stress-20261010-v1/manifest.json",
+      "same_loaded_image": true,
+      "verified_window_seconds": 3664.812,
+      "verified_pass_delta": 192,
+      "verified_passes_last": 200,
+      "errors": 0,
+      "training_retries": 0,
+      "valid_frames": 16467,
+      "crc_failures": 0,
+      "dropped_frames": 0,
+      "post_done": true,
+      "formal_platform_qualification": false
+    },
+    "one_hour_zero_error_observation": true,
+    "historical_measurement_date": "2026-10-10",
+    "current_ddr_image_loaded": true,
+    "adapter_qualification_20261011": {
+      "status": "PASS_DIGITAL_AND_CONTROLLER_MODEL_AND_SYNTH_MAPPED_FUNCTIONAL",
+      "source": "rtl/soc/nx_ddr_adapter.sv",
+      "source_sha256": "87cfaff577ee0b8c2840aa8da1fb6cc71b1be9d528967faeb94766c12092d781",
+      "contract": "docs/spec/ddr-t23-adapter.md",
+      "upstream_data_bits": [
+        32,
+        64,
+        128
+      ],
+      "upstream_id_bits": 6,
+      "native_id": 0,
+      "accepted_outstanding": 1,
+      "supported_burst": "Naturally aligned INCR within one AXI4KiB page; invalid descriptors DECERR",
+      "completion": "Buffer complete upstream write; native <=16 beat chunks; drain then masked readback before B OKAY",
+      "component_evidence": "evidence/T23/adapter-acceptance-20261011-v5/manifest.json",
+      "native_model_evidence": "evidence/T23_NATIVE_ADAPTER/native-adapter-20261011-v5/manifest.json",
+      "synthesis_evidence": "evidence/T23_SYNTH/adapter-synth-20261011-v2/manifest.json",
+      "mapped_evidence": "evidence/T23_NETLIST/mapped-adapter-20261011-v2/manifest.json",
+      "board_tested": false
+    },
+    "actual_chip_identity_evidence": "evidence/T22_BOARD_IDENTITY/qchip-20261012-v1/user-readback.json",
+    "actual_chip_marking_authority": "User readback2026-10-12; date/lot codes retained without interpretation",
+    "current_functional_evidence": "evidence/T23_BOARD/adapter-qualified-window-20261012-v10-pds2024/functional-summary.json",
+    "current_adapter_qualification": {
+      "task": "T23",
+      "status": "PASS",
+      "evidence": "evidence/T23_BOARD/adapter-qualified-window-20261012-v10-pds2024/manifest.json",
+      "capacity_bytes": 1073741824,
+      "stress_seconds": 3999.985,
+      "additional_passes": 23,
+      "image_sbit_sha256": "d0d77d7761e1e7eb1e653ba12ec2d0c276e61ed497cd99fe457a17d949c37372",
+      "adapter_sha256": "14f4cbe84b2b292ba77760823de558f0b5728451503e34f028b73ac7f32501a7",
+      "write_drain_cycles": 1024,
+      "physical_axi_data_width": 128,
+      "effective_workloads": {
+        "burst_1": {
+          "status": "PASS",
+          "payload_bytes": 88854752,
+          "write_payload_bytes": 44427376,
+          "read_payload_bytes": 44427376,
+          "window_seconds": 24.702999999999996,
+          "cycles": 3088159860,
+          "core_clock_hz_estimated": 125011531.39294824,
+          "bytes_per_second": 3596921.50750921,
+          "errors": 0,
+          "raw_capture_file": "bandwidth-burst_1.json"
+        },
+        "burst_16": {
+          "status": "PASS",
+          "payload_bytes": 1338812928,
+          "write_payload_bytes": 669406464,
+          "read_payload_bytes": 669406464,
+          "window_seconds": 24.704,
+          "cycles": 3088159860,
+          "core_clock_hz_estimated": 125006471.01683937,
+          "bytes_per_second": 54194176.165803105,
+          "errors": 0,
+          "raw_capture_file": "bandwidth-burst_16.json"
+        },
+        "burst_256": {
+          "status": "PASS",
+          "payload_bytes": 2522398720,
+          "write_payload_bytes": 1261199360,
+          "read_payload_bytes": 1261199360,
+          "window_seconds": 24.921999999999997,
+          "cycles": 3115981120,
+          "core_clock_hz_estimated": 125029336.32934758,
+          "bytes_per_second": 101211729.39571464,
+          "errors": 0,
+          "raw_capture_file": "bandwidth-burst_256.json"
+        },
+        "sequential_read": {
+          "status": "PASS",
+          "payload_bytes": 14418921504,
+          "write_payload_bytes": 0,
+          "read_payload_bytes": 14418921504,
+          "window_seconds": 24.70299999999999,
+          "cycles": 3088159860,
+          "core_clock_hz_estimated": 125011531.39294828,
+          "bytes_per_second": 583691110.5533743,
+          "errors": 0,
+          "raw_capture_file": "bandwidth-sequential_read.json"
+        },
+        "sequential_write": {
+          "status": "PASS",
+          "payload_bytes": 1357074432,
+          "write_payload_bytes": 1357074432,
+          "read_payload_bytes": 0,
+          "window_seconds": 24.718999999999994,
+          "cycles": 3088159860,
+          "core_clock_hz_estimated": 124930614.50705938,
+          "bytes_per_second": 54900053.885675,
+          "errors": 0,
+          "raw_capture_file": "bandwidth-sequential_write.json"
+        },
+        "mixed": {
+          "status": "PASS",
+          "payload_bytes": 2522398720,
+          "write_payload_bytes": 1261199360,
+          "read_payload_bytes": 1261199360,
+          "window_seconds": 24.921999999999997,
+          "cycles": 3115981120,
+          "core_clock_hz_estimated": 125029336.32934758,
+          "bytes_per_second": 101211729.39571464,
+          "errors": 0,
+          "raw_capture_file": "bandwidth-mixed.json"
+        }
+      },
+      "actual_cpu_npu_competition": "T24_OPEN",
+      "final_phy_io_timing": "T30_OPEN"
+    }
+  },
+  "documented_reference_io": {
+    "status": "STANDARD_200HP_V12_MANUAL_VENDOR_DDR_PADS_MATCHED;MINIMUM_FUNCTION_PASS;OTHER_BOARD_FUNCTIONS_PENDING",
+    "source": "LM-HW-200HP",
+    "core_sys_clock": {
+      "pin": "D18",
+      "frequency_hz": 27000000,
+      "pdf_page": 13
+    },
+    "ddr_ref_clock": {
+      "pins": [
+        "N3",
+        "N2"
+      ],
+      "frequency_hz": 125000000,
+      "differential": true,
+      "pdf_page": 12
+    },
+    "base_sys_clock": {
+      "pin": "E17",
+      "frequency_hz": 27000000,
+      "pdf_page": 45,
+      "population_verified": false
+    },
+    "uart_rx": {
+      "pin": "B24",
+      "direction_from_fpga": "input",
+      "pdf_page": 34
+    },
+    "uart_tx": {
+      "pin": "C24",
+      "direction_from_fpga": "output",
+      "pdf_page": 34
+    },
+    "led0": {
+      "pin": "A20",
+      "active_level_reference": 1,
+      "pdf_page": 41
+    },
+    "eeprom_scl": {
+      "pin": "A23",
+      "pdf_page": 42
+    },
+    "eeprom_sda": {
+      "pin": "A24",
+      "pdf_page": 42
+    },
+    "sd_spi_clock": {
+      "pin": "F19",
+      "sd_contact": "CLK",
+      "pdf_page": 43
+    },
+    "sd_spi_mosi": {
+      "pin": "H14",
+      "sd_contact": "CMD",
+      "pdf_page": 43
+    },
+    "sd_spi_miso": {
+      "pin": "F18",
+      "sd_contact": "DAT0",
+      "pdf_page": 43
+    },
+    "sd_spi_cs_n": {
+      "pin": "H15",
+      "sd_contact": "DAT3",
+      "pdf_page": 43
+    },
+    "sd_card_detect": {
+      "pin": "G19",
+      "sd_contact": "SDDEF",
+      "pdf_page": 43,
+      "active_level_verified": false
+    }
+  },
+  "constraints": {
+    "matched_schematic": {
+      "source": "LM-HW-200HP",
+      "scope": "V1.2 manual embedded DDR/UART circuits; base V1.2 SCH supplied; separate complete core SCH not found in extracted hardware section"
+    },
+    "matched_vendor_fdc": "evidence/T22_VENDOR/standard-200pro-20261010-v1/vendor-reference/ipcore/ddr3_test/pnr/ddr_test.fdc",
+    "project_fdc": null,
+    "ip_generated_constraints": [],
+    "bank_voltage_and_jumper_record": null,
+    "reference_sources": [
+      "LM-HW-200HP",
+      "LM-HW-STD",
+      "PG-PIN",
+      "PDS-UCE"
+    ],
+    "qualified": false,
+    "experimental_project_fdc": "build/T22_NATIVE_IMPL/rc3-native110-20261010-v7-full1g/native110.fdc",
+    "experimental_scope": "Native200H83effectivepads incl73DDR/ref;four audited8ns reset datapath bounds;10 timing tables pass;fullPHY DDC/WCLK/externalIO remainsOPEN",
+    "complete_phy_timing_coverage": "OPEN_DDC_WCLK_AND_EXTERNAL_DDR_TIMING_MODEL_SCOPE",
+    "warning_review": "evidence/T22_NATIVE_IMPL/rc3-native110-20261010-v7-full1g/warning-review.json"
+  },
+  "programming": {
+    "tool": "PDS Fabric Configuration",
+    "host": "Windows",
+    "download_cable": "ATK-HS-V2-CMSIS-DAP",
+    "jtag_chain": [
+      {
+        "device": "PG2L200H",
+        "idcode": "0x10603899",
+        "consistent_scans": 3,
+        "expected_version_masked_idcode": "0x00603899"
+      }
+    ],
+    "target_identity": "CMSIS-DAP serial ATK 20210914; PG2L200H IDCODE 0x10603899",
+    "qualified_sbit_sha256": null,
+    "flash_part": null,
+    "persistent_boot_mode": null,
+    "reference": "LM-CONFIG",
+    "programming_performed": true,
+    "download_cable_serial": "ATK 20210914",
+    "usb_vid_pid": "04d8:00df",
+    "transport": "CMSIS-DAP HID; COM9 adapter CDC; separate board CP2102 UART now COM10",
+    "native_fabric_download_qualified": false,
+    "identity_evidence": "evidence/T22_PRECHECK/windows-rc3-20261009-v1/manifest.json",
+    "usercode_reads": {
+      "value": "0x00000000",
+      "consistent_scans": 3,
+      "evidence": "evidence/T22_VERIFY/board-ip-20261009-v1/manifest.json",
+      "configuration_done_verified": false,
+      "firmware_identity_verified": false,
+      "scope": "Historical pre-current-download reading; does not identify loaded firmware"
+    },
+    "programming_mode": "volatile SRAM/CRAM; flash untouched",
+    "programming_result": "PASS_CURRENT_T23_ADAPTER",
+    "programming_evidence": "evidence/T23_BOARD/adapter-qualification-20261012-v9-pds2024/board.json",
+    "configuration_done_verified": true,
+    "jtag_transport_evidence": "evidence/T22_BOARD/post-power-transport-20261011-v1/manifest.json",
+    "cram_svf_download_verified": true,
+    "loaded_sbit_sha256": "d0d77d7761e1e7eb1e653ba12ec2d0c276e61ed497cd99fe457a17d949c37372",
+    "loaded_sbit_scope": "Current T23 adapter: real calibration,1GiB,32 masks,one-hour and six sustained workloads",
+    "known_successful_requested_tck_hz": 100000,
+    "pending_ddr_sbit_sha256": null,
+    "pending_ddr_evidence": "evidence/T22_PHY/standard-200pro-20261010-v3-rst125/ddr-v12-timing-gate.json",
+    "current_cram_download_verified": true,
+    "latest_post_status": "evidence/T23_BOARD/adapter-qualified-window-20261012-v10-pds2024/post-board.json",
+    "minimal_retest_evidence": "evidence/T22_BOARD/minimum-final-restore-20261011-v2/manifest.json",
+    "latest_unloaded_candidate": null,
+    "historical_native110_programming": {
+      "result": "PASS_FULL_CAPACITY_MASK_AND_ONE_HOUR_STRESS",
+      "board_evidence": "evidence/T22_NATIVE_IMPL/rc3-native110-20261010-v7-full1g/board.json",
+      "sbit_sha256": "1245a1ea797bc89d8da69d67e6d61ff5520a694f4e548d280b926cee436d680d",
+      "post_status": "evidence/T23_NATIVE/native110-full1g-stress-20261010-v1/post-readonly.json",
+      "scope": "2026-10-10 immutable passing window; current state is independently verified"
+    },
+    "latest_native110_failure_evidence": "evidence/T22_BOARD/native110-captured-20261011-v3/manifest.json",
+    "physical_connection": "User reports Dupont wires; length unrecorded; no replacement comparison yet",
+    "board_debug_hold": {
+      "status": "T22_PLATFORM_COMPLETE",
+      "date": "2026-10-11",
+      "authority": "那可不可以先跳过这个，我先去完成后面的任务卡",
+      "scope": "JTAG/power-wiring troubleshooting and DDR image board replay",
+      "resume": "User explicitly asks to resume the board debug",
+      "formal_task_status": "ACTIVE",
+      "formal_acceptance_waived": false,
+      "downstream_preparation_allowed": true,
+      "evidence": "evidence/T22_HANDOFF/deferred-board-debug-20261011-v1/handoff.json",
+      "resumed_date": "2026-10-12",
+      "resume_authority": "重新尝试",
+      "current_readiness": "PASS_CURRENT_V7_FUNCTIONAL_AND_MINIMUM_PLATFORM",
+      "resumption_evidence": "evidence/T22_HANDOFF/large-retry-succeeded-20261012-v1/handoff.json",
+      "completion_evidence": "evidence/T22_DELIVERY/platform-complete-20261012-v1/completion.json"
+    },
+    "latest_readonly_attempt": "evidence/T23_BOARD/adapter-qualified-window-20261012-v10-pds2024/post-board.json",
+    "current_configuration_state": "CURRENT_T23_ADAPTER_QUALIFIED_VOLATILE_CRAM",
+    "configuration_status_scope": "2026-10-12 frozen v7 programmed successfully; DONE stable in post-readonly and 30 SAMPLEs; no Flash write",
+    "latest_native110_programming": {
+      "date": "2026-10-12",
+      "authority": "重新尝试",
+      "status": "PASS_JTAG_CONFIGURATION_AND_READONLY_DDR_INDICATIONS_ONLY",
+      "scope": "Exact frozen native110-v7 volatile CRAM retry; no new UART capacity/stress qualification",
+      "programming": "evidence/T22_BOARD/large-retry-program-20261012-v1/manifest.json",
+      "programming_summary": "evidence/T22_BOARD/large-retry-program-20261012-v1/programming-summary.json",
+      "sample": "evidence/T22_BOARD/large-retry-sample-20261012-v1/sample-summary.json",
+      "idcode": "0x10603899",
+      "sbit_sha256": "1245a1ea797bc89d8da69d67e6d61ff5520a694f4e548d280b926cee436d680d",
+      "svf_sha256": "7fe34dd1b9dc362a765c657fc799615d2d31ffbe57f0ad928b03384aec3c4a0f",
+      "requested_tck_hz": 100000,
+      "elapsed_s": 533.156,
+      "done": true,
+      "post_status_register": "0x81ffca0",
+      "sample_count": 30,
+      "init_cpd_pll_observed_high": true,
+      "error_indication_low": true,
+      "heartbeat_toggled": true,
+      "uart_available": false,
+      "ddr_uart_replay_performed": false,
+      "new_capacity_stress_qualified": false,
+      "flash_modified": false,
+      "full_phy_timing_qualification": false,
+      "formal_task_status": "ACTIVE",
+      "formal_acceptance_waived": false,
+      "current_loaded_configuration": "FROZEN_NATIVE110_V7",
+      "unrelated_task_board_policy_changed": false
+    },
+    "latest_native110_functional": "evidence/T22_BOARD/native110-current-uart-20261012-v1/functional-summary.json"
+  },
+  "open_inputs": [
+    "FPGA/Flash chip markings and VADJ remain at previously accepted/unobserved scope; actual DDR model now user-reported",
+    "DDC/WCLK硬宏及rc3 pre-silicon模型的完整时序覆盖",
+    "QN3B256M16H-16A的AC数据手册与核心板V1.2 DDR走线延迟/偏斜预算",
+    "最终DDR PHY/板外I/O约束和应用实现签核",
+    "Physical key/coldboot and new-adapter/nonzero-ID/CPU-NPU concurrency/separate bandwidth qualification belong to their downstream tasks"
+  ],
+  "references": "docs/spec/pds-board-references.md",
+  "source_catalog": "docs/sources/logicmatrix/catalog.json",
+  "qualification_tasks": [
+    "T22",
+    "T23",
+    "T24"
+  ],
+  "uart": {
+    "device": "CP2102 USB to UART Bridge",
+    "vid_pid": "10c4:ea60",
+    "serial_number": "0001",
+    "windows_port": "COM10",
+    "connected": true,
+    "driver": "Silicon Labs11.2.0.167; Windows Update exact matching device install; Code0",
+    "driver_evidence": "evidence/T22_VENDOR/standard-200pro-20261010-v1/cp210x-driver-v2/cp210x-update-result.json",
+    "board_receive_function_verified": false,
+    "scope": "Current T23 same-image passive CP2102 capture:3999.985s,CRC0/dropped0;board RX/bootloader not qualified",
+    "board_transmit_observed": true,
+    "transmit_evidence": "evidence/T23_BOARD/adapter-qualified-window-20261012-v10-pds2024/uart.json",
+    "native_fpga_configuration_supported": false,
+    "configuration_feasibility_evidence": "evidence/T22_UART/uart-feasibility-20261011-v1/manifest.json"
+  },
+  "qualification_update_20261011": {
+    "component": "evidence/T22/platform-20261012-v1/manifest.json",
+    "minimum_implementation": "evidence/T22_MINIMAL/minimum-20261011-v2/manifest.json",
+    "timing_coverage": "evidence/T22_TIMING/coverage-20261011-v2/coverage-summary.json",
+    "report": "docs/reports/T22.md",
+    "full_phy_timing_qualification": false,
+    "status": "DONE",
+    "minimum_board": "evidence/T22_BOARD/minimum-final-restore-20261011-v2/manifest.json",
+    "latest_native_replay": "evidence/T22_BOARD/native110-current-uart-20261012-v1/manifest.json",
+    "uart_configuration_feasibility": "evidence/T22_UART/uart-feasibility-20261011-v1/manifest.json",
+    "formal_acceptance": "evidence/T22_ACCEPTANCE/qualification-20261012-v3-platform/qualification.json",
+    "delivery": "evidence/T22_DELIVERY/platform-complete-20261012-v1/manifest.json",
+    "latest_jtag_configuration": "evidence/T22_BOARD/large-retry-program-20261012-v1/manifest.json",
+    "latest_readonly_ddr_indications": "evidence/T22_BOARD/large-retry-sample-20261012-v1/sample-summary.json"
+  },
+  "jtag_retry_20261012": {
+    "date": "2026-10-12",
+    "authority": "重新尝试",
+    "status": "PASS_JTAG_CONFIGURATION_AND_READONLY_DDR_INDICATIONS_ONLY",
+    "scope": "Exact frozen native110-v7 volatile CRAM retry; no new UART capacity/stress qualification",
+    "programming": "evidence/T22_BOARD/large-retry-program-20261012-v1/manifest.json",
+    "programming_summary": "evidence/T22_BOARD/large-retry-program-20261012-v1/programming-summary.json",
+    "sample": "evidence/T22_BOARD/large-retry-sample-20261012-v1/sample-summary.json",
+    "idcode": "0x10603899",
+    "sbit_sha256": "1245a1ea797bc89d8da69d67e6d61ff5520a694f4e548d280b926cee436d680d",
+    "svf_sha256": "7fe34dd1b9dc362a765c657fc799615d2d31ffbe57f0ad928b03384aec3c4a0f",
+    "requested_tck_hz": 100000,
+    "elapsed_s": 533.156,
+    "done": true,
+    "post_status_register": "0x81ffca0",
+    "sample_count": 30,
+    "init_cpd_pll_observed_high": true,
+    "error_indication_low": true,
+    "heartbeat_toggled": true,
+    "uart_available": false,
+    "ddr_uart_replay_performed": false,
+    "new_capacity_stress_qualified": false,
+    "flash_modified": false,
+    "full_phy_timing_qualification": false,
+    "formal_task_status": "ACTIVE",
+    "formal_acceptance_waived": false,
+    "current_loaded_configuration": "FROZEN_NATIVE110_V7",
+    "unrelated_task_board_policy_changed": false
+  },
+  "t22_platform_acceptance_20261012": {
+    "date": "2026-10-12",
+    "status": "DONE",
+    "acceptance_scope": "T22_PLATFORM_BRINGUP_AND_MINIMUM_IMPLEMENTATION",
+    "authority": "User asked to continue T22 and corrected excessive scope/upgrade requirements; align T22 platform/minimum-engineering DoD with T30 final implementation ownership",
+    "formal_acceptance": "evidence/T22_ACCEPTANCE/qualification-20261012-v3-platform/manifest.json",
+    "qualification": "evidence/T22_ACCEPTANCE/qualification-20261012-v3-platform/qualification.json",
+    "component": "evidence/T22/platform-20261012-v1/manifest.json",
+    "component_checks": 82817,
+    "component_cases": 4,
+    "negative_controls": 4,
+    "current_native_replay": "evidence/T22_BOARD/native110-current-uart-20261012-v1/manifest.json",
+    "current_native_functional": "evidence/T22_BOARD/native110-current-uart-20261012-v1/functional-summary.json",
+    "current_uart_window_s": 149.781,
+    "current_verified_pass_delta": 8,
+    "current_crc_errors": 0,
+    "current_dropped_frames": 0,
+    "full_phy_timing_qualification": false,
+    "downstream_timing_task": "T30",
+    "downstream_open_items": [
+      "DDC/WCLK硬宏及rc3 pre-silicon模型的完整时序覆盖",
+      "QN3B256M16H-16A的AC数据手册与核心板V1.2 DDR走线延迟/偏斜预算",
+      "最终DDR PHY/板外I/O约束和应用实现签核"
+    ],
+    "tool_version_retained": "2022.2-rc3/build113398",
+    "tool_upgrade_required_for_t22": false,
+    "flash_modified": false,
+    "new_hour_stress_performed": false,
+    "historical_hour_evidence": "evidence/T23_NATIVE/native110-full1g-stress-20261010-v1/manifest.json",
+    "reported_ddr_identity": "evidence/T22_BOARD_IDENTITY/qchip-20261012-v1/user-readback.json",
+    "archive_timing_audit": "evidence/T22_BOARD_DOCS/archive-timing-audit-20261012-v1/archive-timing-audit.json",
+    "unrelated_task_board_policy_changed": false
+  },
+  "current_t23_image": {
+    "status": "PROGRAMMED_AND_FUNCTIONALLY_QUALIFIED_VOLATILE_CRAM",
+    "image_sha256": "d0d77d7761e1e7eb1e653ba12ec2d0c276e61ed497cd99fe457a17d949c37372",
+    "evidence": "evidence/T23_BOARD/adapter-qualified-window-20261012-v10-pds2024/manifest.json",
+    "tool": "PDS2024.2 build178169",
+    "flash_modified": false,
+    "recovery_baseline": "evidence/T22_NATIVE_IMPL/rc3-native110-20261010-v7-full1g/manifest.json"
+  },
+  "latest_ce64_readonly_preflight": {
+    "evidence": "evidence/CE64_READINESS/ce64-s0-readiness-20261013-v2/manifest.json",
+    "idcode": "0x10603899",
+    "adapter_serial": "ATK 20210914",
+    "done": false,
+    "status_register": "0x180c80",
+    "uart": "COM10 / 10c4:ea60 / serial 0001",
+    "programming_performed": false,
+    "flash_modified": false,
+    "scope": "Live exact target and serial enumeration only; prior T23 image qualification is historical, current target is unconfigured",
+    "complete_ddr_physical_gate": "BLOCKED_MISSING_INPUT",
+    "missing_inputs": [
+      "QN3B256M16H-16A exact AC datasheet",
+      "CORE V1.2 DDR trace-delay/skew budget"
+    ]
+  },
+  "current_t25_image": {
+    "snapshot_at": "2026-10-16T07:41:35.630457+00:00",
+    "status": "VOLATILE_T25_FULL_MODEL_TEXT_BOUNDARIES_AND_RELOAD_PASS_ACCEPTANCE_OPEN",
+    "image_sha256": "bc102306c160ecf945b470540881177ba480b446a28f6ae76bfd7fe19c9c8053",
+    "evidence": "evidence/T25_BOARD/t25-sd-board-20261015-v1/manifest.json",
+    "scope": "T25 new SD candidate only; overall acceptance remains ACTIVE",
+    "physical_qualification": false,
+    "flash_modified": false,
+    "sd_reference_execution": "User explicitly selected V1.2 SD pins/3.3V on reported V1.4 physical board; no measured revision-equivalence claim",
+    "active_controller": null,
+    "active_controller_pid": null,
+    "terminal_collector_pid": null,
+    "unrelated_task_board_policy_changed": false,
+    "sessions_evidence": "evidence/T25_SESSION_RECOVERY/t25-sessions-recovery-20261016-v1/manifest.json",
+    "remaining_acceptance_gates": [
+      "current-image-ddr",
+      "operator-and-peak-memory",
+      "t19-regression-terminal"
+    ]
+  }
+}

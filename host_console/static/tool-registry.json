@@ -1,0 +1,16 @@
+{
+  "schema": "registered-code-package-v1",
+  "tool": "twinkle",
+  "package": "twinkle_v1",
+  "entrypoint": "tool_packages.twinkle_v1.run",
+  "arguments": {
+    "effect": "twinkle",
+    "bpm": 120,
+    "repeat": 1
+  },
+  "mask": 45,
+  "files": {
+    "tool_packages/twinkle_v1.py": "76c52804e761448246e1c40bf0862798eb3cea028b143affea94df3dfc64051a",
+    "twinkle_plan.py": "acd5974917885c73da30259f2965e12b5fc7feb4b9fd7c9aff976fa15aad05b6"
+  }
+}

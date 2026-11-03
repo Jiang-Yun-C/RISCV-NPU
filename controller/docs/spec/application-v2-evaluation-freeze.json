@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "frozen_at": "2026-10-03T06:04:37.999076+00:00",
+  "files": {
+    "configs/application_v2/prompt.txt": "656bffb4827f5bd89a1db744f284018c49d020d67d9eb7dd4f7dd0c0dba252a8",
+    "configs/application_v2/release.json": "c38c180f12d5dd6d4d2c0fde6c044f70a314e656bff3226b782c8062c5687676",
+    "configs/application_v2/train.json": "28d98e8263b04ca8a26d98720e5946181f3f076d21807961740fdc9b84c212e1",
+    "docs/spec/application-v2-contract.md": "5c81c65345b117a348558c2256aa7eb9fa3efe3d1f79c07231180cba16103fd6",
+    "docs/spec/application-v2-model-lock.json": "e22708f98a6bd9bf8f013e57126f275a2a65b5086e7bc9279a0d528272e94f66",
+    "docs/spec/python-requirements.lock.txt": "debc28df5dce80b70a9e2ce5b54905bd3bf6b0e6b1b884045a7623dfe9df0f24",
+    "docs/spec/t02-model-lock.json": "c3e9f05a90421a04e7b512b676c573d94ab3be43339d6d4031ab4495e18b89e9",
+    "scripts/application_v2/common.py": "5577bb99c63096a2fd17d9419a6d7c171720d281e35f8bb312426d16d961c748",
+    "scripts/application_v2/evaluate.py": "710e9c3549badddd06042b925c77893c088f9249c1921b9521a739c3ce606ffb",
+    "scripts/application_v2/freeze.py": "f116e0db56362521ae045f2b6f6dd6047619affb6e6f95ade8138878db0c99c0",
+    "scripts/application_v2/lora.py": "cdca24ca5f15abfb4cc9b24b01ffa68dcabb09b40aa0f52ec40768897dccfdf0",
+    "scripts/application_v2/prepare_release.py": "5c9da7090506edcd0671fddf9defcd86c8b3089ef0cc46124f67d753fdde8ad6",
+    "scripts/application_v2/run_eval.py": "4b1dc448e4e34565753ce0cca5b4af926a73f29b82394fbcb41a25282edd309f",
+    "scripts/application_v2/run_train.py": "e700515660fcd07c4d0a4eb6ce34f02e8617733fd62b4528b83d1687b651ec44",
+    "scripts/application_v2/train.py": "d0f4c8585f610a6b8a2ea2bfc476faaeb567d5df6f7f7d9d479bfd9bb3383e3a",
+    "scripts/evidence.py": "7c1849aa7b2ad8eb6c109005a3fe9693e30543975d1cf08c13b2c1924acd730f",
+    "software/application_v2/__init__.py": "ea8eaf74aee575bc884caf7b8f87fd859c078e91704fb85db3a5df550437d814",
+    "software/application_v2/program.py": "03a8cf1eff9dd96a8a720e3a9071e853d67cae9926205932f1c3f17665bd2d35",
+    "tests/application/v2/build_dataset.py": "b7dde0f8877789b059453370ac10a809abdd7a8cb8d8c01246934b8ba4275a4c",
+    "tests/application/v2/dataset-lock.json": "8e3edb5d612eecc5335aa3fedd25b17aea11f12789b550d2990547e5c73a0304",
+    "tests/application/v2/dev.jsonl": "d46915309b3dca23c033f910e423cdd35bf09c0f20cf6b5505f0ccf0350082bc",
+    "tests/application/v2/heldout.jsonl": "cc9677b15e8ddf9d587f08d0d56c723476a0ddf442030622f881a331d38ae397",
+    "tests/application/v2/test_program.py": "d78effbea63b2f8b749acee716f1caa323c1a30ba175ca0db670adee46eea556",
+    "tests/application/v2/train.jsonl": "2a54dea987729abec757cdb3c6f5dda9cf3049a1f540b3733baf1f0e8f570975"
+  },
+  "dev_run": "evidence/T02_V2/20261003T060239.174986Z-53d397a7",
+  "dev_manifest_sha256": "77552389fc5349c44783c60aa7ceed5b4535faf186310c6e5045f9d4a7099f22",
+  "policy": "No tuning or model selection from v2 heldout"
+}

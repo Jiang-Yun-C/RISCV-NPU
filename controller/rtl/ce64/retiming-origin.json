@@ -1,0 +1,7 @@
+{
+  "source": "rtl/ce64/vendor/fpnew_fma.sv",
+  "sha256": "13ffbd20cadf7595f2d970b656ed52c262698d1760edfda0c1d204d0d45c1775",
+  "method": "Two elastic checkpoints: product/aligned addend; normalization shift control. Arithmetic and rounding expressions preserved. External reg_ena unused/tied zero in wrapper.",
+  "extra_latency_cycles": 2,
+  "unproven": "General FMA/other formats/external enable override; only fixed FP32 RNE MUL/ADD CE64 instances tested."
+}

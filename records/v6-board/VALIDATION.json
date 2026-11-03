@@ -1,0 +1,108 @@
+{
+  "schema": "demo-v6-board-validation-v1",
+  "status": "PASS_V6_BOARD_APPLICATION_EVIDENCE_WITH_OPEN_FABRIC_OPTICAL",
+  "source_content_id": "3ebbf449cb622e28baa59e02e02da20ba79a4a4b03d3278aacfa650ecbcb413a",
+  "deployment_content_id": "8ef3ff0698423c55cb41c06fce036b6e1a0a8bf0d06bfbac48a602b96f517451",
+  "checks": {
+    "assets_and_CoreMark_recovery": "PASS",
+    "maintenance_CRAM": "PASS",
+    "SD_transaction_full_digest_neighbor_backup_DISARM": "PASS",
+    "main_CRAM_single_attempt": "PASS",
+    "fresh_authenticated_boot_memory_sealed": "PASS",
+    "bitwise_W_158080_words": "PASS",
+    "real_model_natural_on_off_JSON_EOS_CPU_reports_readback": "PASS",
+    "ordinary_real_question_no_new_LED_authority": "PASS",
+    "blink_enabled_across_model_and_cancel_tests": "PASS",
+    "continuous_LED_pin_waveform_during_model": "NOT_OBSERVED",
+    "prefill_decode_cancel_matched_ABORT_END_READY_next_real_request": "PASS",
+    "repeated_expired_cancel_at_READY": "PASS",
+    "active_simultaneous_duplicate_cancel": "NOT_RUN",
+    "invalid_commands_and_line_overflow": "PASS",
+    "safe_timeout_recovery_next_real_request": "PASS",
+    "unknown_action_request_model_reject_UNSUPPORTED_CPU_zero_writes": "PASS",
+    "NPU_numeric_overflow_fault_injection": "NOT_RUN_NO_SAFE_PRODUCTION_ENTRY",
+    "store_access_fault": "NOT_RUN_NO_SAFE_PRODUCTION_ENTRY",
+    "Fabric_native_service_connection": "PASS",
+    "Fabric_cable_scan": "FAIL_NO_CABLE_IN_SERVICE_HOST",
+    "Fabric_LED_NPU_ISR_cancel_raw_waveforms": "NOT_RUN",
+    "physical_LED_optical": "NOT_OBSERVED",
+    "final_OFF_owned45_READY_0x307_handles_locks": "PASS",
+    "ISR_latency_poll_count_tick_error": "UNKNOWN",
+    "full_production_dynamic_stack_worst_case": "UNKNOWN"
+  },
+  "counts": {
+    "maintenance_attempts": 1,
+    "maintenance_completed": 1,
+    "media_transactions": 1,
+    "media_completed": 1,
+    "main_attempts": 1,
+    "main_completed": 1,
+    "model_load_triggers": 1,
+    "authenticated_model_loads": 1,
+    "cumulative_main_attempts": 11,
+    "cumulative_main_completed": 10,
+    "cumulative_model_load_triggers": 9
+  },
+  "final_state": {
+    "status": "PASS",
+    "epoch": 1793661696.151819,
+    "UART_lock_absent": true,
+    "board_lock_acquirable": true,
+    "configuration": "V6",
+    "READY": true,
+    "LED_values": 0,
+    "LED_owned": 45,
+    "main_configurations_this_run": 1,
+    "model_loads_this_run": 1,
+    "automatic_CoreMark_restore": false,
+    "Flash_writes": 0,
+    "NVM_writes": 0,
+    "extra_reset": 0,
+    "reload": 0,
+    "Windows_workers_closed": {
+      "status": "PASS_NO_ACTIVE_OWNED_WINDOWS_WORKERS",
+      "processes": [
+        {
+          "pid": 19968,
+          "alive": false,
+          "OS_error": 87
+        },
+        {
+          "pid": 36540,
+          "alive": false,
+          "OS_error": 87
+        },
+        {
+          "pid": 51984,
+          "alive": false,
+          "OS_error": 87
+        },
+        {
+          "pid": 20696,
+          "alive": false,
+          "OS_error": 87
+        },
+        {
+          "pid": 40156,
+          "alive": false,
+          "OS_error": 87
+        },
+        {
+          "pid": 21264,
+          "alive": false,
+          "OS_error": 87
+        },
+        {
+          "pid": 56484,
+          "alive": false,
+          "OS_error": 87
+        }
+      ],
+      "hardware_handles_opened": false,
+      "checked_epoch": 1793661694.8010466
+    }
+  },
+  "production_GO": false,
+  "full_application_model_and_cancel_functional_chain": "PASS_WITH_DECLARED_OBSERVATION_GAPS",
+  "all_user_requirements_closed": false
+}

@@ -1,0 +1,1 @@
+CPU独立测频已完成。最高目标231MHz全十表PASS，SetupSlow+0.097ns；最近更高已测232MHz失败-0.003ns。CPU源CID3ebbf449cb622e28baa59e02e02da20ba79a4a4b03d3278aacfa650ecbcb413a不变，44seed全部结束，本轮物理0。使用verify_cpu_v2.py；原验收tuple/list误拒绝及所有失败保留，禁止重启已完成EDA/探针。SUMMARY与原ARTIFACTS仍为测量绑定，closeout-v2为独立验收补充。

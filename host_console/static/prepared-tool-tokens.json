@@ -1,0 +1,135 @@
+{
+  "schema": "verified-model-tool-tokens-v1",
+  "source": "PREGENERATED_REAL_BOARD_TOKENS",
+  "is_live_inference": false,
+  "entry_id": "dc-3a29cf3302e8bef0575574964ac13b3724e6c3298bbf9e9e0f9e967cadd171bf",
+  "original_uart_sha256": "80ec886834cf06165a0d4ad2c222c739d140aa83eed53a2656e0d23947a81836",
+  "observed_identity": {
+    "model": "f55c1a1efd0188a3b792e695fb9f404080f0ffd10cae44d1831b595af6b37f71",
+    "tokenizer": "b0c60e70506c92e541c550f6e467eb60827f71415a16bf5cdf19d868535de6f1"
+  },
+  "tool": "twinkle",
+  "arguments": {
+    "effect": "twinkle",
+    "bpm": 120,
+    "repeat": 1
+  },
+  "tokens": [
+    {
+      "index": 1,
+      "token_id": 58,
+      "text_hex": "5b",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=0000000000000001 ticks=0000000336f7d951 token=000000000000003a error=0000000000000000 data=-"
+    },
+    {
+      "index": 2,
+      "token_id": 4913,
+      "text_hex": "7b22",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=0000000000000002 ticks=000000035a1708f0 token=0000000000001331 error=0000000000000000 data=-"
+    },
+    {
+      "index": 3,
+      "token_id": 26061,
+      "text_hex": "656666656374",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=0000000000000003 ticks=000000037d637672 token=00000000000065cd error=0000000000000000 data=-"
+    },
+    {
+      "index": 4,
+      "token_id": 3252,
+      "text_hex": "223a22",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=0000000000000004 ticks=00000003a0e88eb1 token=0000000000000cb4 error=0000000000000000 data=-"
+    },
+    {
+      "index": 5,
+      "token_id": 15560,
+      "text_hex": "7477",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=0000000000000005 ticks=00000003c4a34642 token=0000000000003cc8 error=0000000000000000 data=-"
+    },
+    {
+      "index": 6,
+      "token_id": 35144,
+      "text_hex": "696e6b6c65",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=0000000000000006 ticks=00000003e8924dd4 token=0000000000008948 error=0000000000000000 data=-"
+    },
+    {
+      "index": 7,
+      "token_id": 2198,
+      "text_hex": "222c22",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=0000000000000007 ticks=000000040cb63cc9 token=0000000000000896 error=0000000000000000 data=-"
+    },
+    {
+      "index": 8,
+      "token_id": 65,
+      "text_hex": "62",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=0000000000000008 ticks=00000004311029f5 token=0000000000000041 error=0000000000000000 data=-"
+    },
+    {
+      "index": 9,
+      "token_id": 5187,
+      "text_hex": "706d",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=0000000000000009 ticks=00000004559fa496 token=0000000000001443 error=0000000000000000 data=-"
+    },
+    {
+      "index": 10,
+      "token_id": 788,
+      "text_hex": "223a",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=000000000000000a ticks=000000047a64a241 token=0000000000000314 error=0000000000000000 data=-"
+    },
+    {
+      "index": 11,
+      "token_id": 16,
+      "text_hex": "31",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=000000000000000b ticks=000000049f5ddc23 token=0000000000000010 error=0000000000000000 data=-"
+    },
+    {
+      "index": 12,
+      "token_id": 17,
+      "text_hex": "32",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=000000000000000c ticks=00000004c48de0fc token=0000000000000011 error=0000000000000000 data=-"
+    },
+    {
+      "index": 13,
+      "token_id": 15,
+      "text_hex": "30",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=000000000000000d ticks=00000004e9f0e4bc token=000000000000000f error=0000000000000000 data=-"
+    },
+    {
+      "index": 14,
+      "token_id": 1335,
+      "text_hex": "2c22",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=000000000000000e ticks=000000050f8a86bf token=0000000000000537 error=0000000000000000 data=-"
+    },
+    {
+      "index": 15,
+      "token_id": 30624,
+      "text_hex": "726570656174",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=000000000000000f ticks=00000005355c6ed0 token=00000000000077a0 error=0000000000000000 data=-"
+    },
+    {
+      "index": 16,
+      "token_id": 788,
+      "text_hex": "223a",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=0000000000000010 ticks=000000055b65123e token=0000000000000314 error=0000000000000000 data=-"
+    },
+    {
+      "index": 17,
+      "token_id": 16,
+      "text_hex": "31",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=0000000000000011 ticks=0000000581a2087e token=0000000000000010 error=0000000000000000 data=-"
+    },
+    {
+      "index": 18,
+      "token_id": 25439,
+      "text_hex": "7d5d",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=0000000000000012 ticks=00000005a811d397 token=000000000000635f error=0000000000000000 data=-"
+    },
+    {
+      "index": 19,
+      "token_id": 151645,
+      "text_hex": "",
+      "original_token_line": "T25 STREAM 1 TOKEN session=000000000000000f sequence=0000000000000001 index=0000000000000013 ticks=00000005ceb59019 token=000000000002505d error=0000000000000000 data=-"
+    }
+  ],
+  "verified_eos": true,
+  "original_captured_at": "2026-11-02T03:03:09.564Z"
+}

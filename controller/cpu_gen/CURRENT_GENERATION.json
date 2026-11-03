@@ -1,0 +1,40 @@
+{
+  "selected_RTL": "t27/cpu/T09Cpu.v",
+  "profile": "hard lru btb 16 8",
+  "generated_sha256": "76975e1d69cbe2f105b23208225f2c34c5bbe5c3911edad3ed1a3156f4f17075",
+  "original_generation_receipt": {
+    "scope": "RTL generation only, not physical timing or benchmark",
+    "upstream_sha256": "344f4177144e96cffdeab5230c688e443644df9fb0f7bc65f278126e509343d7",
+    "patches": {
+      "001-reconstructed-t09-baseline.patch": "b640db0a89726aaf66bc0d92ca4a03f399c1f5309ceb85b13a2c9f552c4c1744",
+      "002-per-set-cache-and-btb-reset.patch": "392abca0c42b0c8588d33cabe3c957c3eafcf6369e1dac0bc941bdf988b28289",
+      "003-precise-store-machine-traps.patch": "a2131a96a5206f15410e7624710009fa9582838c76f370243b9e97aca4c39bba"
+    },
+    "generator_sha256": "c0fc3d1772b9d99aeacf1985d795ad03fe03aa8d9374c4d04695c964d323ee60",
+    "build_sbt_sha256": "db5031935698c6d86a9b71a0315da1c47c8a2a5301ba52c5eb8b2af1066bc477",
+    "command": [
+      "sbt",
+      "-Dnexusrv.vex.source=/home/Jiang/RISCV+NPU/evidence/DEMO_V6_IRQ/20261102-v1/cpu-generate-r4/upstream/VexRiscv-baf7dc82f855eddaf5b0a20a6802c526f127e38a",
+      "-J-Xmx2G",
+      "-batch",
+      "runMain nexusrv.GenT09 /home/Jiang/RISCV+NPU/evidence/DEMO_V6_IRQ/20261102-v1/cpu-generate-r4/lru_btb hard lru btb 16 8"
+    ],
+    "exit_code": 0,
+    "host_seconds": 40.460926244966686,
+    "cache_kib_each": 16,
+    "ways": 2,
+    "line_bytes": 32,
+    "history_log2": 8,
+    "variants": {
+      "lru_btb": {
+        "replacement": "lru",
+        "prediction": "btb",
+        "files": {
+          "T09Cpu.v": "76975e1d69cbe2f105b23208225f2c34c5bbe5c3911edad3ed1a3156f4f17075",
+          "T09Cpu.v_toplevel_RegFilePlugin_regFile.bin": "b8b891b81fd1c062082faf97533834198d8a4c4b6867899d6218712132a8ed38"
+        }
+      }
+    }
+  },
+  "historical_generated_directory_not_selected": true
+}

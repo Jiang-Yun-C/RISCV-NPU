@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "candidate": "CE64_B_OPT06_08_09_10_13_SHARED_SFU2_OPT11_12",
+  "base": "build/OPT05/opt05-freeze-20261019-v6/repo",
+  "frozen_parent": "evidence/OPT05/opt05-freeze-20261019-v6",
+  "overlays": ["opt08", "opt09", "opt10", "opt11", "opt12", "opt13"],
+  "switches": {
+    "SW_SCALE_BURST": 1,
+    "M1_OUTPUT_PACK": 1,
+    "SA_SCALE_BURST": 1,
+    "WEIGHT_ROW_BURST": 1,
+    "M4_OUTPUT_PACK": 1,
+    "OPT11_LANES": 2,
+    "prefill_rows": 4,
+    "decode_rows": 1,
+    "native_drain_cycles": 1024,
+    "physical_scratch_ports": 1,
+    "cpu_dma_overlap": false,
+    "approximate_swiglu": false,
+    "streaming_argmax": false,
+    "gemmini": false
+  },
+  "clock_hz": 125000000,
+  "seed": {"gplace": 2, "groute": 2},
+  "numeric_contract": "w8a8-g64-fp32-v1",
+  "optional_items_selected": [],
+  "negative_decision_policy": "A source-verified necessary latency lower bound above the frozen target is sufficient for NO_GO; unknown release gates remain NOT_RUN or BLOCKED and never PASS.",
+  "release_qualification_required_for_GO": ["complete_model_numeric_and_final_quality", "automatic_shared_sfu_model_scheduling", "real_cpu_driver_guard_native_matrix", "stack_and_memory", "lint_cdc_rdc", "whole_soc_resources", "ten_timing_tables_tns_unconstrained_drc", "calibrated_phase_predictions"],
+  "board_execution": false
+}

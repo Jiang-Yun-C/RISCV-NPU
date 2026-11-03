@@ -1,0 +1,4 @@
+/* Generated from this build's actual source inventory and options. */
+#define T27_TEMPLATE_SHA256 "8288b10c3238f4c707a4d60da6915eb4c63fd460e3dd2621e0d09f413c8d849d"
+#define T27_NUMERIC_SHA256 "0b35d49d01400f9341107ecfe244c5e5c73f3655d5bfb7e5f50797cd34200d5d"
+#define T27_BACKEND_SHA256 "3057db84c61e151e50d30ab906ae4e0884b539e3b41d5f2f94f93c22c4070b7e"

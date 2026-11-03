@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "interpreter": "/home/Jiang/.local/opt/nexusrv-python/bin/python",
+  "venv": "/home/Jiang/.local/opt/nexusrv-python",
+  "cocotb": "2.1.0",
+  "python_abi": "3.11",
+  "files": {
+    "vpi": {
+      "path": "/home/Jiang/.local/opt/nexusrv-python/lib/python3.11/site-packages/cocotb/libs/libcocotbvpi_vcs.so",
+      "sha256": "042dd08c4cba9eb5f824971b01541038ad38e1e4d5b595f33039459f25c12139"
+    },
+    "libpython": {
+      "path": "/usr/lib64/libpython3.11.so.1.0",
+      "sha256": "4b4889c149fdccfcc810273d0c480b8f6a67a91437c895cb45fab3a60beee310"
+    },
+    "pygpi": {
+      "path": "/home/Jiang/.local/opt/nexusrv-python/lib/python3.11/site-packages/cocotb/simulator.cpython-311-x86_64-linux-gnu.so",
+      "sha256": "a45fc1dfb15f0a27bf8a99fc701ab9bca12e2985cf04283e6e30e1d29d41f04e"
+    }
+  },
+  "note": "CLI and embedded sys.version report 3.11.13; the VPI bootstrap banner reports 3.11.14. Actual embedded executable/prefix are the project venv and Python 3.11 ABI, cocotb 2.1.0. Both banner and runtime observations are retained, and exact VPI/Python shared-library identities are locked here."
+}

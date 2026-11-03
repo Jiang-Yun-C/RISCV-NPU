@@ -1,0 +1,45 @@
+// Optional passive debug pack, NOT instantiated in the production CPU or SoC.
+// Connect its output only to a same-clock hardware ILA. No functional feedback.
+// Bit positions and actual T09 net mapping are documented in README.md.
+module t09_ila_probe_pack (
+    input wire [31:0] fetch_response_pc,
+    input wire [31:0] decode_pc,
+    input wire [31:0] execute_pc,
+    input wire [31:0] memory_pc,
+    input wire [31:0] writeback_pc,
+    input wire [31:0] retire_instruction,
+    input wire [4:0] valid_mask,
+    input wire [4:0] stuck_mask,
+    input wire [4:0] fire_mask,
+    input wire [3:0] remove_mask,
+    input wire fetch_flush,
+    input wire retire,
+    input wire execute_stall,
+    input wire conditional_branch,
+    input wire mispredict,
+    input wire [2:0] pending_writes,
+    input wire data_bus_hazard,
+    input wire data_refilling,
+    input wire execute_memory_enable,
+    input wire execute_memory_write,
+    input wire [6:0] axi_fire_mask,
+    input wire [6:0] axi_backpressure_mask,
+    input wire i_r_valid,
+    input wire d_r_valid,
+    input wire d_b_valid,
+    input wire reset,
+    input wire i_r_last,
+    input wire d_r_last,
+    input wire rom_enable,
+    output wire [255:0] probe
+);
+    assign probe = {12'b0, rom_enable, d_r_last, i_r_last, reset,
+                    d_b_valid, d_r_valid, i_r_valid,
+                    axi_backpressure_mask, axi_fire_mask,
+                    execute_memory_write, execute_memory_enable,
+                    data_refilling, data_bus_hazard, pending_writes,
+                    mispredict, conditional_branch, execute_stall, retire,
+                    fetch_flush, remove_mask, fire_mask, stuck_mask, valid_mask,
+                    retire_instruction, writeback_pc, memory_pc, execute_pc,
+                    decode_pc, fetch_response_pc};
+endmodule

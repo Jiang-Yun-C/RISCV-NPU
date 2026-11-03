@@ -1,0 +1,14 @@
+{
+  "origin": "firmware/boot/sd_loader/main.c",
+  "origin_sha256": "5602b88c6d3569a90c178037b96d7cbe9a8e72d5b5d33bddb0177f436598caa8",
+  "port_sha256": "75010aa69dda8a7f1d76d3786fa0eb13914b7cb74f62c17c053bfb4e9496d3cd",
+  "changes": [
+    "sector transport",
+    "aligned final-address stores",
+    "DDR stores fenced, cache invalidated, every stored byte read back before next-sector ACK",
+    "architecture-guarded fences",
+    "model observation callback",
+    "seal/final ACK/START/entry",
+    "Fixed application base/entry 0xb4000000 and 8MiB application limit enforced on board"
+  ]
+}

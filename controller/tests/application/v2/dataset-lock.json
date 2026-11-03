@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "files": {
+    "train.jsonl": {
+      "sha256": "2a54dea987729abec757cdb3c6f5dda9cf3049a1f540b3733baf1f0e8f570975",
+      "count": 2048,
+      "categories": {
+        "single": 384,
+        "conditional": 512,
+        "multi": 512,
+        "synonym": 256,
+        "illegal_device": 256,
+        "out_of_range": 128
+      },
+      "unique_instructions": 1058
+    },
+    "dev.jsonl": {
+      "sha256": "d46915309b3dca23c033f910e423cdd35bf09c0f20cf6b5505f0ccf0350082bc",
+      "count": 50,
+      "categories": {
+        "single": 10,
+        "conditional": 10,
+        "multi": 10,
+        "synonym": 10,
+        "illegal_device": 5,
+        "out_of_range": 5
+      },
+      "unique_instructions": 40
+    },
+    "heldout.jsonl": {
+      "sha256": "cc9677b15e8ddf9d587f08d0d56c723476a0ddf442030622f881a331d38ae397",
+      "count": 200,
+      "categories": {
+        "single": 40,
+        "conditional": 40,
+        "multi": 40,
+        "synonym": 40,
+        "illegal_device": 20,
+        "out_of_range": 20
+      },
+      "unique_instructions": 115
+    }
+  },
+  "policy": "train-only gradient updates; dev-only model selection; heldout unopened for inference until release freeze; v1 heldout never reused for selection"
+}

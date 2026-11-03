@@ -1,0 +1,32 @@
+{
+  "schema": "competition-topic1-public-dev-v1",
+  "scope": "Authored public development diagnostics. Not heldout, not a replacement for frozen T02/T31 sets, not real sensor readings.",
+  "max_new": 128,
+  "prompt_prefix": "只输出JSON程序数组，不要解释或代码围栏。支持[\"led\",0或1]、[\"pwm\",整数百分比]、[\"read\",\"temperature\"或\"light\"]，条件为[\"if\",传感器,比较符,整数阈值,then数组,else数组]，比较符仅>,<,>=,<=。保留完整条件与两分支，不要按当前状态删除条件。未支持设备输出[[\"reject\",\"UNSUPPORTED\"]]；越界PWM保留原整数交由校验器拒绝。按指令顺序组成程序。",
+  "cases": [
+    {"id":"sem-01","category":"single","instruction":"把LED设为亮。","state":{"temperature":24,"light":400},"program":[["led",1]]},
+    {"id":"sem-02","category":"single","instruction":"把LED设为灭。","state":{"temperature":24,"light":400},"program":[["led",0]]},
+    {"id":"sem-03","category":"single","instruction":"把PWM占空比设成0%。","state":{"temperature":24,"light":400},"program":[["pwm",0]]},
+    {"id":"sem-04","category":"single","instruction":"把PWM占空比设成25%。","state":{"temperature":24,"light":400},"program":[["pwm",25]]},
+    {"id":"sem-05","category":"single","instruction":"把PWM占空比设成100%。","state":{"temperature":24,"light":400},"program":[["pwm",100]]},
+    {"id":"sem-06","category":"readout","instruction":"读取temperature。","state":{"temperature":-3,"light":400},"program":[["read","temperature"]]},
+    {"id":"sem-07","category":"readout","instruction":"读取light。","state":{"temperature":24,"light":517},"program":[["read","light"]]},
+    {"id":"sem-08","category":"ordered_actions","instruction":"依次点亮LED、将PWM设为37%、读取temperature。","state":{"temperature":26,"light":400},"program":[["led",1],["pwm",37],["read","temperature"]]},
+    {"id":"sem-09","category":"conditional","pair_id":"temperature_gt30","instruction":"如果temperature大于30，点亮LED，否则熄灭LED。","state":{"temperature":30,"light":400},"program":[["if","temperature",">",30,[["led",1]],[["led",0]]]]},
+    {"id":"sem-10","category":"conditional","pair_id":"temperature_gt30","instruction":"如果temperature大于30，点亮LED，否则熄灭LED。","state":{"temperature":31,"light":400},"program":[["if","temperature",">",30,[["led",1]],[["led",0]]]]},
+    {"id":"sem-11","category":"conditional","pair_id":"light_lt300","instruction":"如果light小于300，将PWM设为65%，否则设为15%。","state":{"temperature":24,"light":299},"program":[["if","light","<",300,[["pwm",65]],[["pwm",15]]]]},
+    {"id":"sem-12","category":"conditional","pair_id":"light_lt300","instruction":"如果light小于300，将PWM设为65%，否则设为15%。","state":{"temperature":24,"light":300},"program":[["if","light","<",300,[["pwm",65]],[["pwm",15]]]]},
+    {"id":"sem-13","category":"conditional","pair_id":"temperature_ge28","instruction":"如果temperature至少为28，则将PWM设为50%，否则不操作。","state":{"temperature":27,"light":400},"program":[["if","temperature",">=",28,[["pwm",50]],[]]]},
+    {"id":"sem-14","category":"conditional","pair_id":"temperature_ge28","instruction":"如果temperature至少为28，则将PWM设为50%，否则不操作。","state":{"temperature":28,"light":400},"program":[["if","temperature",">=",28,[["pwm",50]],[]]]},
+    {"id":"sem-15","category":"conditional","pair_id":"light_le200","instruction":"如果light不大于200，则点亮LED，否则不操作。","state":{"temperature":24,"light":200},"program":[["if","light","<=",200,[["led",1]],[]]]},
+    {"id":"sem-16","category":"conditional","pair_id":"light_le200","instruction":"如果light不大于200，则点亮LED，否则不操作。","state":{"temperature":24,"light":201},"program":[["if","light","<=",200,[["led",1]],[]]]},
+    {"id":"sem-17","category":"dual_condition","pair_id":"independent_conditions","instruction":"先判断temperature是否大于30，是则将PWM设为70%，否则设为10%；再独立判断light是否小于300，是则点亮LED，否则熄灭LED。","state":{"temperature":31,"light":299},"program":[["if","temperature",">",30,[["pwm",70]],[["pwm",10]]],["if","light","<",300,[["led",1]],[["led",0]]]]},
+    {"id":"sem-18","category":"dual_condition","pair_id":"independent_conditions","instruction":"先判断temperature是否大于30，是则将PWM设为70%，否则设为10%；再独立判断light是否小于300，是则点亮LED，否则熄灭LED。","state":{"temperature":30,"light":300},"program":[["if","temperature",">",30,[["pwm",70]],[["pwm",10]]],["if","light","<",300,[["led",1]],[["led",0]]]]},
+    {"id":"sem-19","category":"synonym","instruction":"PWM的目标占空比取满量程的四分之一。","state":{"temperature":24,"light":400},"program":[["pwm",25]]},
+    {"id":"sem-20","category":"ordered_actions","instruction":"先点亮LED，紧接着熄灭LED。","state":{"temperature":24,"light":400},"program":[["led",1],["led",0]]},
+    {"id":"sem-21","category":"unsupported","instruction":"打开窗帘电机。","state":{"temperature":24,"light":400},"program":[["reject","UNSUPPORTED"]]},
+    {"id":"sem-22","category":"unsupported","instruction":"读取湿度传感器。","state":{"temperature":24,"light":400},"program":[["reject","UNSUPPORTED"]]},
+    {"id":"sem-23","category":"range_rejection","instruction":"将PWM占空比设为101%。","state":{"temperature":24,"light":400},"program":[["pwm",101]]},
+    {"id":"sem-24","category":"range_rejection","instruction":"将PWM占空比设为-1%。","state":{"temperature":24,"light":400},"program":[["pwm",-1]]}
+  ]
+}

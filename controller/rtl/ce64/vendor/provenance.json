@@ -1,0 +1,12 @@
+{
+  "source": "exports/T24_PRO_REVIEW/architecture-review-20261013-v2/frozen_core/sources",
+  "files": {
+    "cf_math_pkg.sv": "74a1a111f485b122e2a69e7193c4723128e2112b1c793835cd9618feb6b05cfd",
+    "fpnew_pkg.sv": "30b753fab5c3edb90d194b228e22a47421191943a669274d2dc8c1128a154e27",
+    "fpnew_classifier.sv": "a20b49366806350e60d5c7a15805b69331c2aa9eb44f3702a62d386087510f8e",
+    "fpnew_rounding.sv": "de8a47c8e00d82e9aa2e7949d220090859b64fdcb36945b595ec0686a47185bf",
+    "fpnew_fma.sv": "13ffbd20cadf7595f2d970b656ed52c262698d1760edfda0c1d204d0d45c1775",
+    "lzc.sv": "1ed8d7a6ed2137ff4749ef2c8c3731c3aad372e10031d055e1b522ae6528f943",
+    "registers.svh": "ba879fa95e10ff63c5af5d8d8857994ac56b84d7c29cc8fc28779ad11504eabb"
+  }
+}

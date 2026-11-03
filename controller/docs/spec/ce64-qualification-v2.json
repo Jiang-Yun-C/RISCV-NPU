@@ -1,0 +1,256 @@
+{
+  "schema_version": 1,
+  "updated_utc": "2026-10-14T23:59:39.972502+00:00",
+  "qualification_scope": "CE64_S0_FIXED_BOARD_ENGINEERING",
+  "qualification": "CE64_S0_FIXED_BOARD_ENGINEERING_QUALIFIED",
+  "public_route_id": 2,
+  "capability_api_version": 2,
+  "profile": "S0",
+  "qualified_profile_mask": 1,
+  "B1_qualified": false,
+  "runtime_implemented": true,
+  "physical_qualification": true,
+  "clock_MHz": 125,
+  "native_write_drain_cycles": 1024,
+  "candidate_image_sbit_sha256": "3e74f0fa423fc8f9ae53bcd1ce633042cd58bdd025acaf644e13aef5144a5b31",
+  "candidate_firmware_rom_sha256": "1d15161987bc717bbd9030ee50708c8beec51a8734f4bc587a38e32e6fefc191",
+  "G5_corrected_rom_sha256": "ca7a1c492b6ac327fe00cc3cbf6af12e545c43fe0612ab4d5a66df46aba1a627",
+  "blocker": null,
+  "task_status": "DONE",
+  "default_API_v2_advertised_mask": 0,
+  "original_coral_qualification": "SIM_SELECTED",
+  "original_coral_FPGA_QUALIFIED": false,
+  "flash_modified": false,
+  "full_ddr_phy_board_io_signoff": "OPEN_T30",
+  "cancelled_DDR_inputs_block_T24": false,
+  "candidate_identity": {
+    "path": "/home/Jiang/RISCV+NPU/evidence/CE64_SOURCE_CHAIN/ce64-s0-v2-physical-20261014-v24-input-view-source-chain/manifest.json",
+    "sha256": "c54494f2160e3d01f3e14306b95b2300a21d64c58efc53c949ddf80ebc30c820",
+    "scope": "Audited digital replay and complete-board candidate identity only; actual physical acceptance remains separate"
+  },
+  "retry_state": "COMPLETE_REGISTERED",
+  "coldstart_preflight": "evidence/CE64_RECOVERY/ce64-s0-v2-coldstart-20261014-v1/manifest.json",
+  "latest_failed_attempt": "evidence/CE64_BOARD/ce64-s0-v2-local-group-pressure-prefix-20261014-v1",
+  "native_recovery_board": "evidence/CE64_BOARD/ce64-s0-v2-cpu-ddr-board-20261014-v14-no-tlr-1m",
+  "G5_onehour": {
+    "path": "evidence/CE64_BOARD/ce64-s0-v2-cpu-ddr-board-20261014-v14-no-tlr-1m",
+    "manifest_sha256": "89afc3b30313924e97c8ad06c4319de20f10684613979384ba8a1656b4b36b67",
+    "status": "PASS",
+    "execution_host_seconds": 3605.2350000003353,
+    "counter_review": "evidence/CE64_BOARD_ANALYSIS/ce64-s0-v2-g5-onehour-20261014-v1-no-tlr",
+    "raw_review": "evidence/CE64_RAW_REVIEW/ce64-s0-v2-g5-onehour-20261014-v1-no-tlr-raw",
+    "scope": "CPU/DDR baseline only; CE qualification remains separate"
+  },
+  "active_sequence": null,
+  "actual_G5_recovery": "evidence/CE64_BOARD/ce64-s0-v2-physical-20261014-v13-after-g5-baseline-recovery",
+  "current_board_revision": "V1.4 (user-confirmed; separate core/base revisions not inferred)",
+  "board_revision_authority": {
+    "path": "evidence/CE64_BOARD_IDENTITY/ce64-s0-v2-user-revision-20261014-v1",
+    "manifest_sha256": "1c658566532fc651ed53b844cfd674bad9a0ebed4f3e58ccb44a73e860065e26"
+  },
+  "active_board_restore": null,
+  "last_configuration_control": "evidence/CE64_CONFIG_CONTROL/ce64-s0-v2-minimal-final-20261014-v2",
+  "configuration_reproduction_review": "evidence/CE64_CONFIG_REVIEW/ce64-s0-v2-success-reproduction-20261014-v1",
+  "status_flag_observation": "evidence/CE64_HANDOFF/ce64-s0-v2-user-reboot-20261014-v1/status-flag-observation.json",
+  "post_reboot_readonly": "evidence/CE64_RECOVERY/ce64-s0-v2-after-user-reboot-20261014-v1",
+  "post_reboot_G5_prefix": "evidence/CE64_BOARD/ce64-s0-v2-g5-exact-prearm-20261014-v3-after-user-reboot",
+  "post_reboot_G5_recovery": "evidence/CE64_BOARD/ce64-s0-v2-g5-exact-prearm-20261014-v4-loader-reset",
+  "post_reboot_G5_recovery_raw": "evidence/CE64_RECOVERY_RAW/ce64-s0-v2-g5-loader-reset-20261014-v1-raw",
+  "post_reboot_CE_control": "evidence/CE64_BOARD/ce64-s0-v2-physical-20261014-v22-after-user-reboot-control",
+  "post_reboot_CE_control_raw": "evidence/CE64_RAW_REVIEW/ce64-s0-v2-control-after-reboot-20261014-v1-raw",
+  "host_head_supervision_recovery": "evidence/CE64_RUN_RECOVERY/ce64-s0-v2-head-supervision-20261014-v2",
+  "post_reboot_CE_paired_control": "evidence/CE64_BOARD/ce64-s0-v2-control-paired-20261014-v1",
+  "post_reboot_full_head": "evidence/CE64_BOARD/ce64-s0-v2-physical-20261014-v23-paired-loader-head",
+  "post_reboot_full_head_raw": "evidence/CE64_RAW_REVIEW/ce64-s0-v2-full-head-20261014-v1-raw",
+  "new_candidate_ROM_sha256": "1d15161987bc717bbd9030ee50708c8beec51a8734f4bc587a38e32e6fefc191",
+  "new_candidate_pressure_prefix": "evidence/CE64_BOARD/ce64-s0-v2-input-view-pressure-prefix-20261014-v2",
+  "latest_target_status": {
+    "started_at": "2026-10-14T23:57:09.313942+00:00",
+    "status": "PASS",
+    "adapter_serial": "ATK 20210914",
+    "programming_performed": false,
+    "flash_modified": false,
+    "payload_tdo_capture_enabled": false,
+    "idcode": "0x10603899",
+    "status_register": "0x1ffca0",
+    "done_bit": true,
+    "packets": 17,
+    "shifted_tck": 131,
+    "tck_hz": 1000000,
+    "elapsed_s": 0.031
+  },
+  "contract": "docs/spec/ce64-s0-v2.json",
+  "route": "C_CE64_PRIMARY",
+  "board_model": "standard MES2L676-200HP",
+  "board_revision": "V1.4 (user-confirmed; separate core/base revisions not inferred)",
+  "adapter_serial": "ATK 20210914",
+  "jtag_idcode": "0x10603899",
+  "image_sbit_sha256": "3e74f0fa423fc8f9ae53bcd1ce633042cd58bdd025acaf644e13aef5144a5b31",
+  "firmware_rom_sha256": "1d15161987bc717bbd9030ee50708c8beec51a8734f4bc587a38e32e6fefc191",
+  "acceptance_manifest": "evidence/CE64_ACCEPTANCE/ce64-s0-v2-acceptance-20261014-v1/manifest.json",
+  "parents": {
+    "current_board_revision": {
+      "path": "evidence/CE64_BOARD_IDENTITY/ce64-s0-v2-user-revision-20261014-v1",
+      "manifest_sha256": "1c658566532fc651ed53b844cfd674bad9a0ebed4f3e58ccb44a73e860065e26"
+    },
+    "physical_sequence": {
+      "path": "evidence/CE64_PHYSICAL_SEQUENCE/ce64-s0-v2-physical-20261014-v24-input-view",
+      "manifest_sha256": "cfe88b0f1bf2e28c51a9e2052840887ebdcca3994c8f109ebc32377dbbe85e30"
+    },
+    "baseline_prefix_restoration": {
+      "path": "evidence/CE64_BOARD/ce64-s0-v2-g5-exact-prearm-20261014-v4-loader-reset",
+      "manifest_sha256": "a48dbe61a83d17120a7b68581a976924ed2bcf9c7205f714c1dd3d75a0b30c84"
+    },
+    "final_source_chain": {
+      "path": "evidence/CE64_SOURCE_CHAIN/ce64-s0-v2-physical-20261014-v24-input-view-source-chain",
+      "manifest_sha256": "c54494f2160e3d01f3e14306b95b2300a21d64c58efc53c949ddf80ebc30c820"
+    },
+    "arithmetic": {
+      "path": "evidence/CE64_S0_ARITH/ce64-s0-v2-arith-20261013-v1",
+      "manifest_sha256": "02656cde2812df22775872f37160e804ddab8636d61f8bce208c6c74a0248dda"
+    },
+    "mapped_arithmetic": {
+      "path": "evidence/CE64_S0_ARITH_MAPPED/ce64-s0-v2-arith-mapped-replay-20261013-v2",
+      "manifest_sha256": "97429ff6e7d95fe278153cde424b785fa67c47340d3babd7ea9cc68b457feced"
+    },
+    "native": {
+      "path": "evidence/CE64_NATIVE_DRAIN/ce64-s0-v2-native-drain-20261013-v5-comparepipe-last",
+      "manifest_sha256": "2493af0ce70de8a9a3b0c33ad97ab36a59955b46fc98663f74471188024442a6"
+    },
+    "platform_reset": {
+      "path": "evidence/CE64_PLATFORM_RESET/ce64-s0-v2-platform-reset-20261013-v1",
+      "manifest_sha256": "85881987183b44d8308cfbaa036d9f2058b4f69e9dec1fa950383f1adbee538a"
+    },
+    "loader": {
+      "path": "evidence/CE64_LOADER/ce64-s0-v2-uart-loader-20261014-v5-hardfloat-500k",
+      "manifest_sha256": "a19b445e59ab20bc16f1dc4787532b49f0f6e309abcf26a195c001cfdc8591ad"
+    },
+    "digital_full": {
+      "path": "evidence/CE64_SOC/ce64-s0-v2-board-memory-full-20261014-v15-input-view",
+      "manifest_sha256": "2e8a6d1374e77a6c61dcdda58dc992c89353b0e14902e92d92b58772caff7f61"
+    },
+    "converted": {
+      "path": "evidence/CE64_SOC/ce64-s0-v2-converted-control-20261014-v5-input-view",
+      "manifest_sha256": "3f9e06af3b71af7635cfea2fb31bd067f164d1018bd2f444621c9dfb735f0643"
+    },
+    "negative_controls": {
+      "path": "evidence/CE64_NEGATIVES/ce64-s0-v2-negatives-20261013-v1",
+      "manifest_sha256": "8e66fd5df6cdb4a841f4a56fde68c67b91a933513eb0e1f950289736d51ebb58"
+    },
+    "legacy_compatibility": {
+      "path": "evidence/CE64_COMPATIBILITY/ce64-s0-v2-legacy-api-tests-20261014-v2-input-view",
+      "manifest_sha256": "3a7b66a97582df62d25bf2de4a8f792d3c10853a0b1163495eca52359c5aa8ae"
+    },
+    "whole_board_mapping": {
+      "path": "evidence/CE64_BOARD_MAP/ce64-s0-v2-whole-board-map-20261014-v8-input-view",
+      "manifest_sha256": "b7163e9d8ece39126373583415fbaf4941ca182e9d7c74fbc93418e1f65a377b"
+    },
+    "whole_board_implementation": {
+      "path": "evidence/CE64_BOARD_IMPL/ce64-s0-v2-whole-board-impl-20261014-v5-input-view",
+      "manifest_sha256": "27deaf48e4881d94b29ac0a9c6cfcd572253ac3ace0cac32ddfb1a5da790d97f"
+    },
+    "whole_board_structure": {
+      "path": "evidence/CE64_STRUCTURE/ce64-s0-v2-whole-board-structure-20261014-v4-input-view",
+      "manifest_sha256": "f8908994eb8c1d1a0cbe31334a8b2e3e3eadafe233466d6d7539256eaf927807"
+    },
+    "baseline_image": {
+      "path": "evidence/CE64_IMAGE/ce64-s0-v2-cpu-ddr-image-20261014-v11-no-tlr-1m",
+      "manifest_sha256": "2fc4077959c48344c6ca8f2cd747317738b319425986700f9128525fa21b0240"
+    },
+    "baseline_structure": {
+      "path": "evidence/CE64_STRUCTURE/ce64-s0-v2-cpu-ddr-structure-20261014-v6-seed2",
+      "manifest_sha256": "5a6cfc7d3232b207be672ac57893e8fc82cebfd1bd2de3f9220280d89b89349a"
+    },
+    "baseline_implementation": {
+      "path": "evidence/CE64_BOARD_IMPL/ce64-s0-v2-cpu-ddr-board-impl-20261014-v5-hardfloat-seed2",
+      "manifest_sha256": "e9ec92d80566082db3d582b7e55ba96a72e499d3c3e83df93916f3e59c7088a5"
+    },
+    "baseline_mapping": {
+      "path": "evidence/CE64_BOARD_MAP/ce64-s0-v2-cpu-ddr-board-map-20261014-v6-hardfloat-500k",
+      "manifest_sha256": "5dd137d0a1699c6ce490f0749489798d15ec65ec6484c90d7b8773e696774cb3"
+    },
+    "baseline_actual_CPU_prefix": {
+      "path": "evidence/CE64_BASELINE_PREFIX/ce64-s0-v2-baseline-prefix-20261014-v2-hardfloat",
+      "manifest_sha256": "040bd3f91d40e047558306e39143082b3a7e52487e81b7ae4f8fbba1808a18c7"
+    },
+    "baseline_firmware": {
+      "path": "evidence/CE64_CPU_DDR_FW/ce64-s0-v2-cpu-ddr-fw-20261014-v4-hardfloat",
+      "manifest_sha256": "36eeb2d928e82a280dc32f3ea7b01b0675b2c01accde1f103fc640f09f794f8e"
+    },
+    "baseline": {
+      "path": "evidence/CE64_BOARD/ce64-s0-v2-cpu-ddr-board-20261014-v14-no-tlr-1m",
+      "manifest_sha256": "89afc3b30313924e97c8ad06c4319de20f10684613979384ba8a1656b4b36b67"
+    },
+    "baseline-raw": {
+      "path": "evidence/CE64_RAW_REVIEW/ce64-s0-v2-acceptance-20261014-v1-baseline-raw",
+      "manifest_sha256": "d262434b1d86c9595d925ed802390307f64abdf85cb79837f200f41f009b2120"
+    },
+    "baseline-recovery": {
+      "path": "evidence/CE64_BOARD/ce64-s0-v2-g5-exact-prearm-20261014-v4-loader-reset",
+      "manifest_sha256": "a48dbe61a83d17120a7b68581a976924ed2bcf9c7205f714c1dd3d75a0b30c84"
+    },
+    "baseline-recovery-raw": {
+      "path": "evidence/CE64_RECOVERY_RAW/ce64-s0-v2-acceptance-20261014-v1-baseline-recovery-raw",
+      "manifest_sha256": "e5a4fc249caa7712b91732dd24bd0456b05c04fd213d76ac725b11fe44066654"
+    },
+    "control": {
+      "path": "evidence/CE64_BOARD/ce64-s0-v2-physical-20261014-v24-input-view-control",
+      "manifest_sha256": "0aa13fd8d49cd366da9ef04df9899bd986e6d13ac573fcffda852aa75899987f"
+    },
+    "control-raw": {
+      "path": "evidence/CE64_RAW_REVIEW/ce64-s0-v2-acceptance-20261014-v1-control-raw",
+      "manifest_sha256": "305f8f6db235a97af81105c6492d89dfdf13b1f71db77c2c98650ebef23ae4ff"
+    },
+    "head": {
+      "path": "evidence/CE64_BOARD/ce64-s0-v2-physical-20261014-v24-input-view-head",
+      "manifest_sha256": "baa3d5eb8e76825cf8bb0b3961b9a8abf2b89d7a8b6b06bcae11cc299b6e87be"
+    },
+    "head-raw": {
+      "path": "evidence/CE64_RAW_REVIEW/ce64-s0-v2-acceptance-20261014-v1-head-raw",
+      "manifest_sha256": "3fa8390edd09e514dd2b1e858082509692eadb2ebab5f0b0696925de7a2000db"
+    },
+    "stress": {
+      "path": "evidence/CE64_BOARD/ce64-s0-v2-physical-20261014-v24-input-view-stress",
+      "manifest_sha256": "663fd1e740a9353ba5a2cf5bc60b4b281149a567e35f519bd2a1aee82afd66b9"
+    },
+    "stress-raw": {
+      "path": "evidence/CE64_RAW_REVIEW/ce64-s0-v2-acceptance-20261014-v1-stress-raw",
+      "manifest_sha256": "e7c5597f918d89eb0c9269717fc989fe79aebca4d5929b502c957e08c92e65bf"
+    },
+    "baseline-counter-analysis": {
+      "path": "evidence/CE64_BOARD_ANALYSIS/ce64-s0-v2-physical-20261014-v24-input-view-baseline-analysis",
+      "manifest_sha256": "159a57b453e7409675d09fde899ffced70d606a81bffa681aa00198a0cde268f"
+    },
+    "stress-counter-analysis": {
+      "path": "evidence/CE64_BOARD_ANALYSIS/ce64-s0-v2-physical-20261014-v24-input-view-stress-analysis",
+      "manifest_sha256": "518d8fddc02ae4d603868348712de8f3a443a2087d97766a3492b3397af3946b"
+    }
+  },
+  "default_API_v2_context_advertised_mask_in_qualified_test_ROM": 0,
+  "runtime_capability_policy": "Default remains conservative zero; independently registered S0 authority applies only to this exact image/board/firmware and must be explicitly loaded into the CE context",
+  "deferred_inputs": [
+    "DDR_EXACT_AC",
+    "CORE_DDR_TRACE_BUDGET"
+  ],
+  "qualification_acceptance": {
+    "path": "evidence/CE64_ACCEPTANCE/ce64-s0-v2-acceptance-20261014-v1",
+    "manifest_sha256": "463779820f573f3cc9eb8de53ab65c6c38f94d0de0add279cbb134e50bb6634d"
+  },
+  "registration_receipt": "evidence/CE64_REGISTRATION/ce64-s0-v2-registration-20261014-v1",
+  "latest_completed_sequence": "evidence/CE64_PHYSICAL_SEQUENCE/ce64-s0-v2-physical-20261014-v24-input-view",
+  "final_target_status": {
+    "started_at": "2026-10-14T23:57:09.313942+00:00",
+    "status": "PASS",
+    "adapter_serial": "ATK 20210914",
+    "programming_performed": false,
+    "flash_modified": false,
+    "payload_tdo_capture_enabled": false,
+    "idcode": "0x10603899",
+    "status_register": "0x1ffca0",
+    "done_bit": true,
+    "packets": 17,
+    "shifted_tck": 131,
+    "tck_hz": 1000000,
+    "elapsed_s": 0.031
+  }
+}

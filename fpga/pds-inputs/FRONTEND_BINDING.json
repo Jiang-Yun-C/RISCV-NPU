@@ -1,0 +1,20 @@
+{
+  "status": "PASS_FROZEN_RTL_PLUS_EXACT_16384_WORD_ROM_BINDING",
+  "source_content_id": "3ebbf449cb622e28baa59e02e02da20ba79a4a4b03d3278aacfa650ecbcb413a",
+  "frontend_RTL_binding_sha256": "2a60177cafea174e5a142ddf9a19d4fea0b89f89df79ce2ae94174a8723cf97d",
+  "lowered_logic_sha256": "c7d1d255c786955a7f4b431668e56339c98bdfc74323b2c354ad64c904877ed3",
+  "final_logic_sha256": "8556fa77eb21ac5c3d75a8abfd3ce30320c0c624982f3b28cc84ed60d67c2973",
+  "ROM_sha256": "f375d69e73116258459d8f2594bf4967220e0f6b1353a39a86ac68c7641cdde9",
+  "transformation": "Only add explicit initialization to the unique existing 16384x32 ROM; all noninitialization functional tokens unchanged",
+  "words": 16384,
+  "native_attribute_fix": {
+    "register": "_21961_",
+    "width": 245,
+    "attributes": [
+      "syn_preserve",
+      "syn_noprune"
+    ],
+    "manual": "PDS2024.2 ADS Synthesis User Guide 8.2.16 and 8.2.17",
+    "nonattribute_tokens_identical": true
+  }
+}

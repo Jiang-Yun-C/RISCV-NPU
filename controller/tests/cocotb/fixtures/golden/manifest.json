@@ -1,0 +1,2860 @@
+{
+  "schema_version": 1,
+  "producer": "T11",
+  "consumers": [
+    "T15",
+    "T19"
+  ],
+  "qualification": "DESKTOP_C_PYTHON_ONLY",
+  "numeric_version": "w8a8-g64-fp32-v1",
+  "layout_id": 4097,
+  "group_size": 64,
+  "thresholds_path": "configs/t05-thresholds.json",
+  "thresholds_sha256": "52056ec237ca2af5d2a93de8e327e0e6a3d01f7daf80d3f1c61e2bcbc5f81fbf",
+  "pack_manifest": "docs/spec/model-pack-v1-manifest.json",
+  "pack_sha256": "f55c1a1efd0188a3b792e695fb9f404080f0ffd10cae44d1831b595af6b37f71",
+  "generator": {
+    "path": "tests/reference/oracle.py",
+    "sha256": "937f7c29e0e9489662c3e1725fc8e9c6efb3eba5e90866c9a0dfe7fb22b8032b"
+  },
+  "checker": {
+    "path": "tests/reference/validate.py",
+    "sha256": "fb6e29e3dff118de255d481a063464d9552a74b7262014cfaa3eedd1cdef11ca"
+  },
+  "seed": 20261005,
+  "context_lengths": [
+    1,
+    4,
+    8,
+    512
+  ],
+  "decode_steps": 8,
+  "replay_command": "make t11",
+  "comparison_command": "npu-python tests/reference/fixture_io.py <manifest> --candidate <trace.npz> --case <path>",
+  "golden_provenance": "Independent Python arithmetic from frozen inputs; written before C execution",
+  "cases": [
+    {
+      "path": "fixtures/linear-q.npz",
+      "sha256": "737c816becfdbba4c1f75f5a8837b48aec69f95b8072db9d555b437ccc016eed",
+      "bytes": 234386,
+      "kind": "linear",
+      "weight": "model.layers.0.self_attn.q_proj.weight",
+      "weight_pack_sha256": "f55c1a1efd0188a3b792e695fb9f404080f0ffd10cae44d1831b595af6b37f71",
+      "fields": {
+        "x": "input-f32",
+        "aq": "expected-i8",
+        "sa": "expected-f32-bitwise",
+        "dots": "expected-i32",
+        "y": "expected-f32"
+      },
+      "tolerance": [
+        "operators",
+        "linear"
+      ],
+      "dot_layout": "[group,M,N]",
+      "shape_MNK": [
+        4,
+        896,
+        896
+      ]
+    },
+    {
+      "path": "fixtures/context1-chunk000.npz",
+      "sha256": "ea0176c0b2ab95229b074a14f169c292a8bbe6a59c402da74b0fd5adcebc3496",
+      "bytes": 1021154,
+      "context": 1,
+      "past": 0,
+      "input_ids": [
+        0
+      ],
+      "prefix_ids": [],
+      "fields": {
+        "layer-1.embedding": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.input": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.norm1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.q": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.k": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer0.v": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer0.qr": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.kr": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer0.attn": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.o": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.res1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.norm2": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.gate": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer0.up": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer0.act": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer0.down": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer1.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer2.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer3.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer4.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer5.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer6.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer7.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer8.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer9.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer10.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.input": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.norm1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.q": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.k": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer11.v": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer11.qr": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.kr": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer11.attn": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.o": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.res1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.norm2": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.gate": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer11.up": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer11.act": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer11.down": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer12.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer13.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer14.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer15.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer16.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer17.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer18.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer19.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer20.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer21.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer22.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.input": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.norm1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.q": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.k": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer23.v": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer23.qr": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.kr": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer23.attn": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.o": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.res1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.norm2": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.gate": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer23.up": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer23.act": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer23.down": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer24.final_norm": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer24.logits": {
+          "shape": [
+            1,
+            151936
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            607744,
+            4
+          ]
+        },
+        "cache": {
+          "shape": [
+            24,
+            2,
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            1024,
+            512,
+            512,
+            4
+          ]
+        },
+        "input_ids": {
+          "shape": [
+            1
+          ],
+          "dtype": "<i4",
+          "endianness": "little",
+          "strides_bytes": [
+            4
+          ]
+        },
+        "past": {
+          "shape": [],
+          "dtype": "<i4",
+          "endianness": "little",
+          "strides_bytes": []
+        }
+      },
+      "kind": "block-kv-logits",
+      "blocks": [
+        0,
+        11,
+        23
+      ],
+      "tolerances": {
+        "block": [
+          "cumulative",
+          "block"
+        ],
+        "cache": [
+          "cumulative",
+          "kv"
+        ],
+        "logits": [
+          "cumulative",
+          "logits_24_layers"
+        ]
+      }
+    },
+    {
+      "path": "fixtures/context1-chunk001.npz",
+      "sha256": "456dd7a811c7249c0bd74a1fbf33279d67bfcfb1f4bcf8e63f9fdfabd319ed1a",
+      "bytes": 1045730,
+      "context": 1,
+      "past": 1,
+      "input_ids": [
+        255
+      ],
+      "prefix_ids": [
+        0
+      ],
+      "fields": {
+        "layer-1.embedding": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.input": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.norm1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.q": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.k": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer0.v": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer0.qr": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.kr": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer0.attn": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.o": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.res1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.norm2": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.gate": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer0.up": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer0.act": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer0.down": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer1.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer2.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer3.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer4.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer5.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer6.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer7.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer8.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer9.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer10.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.input": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.norm1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.q": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.k": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer11.v": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer11.qr": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.kr": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer11.attn": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.o": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.res1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.norm2": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.gate": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer11.up": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer11.act": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer11.down": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer12.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer13.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer14.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer15.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer16.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer17.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer18.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer19.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer20.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer21.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer22.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.input": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.norm1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.q": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.k": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer23.v": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer23.qr": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.kr": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer23.attn": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.o": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.res1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.norm2": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.gate": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer23.up": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer23.act": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer23.down": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer24.final_norm": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer24.logits": {
+          "shape": [
+            1,
+            151936
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            607744,
+            4
+          ]
+        },
+        "cache": {
+          "shape": [
+            24,
+            2,
+            2,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            2048,
+            1024,
+            512,
+            4
+          ]
+        },
+        "input_ids": {
+          "shape": [
+            1
+          ],
+          "dtype": "<i4",
+          "endianness": "little",
+          "strides_bytes": [
+            4
+          ]
+        },
+        "past": {
+          "shape": [],
+          "dtype": "<i4",
+          "endianness": "little",
+          "strides_bytes": []
+        }
+      },
+      "kind": "block-kv-logits",
+      "blocks": [
+        0,
+        11,
+        23
+      ],
+      "tolerances": {
+        "block": [
+          "cumulative",
+          "block"
+        ],
+        "cache": [
+          "cumulative",
+          "kv"
+        ],
+        "logits": [
+          "cumulative",
+          "logits_24_layers"
+        ]
+      }
+    },
+    {
+      "path": "fixtures/context1-chunk008.npz",
+      "sha256": "54e103f675b8e4e5f5b371e5f8ba499828d93942a3093b23bdc55629d6a8654d",
+      "bytes": 1217762,
+      "context": 1,
+      "past": 8,
+      "input_ids": [
+        0
+      ],
+      "prefix_ids": [
+        0,
+        255,
+        256,
+        1023,
+        151642,
+        151643,
+        151645,
+        151935
+      ],
+      "fields": {
+        "layer-1.embedding": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.input": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.norm1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.q": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.k": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer0.v": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer0.qr": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.kr": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer0.attn": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.o": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.res1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.norm2": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.gate": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer0.up": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer0.act": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer0.down": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer0.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer1.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer2.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer3.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer4.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer5.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer6.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer7.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer8.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer9.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer10.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.input": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.norm1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.q": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.k": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer11.v": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer11.qr": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.kr": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer11.attn": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.o": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.res1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.norm2": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.gate": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer11.up": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer11.act": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer11.down": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer11.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer12.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer13.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer14.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer15.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer16.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer17.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer18.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer19.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer20.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer21.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer22.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.input": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.norm1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.q": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.k": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer23.v": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer23.qr": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.kr": {
+          "shape": [
+            1,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            512,
+            4
+          ]
+        },
+        "layer23.attn": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.o": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.res1": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.norm2": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.gate": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer23.up": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer23.act": {
+          "shape": [
+            1,
+            4864
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            19456,
+            4
+          ]
+        },
+        "layer23.down": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer23.output": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer24.final_norm": {
+          "shape": [
+            1,
+            896
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            3584,
+            4
+          ]
+        },
+        "layer24.logits": {
+          "shape": [
+            1,
+            151936
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            607744,
+            4
+          ]
+        },
+        "cache": {
+          "shape": [
+            24,
+            2,
+            9,
+            128
+          ],
+          "dtype": "<f4",
+          "endianness": "little",
+          "strides_bytes": [
+            9216,
+            4608,
+            512,
+            4
+          ]
+        },
+        "input_ids": {
+          "shape": [
+            1
+          ],
+          "dtype": "<i4",
+          "endianness": "little",
+          "strides_bytes": [
+            4
+          ]
+        },
+        "past": {
+          "shape": [],
+          "dtype": "<i4",
+          "endianness": "little",
+          "strides_bytes": []
+        }
+      },
+      "kind": "block-kv-logits",
+      "blocks": [
+        0,
+        11,
+        23
+      ],
+      "tolerances": {
+        "block": [
+          "cumulative",
+          "block"
+        ],
+        "cache": [
+          "cumulative",
+          "kv"
+        ],
+        "logits": [
+          "cumulative",
+          "logits_24_layers"
+        ]
+      }
+    }
+  ]
+}

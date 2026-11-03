@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "opt10": "evidence/OPT10/opt10-dma-20261019-v4",
+  "numeric_profile": "w8a8-g64-fp32-v1",
+  "fixture_seed": 20261019,
+  "lane_candidates": [
+    2
+  ],
+  "group_elements": 64,
+  "exp": {
+    "range_reduction": "Q96 ln2 subtraction",
+    "polynomial_degree": 21,
+    "shared_multiplier_radix": 256
+  },
+  "max_cycles": 150000000,
+  "max_delay": 3,
+  "cocotb_version": "2.1.0",
+  "cocotbext_axi_version": "0.1.28",
+  "timeouts_seconds": {
+    "probe": 90,
+    "compile": 600,
+    "simulation": 7200
+  },
+  "write_drain_cycles": 1024,
+  "cross_group_overlap": false,
+  "board_gate": "NO_GO_PENDING_OFFLINE_EVIDENCE",
+  "cpu_local_sram_stack": true,
+  "cpu_memory_scope": "Actual board 64KiB SRAM RTL; identical 56KiB stack 0x22000-0x30000 with 8KiB reserved, for both CPU and hardware. Text/globals/tensors remain on actual digital native DDR. API brackets exclude boot/BSS clearing and diagnostic checksums; pre-first-API test cycles are reported separately.",
+  "software_baseline": "Original T05 FP32 adjacent-pair norm and basic operators; fused comparison uses original OPT08 packed quantize_ce64 for K divisible by 64, T05 fallback otherwise.",
+  "opt11": "evidence/OPT11/opt11-sfu-20261019-v8",
+  "modes": [
+    "swiglu",
+    "quantize",
+    "add",
+    "mul",
+    "scale",
+    "sum",
+    "max",
+    "rmsnorm"
+  ],
+  "additional_cpu_fallback_workspace_bytes": 32768
+}

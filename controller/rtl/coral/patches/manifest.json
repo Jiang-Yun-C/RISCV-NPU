@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "upstream_commit": "382b5c12030ad8eb74ab8deafb2529301faeab16",
+  "patch": "static-validation.patch",
+  "files": {
+    "fpnew_fma_multi.sv": {
+      "before_sha256": "2b762c2ef510f9d718c6dc7d3db6afa581bb773f5df8178f3f5bd516df2b5574",
+      "after_sha256": "e22f3107cb05ea5edea8559c2b1e1d799ee254bd9bcab40120c96327077aef71"
+    },
+    "fpnew_opgroup_multifmt_slice.sv": {
+      "before_sha256": "9ff315047acd83e03b294f63ceb5d71a69697ee9ea0e4d9955f170e42f55b75f",
+      "after_sha256": "227d9b7b548c9467665dd9324c7373f43b8787768c2275298d7fe189f3f0ccc3"
+    },
+    "fpnew_cast_multi.sv": {
+      "before_sha256": "077cc35edbaf32eb6168cece31b8b9a559ea5b461b0d45cb92a975df4358a163",
+      "after_sha256": "d1be9d61b9aa6a9af5bf87297a53bec05f3fcec3ec41006b42e18155e554a87f"
+    },
+    "rvv_backend_decode_unit_ari_de2.sv": {
+      "before_sha256": "ec07ea6dc7db24fed388bebb8795061149ae81e22153de6e9b90baa97fa655ce",
+      "after_sha256": "eb791c83184bf89c8e84afaf16d05e9da850bd1ec6194a23b7f22c26042b4e16"
+    },
+    "rvv_backend_pmtrdt_unit_permutation.sv": {
+      "before_sha256": "24182bed86650390273fc5fed960d80cd59bb99dd83aadbe38e0d71d665f0bc0",
+      "after_sha256": "59ad652cce4f6b41e2dfe9a41797f2f215323b135cfd856ff48e0e0354838088"
+    },
+    "fpnew_fma.sv": {
+      "before_sha256": "4f9c532fe043034b9aeb8e530a6da733a4fef972af4cb80661ed33ef616b6257",
+      "after_sha256": "13ffbd20cadf7595f2d970b656ed52c262698d1760edfda0c1d204d0d45c1775"
+    },
+    "multi_fifo.sv": {
+      "before_sha256": "b1ba31910a2859e9977e57f6057dfb0f49ad56501e729b8948f1e05d1224d2b4",
+      "after_sha256": "18c0f819227debad266318525ffe1308a9a50bf369552aeb0f6b406602ef4b5e"
+    },
+    "RvvFrontEnd.sv": {
+      "before_sha256": "97e7e20024708def189b6815121fa640082586094587e3377068bec28c34bc6e",
+      "after_sha256": "2ea56c877064094c233348d4c8225e0c355634acd0165b0c264c88554a20e3a4"
+    },
+    "rvv_backend_dispatch_structure_hazard.sv": {
+      "before_sha256": "831127a30843d8c58979896e9880c7b798bdf28f21c18558146a3adfd0eb0ed8",
+      "after_sha256": "3e4d502b164b370fa324dc9c7cbcc0b5233ff8f3ca5f1ba7420fd9c9cc035dad"
+    },
+    "rvv_backend_rob.sv": {
+      "before_sha256": "c674d858e579a14a54ea051e14dc1019745725e777bd8d00b1d10f31b873ae68",
+      "after_sha256": "d2c8f660856659fba5930092ba06a69425a1324818d146ac95f516b22c3d216b"
+    },
+    "rvv_backend_retire.sv": {
+      "before_sha256": "a4e8d9b13416c90a2da193575eb7682124658b41b40ba437ee0e544e0cede138",
+      "after_sha256": "a943d75994ba4e3c230368dfc164244d68220beaa41a8e9c6d3dc1dc906c0d6f"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "version": "nxt-v1",
+  "bytes": 5079627,
+  "sha256": "b0c60e70506c92e541c550f6e467eb60827f71415a16bf5cdf19d868535de6f1",
+  "source_files": {
+    "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+    "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+    "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+    "merges.txt": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+  },
+  "tokenizers": "0.22.2",
+  "regex": "2026.9.10",
+  "generator_sha256": "49083ccd44986ce6cddfe70dc33ee2d57ceb69bd782e201c1180d4ba18116c6e",
+  "vocab": 151665,
+  "merges": 151387,
+  "unicode_ranges": 834,
+  "decompositions": 13232,
+  "compositions": 12112,
+  "ccc": 810,
+  "pretokenizer_regex": "(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\\r\\n\\p{L}\\p{N}]?\\p{L}+|\\p{N}| ?[^\\s\\p{L}\\p{N}]+[\\r\\n]*|\\s*[\\r\\n]+|\\s+(?!\\S)|\\s+",
+  "runtime_text_bytes_limit": 4096
+}

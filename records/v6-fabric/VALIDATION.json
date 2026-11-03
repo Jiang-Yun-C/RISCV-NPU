@@ -1,0 +1,33 @@
+{
+  "status": "PASS_V6_BOARD_AND_NATIVE_FABRIC_WITH_OBSERVATION_LIMITS",
+  "source_content_id": "3ebbf449cb622e28baa59e02e02da20ba79a4a4b03d3278aacfa650ecbcb413a",
+  "deployment_content_id": "8ef3ff0698423c55cb41c06fce036b6e1a0a8bf0d06bfbac48a602b96f517451",
+  "parent_physical_evidence_id": "f4023014cd8f3f9c9a73f9c51e7a27012fba2f94c81546bad19a1007c04a21bc",
+  "capture_files": [
+    "led.txt",
+    "led.vcd",
+    "npu.txt",
+    "npu.vcd",
+    "cancel.txt",
+    "cancel.vcd"
+  ],
+  "samples_per_capture": 1024,
+  "channels": 260,
+  "native_capture_attempts": 4,
+  "exported_captures": 3,
+  "first_readout_length_failure_preserved": true,
+  "actual_guarded_vectors": 29082,
+  "reusable_backend_and_GUI": "PASS",
+  "same_V6_configuration_and_model": true,
+  "new_main_CRAM": 0,
+  "new_model_loads": 0,
+  "SD_Flash_NVM_writes": 0,
+  "FPGA_reset_reload": 0,
+  "final_state": "READY_LED_VALUES0_OWNED45_STATUS0x307_HANDLES_CLOSED",
+  "physical_LED_optical": "NOT_OBSERVED",
+  "full_ISR_latency": "UNKNOWN",
+  "pending_W1C_in_capture": "NOT_OBSERVED",
+  "cancel_END_READY_in_capture": "NOT_OBSERVED_UART_MATCHED",
+  "store_access_fault": "NOT_RUN",
+  "production_GO": false
+}

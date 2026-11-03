@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "task_id": "T11",
+  "numeric_version": "w8a8-g64-fp32-v1",
+  "pack_manifest": "docs/spec/model-pack-v1-manifest.json",
+  "thresholds": "configs/t05-thresholds.json",
+  "canonical_rope": {
+    "path": "evidence/T05/20261003T123546.536147Z-cfa58369/artifacts/vectors/rope-positions.npz",
+    "sha256": "8716ba479460bcc8bacee1fffabbcdff221a07e72cb1a308b512dd56fd97cec0"
+  },
+  "seed": 20261005,
+  "context_lengths": [1, 4, 8, 512],
+  "teacher_forcing_steps": 8,
+  "max_context": 640,
+  "max_chunk": 8,
+  "numerical_threads": 4,
+  "quality_workers": 4,
+  "quality_threads_per_worker": 8,
+  "timeout_seconds": 7200,
+  "transcendental_policy": "FP32 inputs; evaluate exp/sin/cos using double libm, immediately round each result to FP32; all tensor, reduction and group-recovery operations remain FP32. Independent oracle rounds NumPy float64 transcendental results to FP32. Frozen T05 tolerances unchanged.",
+  "qualification": "DESKTOP_FULL_C_W8_REFERENCE_AND_GOLDEN_FIXTURES",
+  "not_qualified": ["RV32 runtime/tokenizer", "RTL fixture consumption", "FPGA/board inference", "physical DDR capacity"]
+}

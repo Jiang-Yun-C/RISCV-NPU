@@ -1,0 +1,33 @@
+module pv_component #(parameter integer MAX_LENGTH=512)(
+ input logic clk,reset_n,submit,reset_grant,stop_new,abort_publish,
+ input logic [1023:0] descriptor,
+ input logic [63:0] run_limit,
+ input logic dma_ready,dma_result_valid,dma_idle,
+ input logic [1:0] dma_resp,
+ input logic [127:0] ram_q,
+ output wire dma_valid,dma_write,ram_en,completion_valid,
+ output wire [31:0] dma_address,
+ output wire [2:0] dma_size,
+ output wire [4:0] dma_len,
+ output wire [15:0] dma_scratch,ram_mask,
+ output wire [11:0] ram_address,
+ output wire [127:0] ram_data,
+ output wire [1279:0] completion,
+ output wire [511:0] perf
+);
+ wire fp_start,fp_multiply,fp_ready,fp_valid;
+ wire [31:0] fp_a,fp_b,fp_result;
+ nx_opt11_fp fp(.clk,.reset_n,.start(fp_start),.multiply(fp_multiply),
+  .a(fp_a),.b(fp_b),.ready(fp_ready),.valid(fp_valid),.result(fp_result));
+ nx_pv_control #(.MAX_LENGTH(MAX_LENGTH)) dut(.clk,.platform_reset_n(reset_n),
+  .submit,.reset_grant,.stop_new,.abort_publish,.descriptor,.epoch(32'd1),
+  .generation(32'd1),.first_fault_address(32'b0),.run_limit,.transport_drained(dma_idle),
+  .native_quarantined(1'b0),.engine_idle(),.arithmetic_idle(),.scratch_idle(),
+  .timeout_fault(),.call_fault(),.completion,.completion_valid,.completion_ready(1'b1),
+  .perf,.dma_ready,.dma_result_valid,.dma_idle,.dma_resp,.dma_valid,.dma_write,
+  .dma_result_ready(),.dma_address,.dma_size,.dma_len,.dma_scratch,.dma_data(),.dma_mask(),
+  .ram_en,.ram_address,.ram_mask,.ram_data,.ram_q,.fp_start,.fp_multiply,.fp_a,.fp_b,
+  .fp_ready,.fp_valid,.fp_result,.resident_write_region(),.p_window_en(),.p_window_address(),
+  .p_window_q(32'b0),.p_window_epoch(32'b0),.p_window_words(32'b0),.p_window_len(32'b0),
+  .p_window_padded(32'b0),.p_window_session(64'b0),.p_window_sequence(64'b0),.p_window_valid(1'b0));
+endmodule

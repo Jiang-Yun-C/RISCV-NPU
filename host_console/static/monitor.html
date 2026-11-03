@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NexusRV · 运行监控</title><link rel="stylesheet" href="monitor.css"><script type="module" src="monitor.js"></script></head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+<main>
+<header class="topbar"><div class="wordmark">NEXUSRV <span>运行监控</span></div><div class="top-actions"><span id="sync-status" class="sync"><i></i>等待会话</span><button id="fullscreen">全屏展示</button><button id="return-chat">返回对话 ↗</button></div></header>
+<div id="fixture" role="status" hidden>模拟设备验证 · 当前数据来自测试环境</div>
+<section class="hero"><div><div class="eyebrow"><span></span> DEVICE OBSERVABILITY</div><h1>每一次协同，<span>清晰可见。</span></h1><p>从对话到执行，看见设备的工作过程。</p></div><div class="hero-meta"><span id="mode" class="mode">等待任务</span><p id="connection">设备尚未连接</p><small id="as-of">请从对话页面打开运行监控</small></div></section>
+<section id="cache-feature" class="cache-feature" hidden aria-label="回复缓存命中">
+<div class="cache-storage" aria-hidden="true"><i></i><i></i><i></i><span></span></div>
+<div class="cache-copy"><small>RESPONSE CACHE</small><h2>缓存命中</h2><p id="cache-note">直接读取已保存内容，呈现回复。</p></div>
+<div class="cache-process" aria-label="缓存读取流程示意"><span>命中</span><div class="cache-transfer" aria-hidden="true"><i></i><i></i><i></i></div><span>读取</span><div class="cache-transfer" aria-hidden="true"><i></i><i></i><i></i></div><span id="cache-destination">呈现</span></div>
+<span id="cache-time" class="cache-time"></span>
+</section>
+<div id="session-hint" class="session-hint" hidden>请从智能助手页面点击“运行监控”，查看对应会话。<a href="index.html">打开智能助手 ↗</a></div>
+<section class="main-grid">
+<article class="panel architecture"><div class="panel-head"><div><span class="index">01 / COMPUTE FABRIC</span><h2>CPU × NPU 协作</h2></div><span class="configuration">配置频率 <b>125 MHz</b></span></div>
+<div class="fabric" aria-label="对话、CPU、NPU协作示意图">
+  <div class="fabric-grid" aria-hidden="true"></div>
+  <div class="route route-one" aria-hidden="true"></div><div class="route route-two" aria-hidden="true"></div>
+  <div class="node host-node" id="host-node"><div class="node-icon chat-icon" aria-hidden="true"><i></i><i></i><i></i></div><b>对话入口</b><small>指令与回复</small></div>
+  <div class="node compute-node" id="cpu-node"><div class="chip cpu-chip"><div class="chip-mark">RV<span>32</span></div><small>RISC-V CPU</small></div><strong id="cpu-status">等待设备</strong><small>服务与设备调度</small></div>
+  <div class="node compute-node" id="npu-node"><div class="chip npu-chip"><div class="array-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><small>CE64 NPU</small></div><strong id="npu-status">尚无推理回执</strong><small>推理阶段由设备报告</small></div>
+</div>
+<div class="fabric-caption"><span><i class="legend-dot"></i> 当前会话的回执状态</span><span>链路示意 · 非芯片占用率</span></div>
+<div class="coverage"><span>CPU 占用率 <b>—</b></span><span>函数级追踪 <b>未采集</b></span><span>NPU 算子活动 <b>未采集</b></span></div>
+</article>
+<article class="panel task-panel"><div class="panel-head"><div><span class="index">02 / CURRENT TASK</span><h2>当前任务</h2></div><span id="task-state" class="state-label">等待开始</span></div><p id="task-label" class="task-label">在对话页发送一条需求</p><div class="phase-display"><small>设备报告阶段</small><h3 id="phase">等待回执<span>_</span></h3><p id="phase-note">连接设备后，在这里查看执行过程。</p></div><div class="note-progress"><div><span id="progress-label">灯光执行进度</span><b id="note-count">— / 42</b></div><div class="track"><i id="progress-fill"></i></div></div><div id="lamps" class="lamps" aria-label="设备灯光最近读回状态"><div data-bit="0"><i></i><span>灯 1</span></div><div data-bit="2"><i></i><span>灯 2</span></div><div data-bit="3"><i></i><span>灯 3</span></div><div data-bit="5"><i></i><span>灯 4</span></div></div><small class="lamp-note" id="lamp-note">尚无灯光读回 · 未知状态</small></article>
+</section>
+<section class="metrics" aria-label="当前任务计数"><article><span>生成片段</span><div><b id="generated">—</b><small>个</small></div><p id="generated-note">仅统计当前实时推理</p></article><article><span>CE 调用</span><div><b id="ce-calls">—</b><small>次</small></div><p>完整请求结束后报告</p></article><article><span>CPU 灯控写入</span><div><b id="stores">—</b><small>次</small></div><p>本次任务的已确认写入</p></article><article><span>设备接收数据</span><div><b id="rx-bytes">0</b><small id="rx-unit">B</small></div><p id="rx-note">当前对话会话累计</p></article></section>
+<section class="bottom-grid">
+<article class="panel activity-panel"><div class="panel-head"><div><span class="index">03 / DEVICE FEEDBACK</span><h2>回执活动</h2></div><span id="last-rx">尚未接收</span></div><div class="activity-scale"><b>接收字节 / 秒</b><span>最近 60 秒 · 主机观察</span></div><div class="activity-plot"><div class="plot-grid" aria-hidden="true"></div><div id="rx-chart" class="bars" role="img" aria-label="最近60秒设备接收数据，每秒实际字节数"></div><div id="no-activity">等待第一条设备回执</div></div><div class="plot-labels"><span>−60s</span><span>现在</span></div><div class="data-note"><span class="data-dot"></span><p>图形只反映实际收到的数据。没有新回执时保持空白。</p></div></article>
+<article class="panel timeline-panel"><div class="panel-head"><div><span class="index">04 / EVENT TIMELINE</span><h2>执行时间线</h2></div><button id="export-monitor" disabled>导出记录 ↓</button></div><div class="event-toolbar"><div class="filters" role="group" aria-label="事件来源筛选"><button class="selected" data-filter="all" aria-pressed="true">全部</button><button data-filter="device" aria-pressed="false">设备回执</button><button data-filter="host" aria-pressed="false">主机事件</button></div><button id="follow" aria-pressed="false">暂停跟随</button></div><ol id="events" aria-label="最近的执行事件"><li class="event-empty">发送需求后，关键事件会出现在这里。</li></ol></article>
+</section>
+<footer><span><i></i> 旁观模式 · 不向设备发送命令</span><span>缓存命中与当前设备反馈分别记录</span></footer>
+</main>
+</body></html>

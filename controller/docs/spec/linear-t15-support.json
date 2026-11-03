@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "task": "T15",
+  "numeric_version": "w8a8-g64-fp32-v1",
+  "qualification": "PASS_REAL_CORAL_COMPONENT",
+  "backend": "CORAL_RVV",
+  "top": "RvvCoreMiniAxi",
+  "vme_enabled": false,
+  "families": [
+    "q",
+    "k",
+    "v",
+    "o",
+    "gate",
+    "up",
+    "down",
+    "lm_head"
+  ],
+  "routes": {
+    "CPU_C": "shared nx_linear_run API; desktop C provider",
+    "CORAL_RVV": "same API; quantization CPU, all group dot/restoration/reduction/bias Coral; platform transport callback"
+  },
+  "public": {
+    "m": [
+      1,
+      512
+    ],
+    "n": [
+      1,
+      151936
+    ],
+    "k": [
+      896,
+      4864
+    ],
+    "group_size": 64,
+    "alignment_bytes": 16,
+    "stride": "tight contiguous; output is FP32",
+    "attention": "CPU fallback",
+    "vector_nonlinear": "CPU fallback"
+  },
+  "private_component": {
+    "m": [
+      1,
+      512
+    ],
+    "n": [
+      1,
+      151936
+    ],
+    "k": [
+      1,
+      4864
+    ],
+    "staging_m": 4,
+    "output_rows_per_block": 128,
+    "row_padding": "ceil(K/64)*64, zeros outside valid K",
+    "output_stride": "positive multiple of 4, >=N*4",
+    "audit": "qualification only, absent in full head production path"
+  },
+  "errors": {
+    "nonfinite_or_invalid_quantized_data": "ENUMERIC; invalid output",
+    "unsupported_public_k_or_stride": "EUNSUPPORTED before submission",
+    "bad_span_or_overlap": "EBOUNDS",
+    "bad_alignment": "EALIGN",
+    "bus_or_core_or_timeout": "invalid partial output; isolate/drain/reset; no automatic CPU fallback"
+  },
+  "integration_owner": "T16",
+  "full_verification": "all 151936 rows in disjoint directed simulation partitions, retained logits and explicit coverage gate",
+  "evidence": "evidence/T15/acceptance-20261005-v3/manifest.json",
+  "report": "docs/reports/T15.md",
+  "tested_m": [
+    1,
+    4,
+    5,
+    8
+  ],
+  "tested_private_k": [
+    65,
+    127,
+    896,
+    4864
+  ],
+  "full_vocabulary_rows": 151936
+}

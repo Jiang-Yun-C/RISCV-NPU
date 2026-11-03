@@ -1,0 +1,219 @@
+{
+  "schema_version": 2,
+  "contract_id": "T24-CE64-S0-v2",
+  "date": "2026-10-13",
+  "task_status": "ACTIVE",
+  "route": "C_CE64_PRIMARY",
+  "public_route_id": 2,
+  "capability_api_version": 2,
+  "runtime_route_implemented": false,
+  "qualified_profile_mask": 0,
+  "coral_route_1_redefined": false,
+  "original_coral_qualification": "SIM_SELECTED",
+  "target": {
+    "board": "standard MES2L676-200HP / core V1.2 / base V1.2",
+    "device": "Logos2 PG2L200H FBB676 -6",
+    "tool_contract": "docs/spec/pds-toolchain-2024.2-global.json",
+    "clock_MHz": 125,
+    "programming": "VOLATILE_CRAM_ONLY",
+    "flash_write_authorized": false
+  },
+  "numeric": {
+    "contract": "docs/spec/numeric-v1.md",
+    "profile": "W8A8-g64 / INT32 dot / binary32 RNE",
+    "restore": "cast(dot); mul-RNE(Sa); mul-RNE(Sw); add-RNE(previous hardware partial)",
+    "fma": false,
+    "ftz": false,
+    "reassociation": false,
+    "golden_or_threshold_changes": false
+  },
+  "abi": {
+    "source": "build/T24_ARCH_REVIEW/pro-package-20261013-v1/risv_npu_architecture_handoff/include/ce64_abi_v1.h",
+    "descriptor_bytes": 128,
+    "completion_bytes": 160,
+    "body_request_bytes": 96,
+    "body_result_bytes": 104,
+    "commit_offset": 156,
+    "mmio_base": "0x10003000",
+    "mmio_span": 4096,
+    "status": "DESIGN_CONTRACT_NOT_INTEGRATED",
+    "max_inflight_calls": 1,
+    "max_fp_preparations": 4,
+    "completion_publish": "commit-last; CPU commit/body/commit plus epoch/session/sequence/generation and bridge/deadline checks",
+    "profiles": {
+      "S0": "Sequential rows and writes; full original fault expectations required",
+      "B1": "NOT_ENABLED; separate transaction/error/counting qualification required"
+    }
+  },
+  "transport": {
+    "axi_bits": 128,
+    "native_bits": 256,
+    "native_id": 0,
+    "native_write_drain_cycles": 1024,
+    "max_native_inflight": 1,
+    "max_quantum_bytes": 512,
+    "burst_cross_4KiB": false,
+    "guard_visible_fault_priority": "each cycle read_fault > write_fault > idle clear; address is not global first fault",
+    "soft_reset": "request only; retain VALID offers, held B/R and adapter until actual drain",
+    "native_timeout_or_calibration_loss": "quarantine until platform recovery proves no unowned late native response",
+    "lease_release": "only after successful full completion acquire; failures retain isolation/ownership"
+  },
+  "resource_gate": {
+    "whole_board_caps": {
+      "luts": 85000,
+      "registers": 82000,
+      "drm36k": 156,
+      "apm": 64
+    },
+    "whole_board_actual_mapped": "NOT_RUN",
+    "full_top_required": [
+      "CPU/FPU/cache",
+      "CE",
+      "scratch/ROM/SRAM",
+      "loader/peripherals",
+      "guard/fabric/adapter",
+      "complete vendor HMIC1.10/PHY/PLL",
+      "clock/reset/CDC/telemetry"
+    ],
+    "pnr_before_resource_pass": false
+  },
+  "restore_performance": {
+    "initial_target_cycles": 12,
+    "retain_target_cycles": 16,
+    "single_group_latency_gate": "OPEN; latest ordered core 18 cycles",
+    "dependent_group_retirement_II": "6 cycles in a 256-group single row, without stalls; not independent-request II",
+    "system_or_tile_throughput": "NOT_RUN"
+  },
+  "frozen_acceptance": {
+    "source": "evidence/T16/acceptance-20261007-v3",
+    "same_inputs_goldens_thresholds_error_expectations": true,
+    "new_ce_firmware_required": true,
+    "old_coral_elf_upload": false,
+    "required_control_seeds": [
+      1,
+      7,
+      19,
+      1
+    ],
+    "required_shapes": [
+      "M1",
+      "M4",
+      "M8",
+      "N129",
+      "K896",
+      "K4864"
+    ],
+    "head": "one uninterrupted M1/N151936/K896; CPU reads all 151936 outputs",
+    "tb_calculates_or_writes_Y": false,
+    "new_image_ddr": [
+      "calibration",
+      "1GiB",
+      "32-byte masks",
+      "at least 3600s stress",
+      "real CPU/CE competing bandwidth and longest blocking",
+      "cache ownership"
+    ]
+  },
+  "compatibility": [
+    {
+      "object": "CPU basic ISA/FPU/cache",
+      "policy": "retain current T09 configuration",
+      "new_ce_qualified": false
+    },
+    {
+      "object": "API v1 route=0 / route=1",
+      "policy": "unchanged CPU_C / CORAL_RVV; unknown routes still rejected",
+      "new_ce_qualified": false
+    },
+    {
+      "object": "route=2 / API v2 capability",
+      "policy": "explicit CE64 only; runtime NOT_IMPLEMENTED; advertise zero qualified profiles",
+      "new_ce_qualified": false
+    },
+    {
+      "object": "original application ELF",
+      "policy": "not CE transport compatible; compile and hash new CE ELF",
+      "new_ce_qualified": false
+    },
+    {
+      "object": "Coral ELF",
+      "policy": "not supported or uploaded on CE route",
+      "new_ce_qualified": false
+    },
+    {
+      "object": "LINEAR math and public errors",
+      "policy": "frozen; private descriptor errors map to public EFAULT except qualified ENUMERIC",
+      "new_ce_qualified": false
+    },
+    {
+      "object": "original receipt / FPGA_QUALIFIED",
+      "policy": "no promotion or transfer from new CE route",
+      "new_ce_qualified": false
+    }
+  ],
+  "stages": {
+    "G0": "CONTRACT_RECORDED; user-authorized engineering scope v2",
+    "G1": "PARTIAL; ordered arithmetic RTL and ADS only; full module chain OPEN",
+    "G2": "NOT_RUN",
+    "G3": "NOT_RUN",
+    "G4_resources": "NOT_RUN",
+    "G4_physical": "NOT_RUN; fixed-board engineering PnR/timing/DRC/CDC/RDC required; two external DDR inputs deferred to T30",
+    "G5": "NOT_RUN; G4 resources and engineering physical prerequisites required; cancelled DDR inputs do not block",
+    "G6": "NOT_RUN",
+    "G7": "NOT_RUN"
+  },
+  "supersedes": {
+    "contract": "docs/spec/ce64-s0-v1.json",
+    "sha256": "2c6893c8b36266325f78ee6adefc1517d2889aaceb87dfd4da5eaede4eeb6afe",
+    "scope_only_change": true
+  },
+  "qualification_scope": "CE64_S0_FIXED_BOARD_ENGINEERING",
+  "scope_change": {
+    "date": "2026-10-13",
+    "authority": "User: 取消这个信息然后给我一个提示词我去新对话继续完成修改后的t24",
+    "registration": "evidence/CE64_SCOPE/ce64-s0-engineering-scope-20261013-v1/manifest.json",
+    "cancelled_t24_prerequisites": [
+      "DDR_EXACT_AC",
+      "CORE_DDR_TRACE_BUDGET"
+    ],
+    "do_not_request_or_search_cancelled_inputs_for_t24": true,
+    "cancelled_inputs_block_t24": false,
+    "history_preserved": true,
+    "other_required_gates_unchanged": true,
+    "frequency_numeric_timeout_resource_budget_waived": false
+  },
+  "physical_acceptance": {
+    "track": "Fixed-board engineering acceptance of each new CPU+DDR/CE image",
+    "external_t24_blockers": [],
+    "reuse_vendor_baseline": "Matched standard 200HP HMIC1.10 controller/PHY/PLL/FDC and actual board pins; bind actual source, generated IP and effective constraints to each new implementation",
+    "required": [
+      "Whole-board resource PASS before PnR",
+      "Actual whole-board placement and routing at 125MHz",
+      "Actual board pin/IO and reference/generated clock/reset constraints",
+      "Slow/Fast Setup/Hold/Recovery/Removal/Minimum Pulse Width ten reports",
+      "DRC and unconstrained-path/exception coverage review",
+      "Clock/reset/CE, CDC/RDC structural review and reset verification per accepted PDS method",
+      "New-image calibration, 1GiB, 32-byte masks and at least 3600s stress",
+      "Real CPU/CE competition, longest blocking, cache ownership, compute and fault recovery"
+    ],
+    "deferred_to_T30": [
+      {
+        "id": "DDR_EXACT_AC",
+        "item": "QN3B256M16H-16A matching speed/bin complete AC timing authority",
+        "status": "OPEN_UNPROVEN",
+        "t24_prerequisite": false
+      },
+      {
+        "id": "CORE_DDR_TRACE_BUDGET",
+        "item": "MES2L676-CORE V1.2 DDR board trace min/max delay and skew budget",
+        "status": "OPEN_UNPROVEN",
+        "t24_prerequisite": false
+      }
+    ],
+    "full_ddr_phy_board_io_signoff": "OPEN_T30; not certified by engineering T24 completion",
+    "unknown_policy": "Record unavailable external AC/PCB and related unproved PHY/board-I/O margins as OPEN_T30/UNKNOWN, without blocking this engineering scope. Other missing required reports or actual violations remain OPEN/FAIL.",
+    "allowed_claim_after_all_required_pass": "T24 DONE only within CE64_S0_FIXED_BOARD_ENGINEERING; CE qualification separately named and tied to the new image; original Coral qualification unchanged",
+    "currently_qualified": false,
+    "invent_io_delays_or_broaden_false_paths": false
+  }
+}

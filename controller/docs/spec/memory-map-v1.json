@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "version": "memory-map-v1",
+  "address_bits": 32,
+  "intervals": "half-open",
+  "endianness": "little",
+  "physical_qualification": "ASSUMED_1GiB_NOT_BOARD_VERIFIED",
+  "cpu_reset_pc": "0x00010000",
+  "application_entry": "0xb4000000",
+  "initial_stack_top": "0xb8000000",
+  "stack_bytes": 65536,
+  "ddr_base": "0x80000000",
+  "ddr_size_bytes": 1073741824,
+  "soc_regions": [
+    {
+      "name": "boot_rom",
+      "base": "0x00010000",
+      "size_bytes": 65536,
+      "cache": "uncached",
+      "cpu_access": "rx",
+      "owner": "boot"
+    },
+    {
+      "name": "boot_sram",
+      "base": "0x00020000",
+      "size_bytes": 65536,
+      "cache": "uncached",
+      "cpu_access": "rw",
+      "owner": "boot"
+    },
+    {
+      "name": "uart_timer",
+      "base": "0x10000000",
+      "size_bytes": 4096,
+      "cache": "device",
+      "cpu_access": "rw",
+      "owner": "cpu"
+    },
+    {
+      "name": "sensor_gpio",
+      "base": "0x10001000",
+      "size_bytes": 4096,
+      "cache": "device",
+      "cpu_access": "rw",
+      "owner": "cpu"
+    },
+    {
+      "name": "sd_spi",
+      "base": "0x10002000",
+      "size_bytes": 4096,
+      "cache": "device",
+      "cpu_access": "rw",
+      "owner": "cpu"
+    },
+    {
+      "name": "coral_aperture",
+      "base": "0x20000000",
+      "size_bytes": 262144,
+      "cache": "device",
+      "cpu_access": "rw",
+      "owner": "driver"
+    }
+  ],
+  "ddr_regions": [
+    {
+      "name": "weights",
+      "base": "0x80000000",
+      "size_bytes": 671088640,
+      "cache": "uncached",
+      "cpu_access": "r",
+      "owner": "loader_then_shared_readonly"
+    },
+    {
+      "name": "kv",
+      "base": "0xa8000000",
+      "size_bytes": 67108864,
+      "cache": "uncached",
+      "cpu_access": "rw",
+      "owner": "session"
+    },
+    {
+      "name": "workspace",
+      "base": "0xac000000",
+      "size_bytes": 134217728,
+      "cache": "uncached",
+      "cpu_access": "rw",
+      "owner": "exclusive_cpu_or_backend"
+    },
+    {
+      "name": "cpu_private",
+      "base": "0xb4000000",
+      "size_bytes": 67108864,
+      "cache": "cacheable",
+      "cpu_access": "rwx",
+      "owner": "cpu"
+    },
+    {
+      "name": "tokenizer",
+      "base": "0xb8000000",
+      "size_bytes": 33554432,
+      "cache": "cacheable",
+      "cpu_access": "r",
+      "owner": "cpu"
+    },
+    {
+      "name": "shared_io",
+      "base": "0xba000000",
+      "size_bytes": 33554432,
+      "cache": "uncached",
+      "cpu_access": "rw",
+      "owner": "exclusive_cpu_or_backend"
+    },
+    {
+      "name": "reserved",
+      "base": "0xbc000000",
+      "size_bytes": 67108864,
+      "cache": "unmapped",
+      "cpu_access": "none",
+      "owner": "none"
+    }
+  ],
+  "coral": {
+    "aperture_base": "0x20000000",
+    "aperture_size_bytes": 262144,
+    "local_regions": [
+      {
+        "name": "itcm",
+        "base": "0x00000000",
+        "size_bytes": 8192
+      },
+      {
+        "name": "dtcm",
+        "base": "0x00010000",
+        "size_bytes": 32768
+      },
+      {
+        "name": "csr",
+        "base": "0x00030000",
+        "size_bytes": 4096
+      }
+    ],
+    "registers": {
+      "control": 0,
+      "entry_pc": 4,
+      "status": 8
+    },
+    "control_reset_mask": 1,
+    "control_clock_gate_mask": 2,
+    "status_halted_mask": 1,
+    "status_fault_mask": 2,
+    "external_translation": "identity",
+    "external_read_regions": [
+      "weights",
+      "kv",
+      "workspace",
+      "shared_io"
+    ],
+    "external_write_regions": [
+      "kv",
+      "workspace",
+      "shared_io"
+    ],
+    "axi_address_bits": 32,
+    "axi_data_bits": 128,
+    "axi_id_bits": 6,
+    "protection_owner": "T13/T14 SoC bridge; native Coral has no permission firewall claim"
+  }
+}

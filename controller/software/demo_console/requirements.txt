@@ -1,0 +1,2 @@
+# Optional: browser USB serial and recorded replays need only Python's standard library.
+pyserial==3.5

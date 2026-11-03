@@ -1,0 +1,16 @@
+{
+  "status": "PASS_EVIDENCE_REPLAY_CONTROL_SEMANTIC_FAILURES_RETAINED",
+  "full_real_EOS_requests": 18,
+  "cold_warm_pairs": 3,
+  "control_cases": 10,
+  "strict_control_matches": 8,
+  "matched_cancel_requests": 1,
+  "new_CPU_ablations": 0,
+  "new_RTL_simulations": 0,
+  "new_PDS_runs": 0,
+  "new_configurations": 0,
+  "new_model_loads": 0,
+  "figures": 4,
+  "physical_LED_observation": "USER_REPORTED_LED_NORMAL",
+  "production_GO": false
+}

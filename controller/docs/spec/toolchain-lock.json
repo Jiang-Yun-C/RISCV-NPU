@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-02T19:45:48.804166+00:00",
+  "scope": "Jiang account on this host; reuse installed tools; no installation performed",
+  "provenance": "/home/Jiang/.local/share/nexusrv/manifest.json",
+  "tools": {
+    "vcs": {
+      "path": "/software/eda/synopsys/vcs/X-2025.06/bin/vcs",
+      "resolved_path": "/software/eda/synopsys/vcs/X-2025.06/bin/vcs",
+      "sha256": "6d72f2f7603ec40d7b940993ab05ab2aa523bd988651b643346752c4463e2f7b",
+      "expected_version": "X-2025.06"
+    },
+    "rv32_gcc": {
+      "path": "/home/Jiang/.local/bin/riscv32-unknown-elf-gcc",
+      "resolved_path": "/home/Jiang/.local/opt/riscv-gcc-14.2.0-3/bin/riscv-none-elf-gcc",
+      "sha256": "d50d61d911dd4dd8a3c393d775aa8adf42be6c52869ba3a9a5358a65f9e5434c",
+      "expected_version": "14.2.0",
+      "version_args": [
+        "-dumpfullversion"
+      ]
+    },
+    "rv32_readelf": {
+      "path": "/home/Jiang/.local/bin/riscv32-unknown-elf-readelf",
+      "resolved_path": "/home/Jiang/.local/opt/riscv-gcc-14.2.0-3/bin/riscv-none-elf-readelf",
+      "sha256": "69fb0e3e5d80a833a8c84eb53bcd305c13b82460c71e5073c2675a4af3d86efe",
+      "expected_version": "2.43.1",
+      "version_args": [
+        "--version"
+      ]
+    },
+    "rv32_objdump": {
+      "path": "/home/Jiang/.local/bin/riscv32-unknown-elf-objdump",
+      "resolved_path": "/home/Jiang/.local/opt/riscv-gcc-14.2.0-3/bin/riscv-none-elf-objdump",
+      "sha256": "17991518cfc587375383e9a5d7d873610bb69ba4229a45650d5b1a1d1360cafd",
+      "expected_version": "2.43.1",
+      "version_args": [
+        "--version"
+      ]
+    },
+    "rv32_objcopy": {
+      "path": "/home/Jiang/.local/bin/riscv32-unknown-elf-objcopy",
+      "resolved_path": "/home/Jiang/.local/opt/riscv-gcc-14.2.0-3/bin/riscv-none-elf-objcopy",
+      "sha256": "553479596952940736067dc732389730c78a893c3b3b630d6ed73f2ef0b9e2d9",
+      "expected_version": "2.43.1",
+      "version_args": [
+        "--version"
+      ]
+    },
+    "host_cc": {
+      "path": "/home/Jiang/.local/bin/host-gcc",
+      "resolved_path": "/home/Jiang/.local/bin/host-gcc",
+      "sha256": "dd6b126fb71ec86e0e480eb0aded6c18236b3fe1470b08fd7d3384560cc70216",
+      "expected_version": "13.3.1",
+      "version_args": [
+        "-dumpfullversion"
+      ]
+    },
+    "host_cc_binary": {
+      "path": "/opt/rh/gcc-toolset-13/root/usr/bin/gcc",
+      "resolved_path": "/opt/rh/gcc-toolset-13/root/usr/bin/gcc",
+      "sha256": "7984a9e11ba914469580e8d830de8303e812c28a50ca5e4df38b77c393429d93",
+      "expected_version": "13.3.1",
+      "version_args": [
+        "-dumpfullversion"
+      ]
+    },
+    "vcs_host_cc": {
+      "path": "/usr/bin/gcc",
+      "resolved_path": "/usr/bin/gcc",
+      "sha256": "6035e392481866101780c3bb344a2b8e8a53b3329224881b79cd7001bf6ffdb5",
+      "expected_version": "8.5.0",
+      "version_args": [
+        "-dumpfullversion"
+      ]
+    },
+    "vcs_host_cxx": {
+      "path": "/usr/bin/g++",
+      "resolved_path": "/usr/bin/g++",
+      "sha256": "fc449d2cfa6053fa00bf0f542ed7767fbd14cd3cb1907909daef33a8b5e27bc8",
+      "expected_version": "8.5.0",
+      "version_args": [
+        "-dumpfullversion"
+      ]
+    },
+    "java": {
+      "path": "/home/Jiang/.local/bin/java",
+      "resolved_path": "/home/Jiang/.local/opt/jdk8/bin/java",
+      "sha256": "1a081a2c18367e5d966d716a6091d5fe2eec26b19e471980d0d8fd550174e21c",
+      "expected_version": "1.8.0_504",
+      "version_args": [
+        "-version"
+      ]
+    },
+    "javac": {
+      "path": "/home/Jiang/.local/bin/javac",
+      "resolved_path": "/home/Jiang/.local/opt/jdk8/bin/javac",
+      "sha256": "a7067cb35a7f16dbf1182e1a84d72d5c5e9dd3272a0c519d87a3e65bfad2bdff",
+      "expected_version": "1.8.0_504",
+      "version_args": [
+        "-version"
+      ]
+    },
+    "sbt": {
+      "path": "/home/Jiang/.local/bin/sbt",
+      "resolved_path": "/home/Jiang/.local/bin/sbt",
+      "sha256": "8e286e61f7c0600c4423b372a0dcdabc14254701de198f56d6b78f1a0ac47031",
+      "expected_version": "1.10.7",
+      "version_args": [
+        "--script-version"
+      ]
+    },
+    "python": {
+      "path": "/home/Jiang/.local/opt/nexusrv-python/bin/python",
+      "resolved_path": "/usr/bin/python3.11",
+      "sha256": "0b8776e3cdb57201ed54030895b2ac20e285f115baf3e30e6b35cbef3bfd5c90",
+      "expected_version": "3.11.13",
+      "version_args": [
+        "--version"
+      ]
+    },
+    "git": {
+      "path": "/usr/bin/git",
+      "resolved_path": "/usr/bin/git",
+      "sha256": "4712661e824361c85d1c8f9dc231d45a79f853b393745a86b7ded95937bcbd38",
+      "expected_version": "git version 2.43.7",
+      "version_args": [
+        "--version"
+      ]
+    },
+    "make": {
+      "path": "/usr/bin/make",
+      "resolved_path": "/usr/bin/make",
+      "sha256": "59500268a8db282fda9caba109a52e9a4d894b908e605a9a44d06f39d474c2a5",
+      "expected_version": "GNU Make 4.2.1",
+      "version_args": [
+        "--version"
+      ]
+    }
+  },
+  "identity_files": [
+    {
+      "path": "/home/Jiang/.local/share/nexusrv/manifest.json",
+      "sha256": "9e76403a72afc6dc156bfa955751cd8d095b2b627972b3409607fbb4feab6d0e"
+    },
+    {
+      "path": "/home/Jiang/.local/share/nexusrv/requirements.lock.txt",
+      "sha256": "debc28df5dce80b70a9e2ce5b54905bd3bf6b0e6b1b884045a7623dfe9df0f24"
+    },
+    {
+      "path": "/home/Jiang/.local/share/nexusrv/activate.sh",
+      "sha256": "d0737b6cc1e8e2c1695b23e2e8ca0be319acceb9fcee1bae982968940c8c9d3e"
+    },
+    {
+      "path": "/home/Jiang/.local/bin/npu-python",
+      "sha256": "d98012a86833d3842b9800cde5886ac75f274211d07ab534485c85700ea296b7"
+    },
+    {
+      "path": "/home/Jiang/.local/opt/sbt-1.10.7/bin/sbt",
+      "sha256": "1547ba06da115ece4192e229e4a34583d0a2ee2d12665cf87c38002151537176"
+    },
+    {
+      "path": "/home/Jiang/.local/share/nexusrv/src/VexRiscv/project/build.properties",
+      "sha256": "b0ed4c2595135af38cd862ddc2e7293714be64ba3ea084990c7136f3d70b14c7"
+    },
+    {
+      "path": "/home/Jiang/.local/share/nexusrv/src/VexRiscv/build.sbt",
+      "sha256": "35765cbb64113b75075041d11de946d53971aa2a14ed600f2b30dc34de7a0fe0"
+    },
+    {
+      "path": "/home/Jiang/.local/share/nexusrv/sbt-repositories",
+      "sha256": "e5b455eae2debe0d031194347c324649c2ab215485ad67dfc487c69102325c8e"
+    }
+  ],
+  "python_requirements": "docs/spec/python-requirements.lock.txt",
+  "python_requirements_sha256": "debc28df5dce80b70a9e2ce5b54905bd3bf6b0e6b1b884045a7623dfe9df0f24",
+  "sbt": {
+    "launcher": "1.10.7",
+    "vexriscv_project": "1.6.0",
+    "spinalhdl": "1.13.0",
+    "project_rebuilt_in_T01": false
+  },
+  "installation_archive_sha256": {
+    "OpenJDK8U-jdk_x64_linux_hotspot_8u504b01.tar.gz": "9c70e102f527ac674ac2fe9c7d47b9a04e2d19842ba5ab8e9b33f368bbadfaea",
+    "xpack-riscv-none-elf-gcc-14.2.0-3-linux-x64.tar.gz": "f574415b63f12b09bdd3475223ab492a465d23810646c90c13a4c3b676c83503",
+    "uv-x86_64-unknown-linux-gnu.tar.gz": "23bf5552d220e0842b65c862097b2ebaeba0064b74eda5e565e77fd25969d8c8",
+    "xpack-openocd-0.12.0-7-linux-x64.tar.gz": "94b3790983beaf8ed57e646c0620dd66d705fddae03d290823a6ed3b439468d6",
+    "sbt-1.10.7.tgz": "32c15233c636c233ee25a2c31879049db7021cfef70807c187515c39b96b0fe6"
+  },
+  "historical_evidence": [
+    {
+      "name": "environment-manifest.json",
+      "path": "/home/Jiang/.local/share/nexusrv/manifest.json",
+      "sha256": "9e76403a72afc6dc156bfa955751cd8d095b2b627972b3409607fbb4feab6d0e",
+      "mtime_utc": "2026-09-26T04:18:48.304282+00:00"
+    },
+    {
+      "name": "doctor.log",
+      "path": "/home/Jiang/.local/share/nexusrv/logs/doctor.log",
+      "sha256": "be4b98aec191528ab232294c4bf0cc0fd8463df8b8f52e27c1ae79ec0a13c8e1",
+      "mtime_utc": "2026-09-26T04:12:54.172714+00:00"
+    },
+    {
+      "name": "vcs-build.log",
+      "path": "/home/Jiang/.local/share/nexusrv/logs/vcs-build.log",
+      "sha256": "96c2c9685f3f3143cc55f5104aefe7e9933b4d6e98453b256dbc554373a5fac7",
+      "mtime_utc": "2026-09-26T04:06:18.446167+00:00"
+    },
+    {
+      "name": "vcs-run.log",
+      "path": "/home/Jiang/.local/share/nexusrv/logs/vcs-run.log",
+      "sha256": "62e4913f3b2f0920e194514b0eee1483294803c8681008149615bfa2419aeedf",
+      "mtime_utc": "2026-09-26T04:06:24.456755+00:00"
+    },
+    {
+      "name": "vex-generate.log",
+      "path": "/home/Jiang/.local/share/nexusrv/logs/vex-generate.log",
+      "sha256": "f2f953559aacc114be71687957c05b368e7eee248f431e4f832b3c75b1532d30",
+      "mtime_utc": "2026-09-26T04:08:12.803682+00:00"
+    },
+    {
+      "name": "vex-vcs-compile.log",
+      "path": "/home/Jiang/.local/share/nexusrv/logs/vex-vcs-compile.log",
+      "sha256": "fe97e1cea88a3c2be597332be9b67f6221a177986b851b11d91c7c341c2b907f",
+      "mtime_utc": "2026-09-26T04:08:39.456732+00:00"
+    },
+    {
+      "name": "host-build.log",
+      "path": "/home/Jiang/.local/share/nexusrv/logs/host-build.log",
+      "sha256": "4344ccd215ffc8a76c8d5ab4fc30128f9aa3a679e8e73bc9bd547aa1613f725c",
+      "mtime_utc": "2026-09-26T04:12:51.280789+00:00"
+    },
+    {
+      "name": "model-smoke.json",
+      "path": "/home/Jiang/.local/share/nexusrv/logs/model-smoke.json",
+      "sha256": "cd595c6e75e44c36ddec5a7711ef7c153eb290939935bdd967721a3af2980696",
+      "mtime_utc": "2026-09-26T04:12:46.904097+00:00"
+    }
+  ],
+  "pds": {
+    "status": "blocked: official download requires login; no installer/license available",
+    "candidate": "PDS_2022.2-SP6.7.1-ads-CentOS7.3-x64",
+    "candidate_status": "selected for 2022.2 board tutorial family; actual PG2L200H device database/IP and RHEL8 support not yet tested",
+    "source": "https://www.pangomicro.com/resources/software/pds/"
+  },
+  "acceptance_boundary": "Tool presence, actual VCS simulation, RV32 ELF structure are separate; CPU execution deferred to T03."
+}

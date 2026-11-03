@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "seed": 20261002,
+  "files": {
+    "dev.jsonl": {
+      "sha256": "87d678240d4934226684f70929f634c74c63f0b8adca56d10f85d7e245acfb2d",
+      "count": 50
+    },
+    "heldout.jsonl": {
+      "sha256": "5b511512026cf08b70c9449b2ac15e3426f3551e9dfbe5650e88e06b410d2f12",
+      "count": 200
+    }
+  },
+  "policy": "Freeze before inference; dev-only tuning; heldout never used for prompt/quantization selection",
+  "independence": "Disjoint Chinese instruction and phrase-family sets; same public device schema; authored fixtures, not a population sample"
+}

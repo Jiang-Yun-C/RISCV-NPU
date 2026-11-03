@@ -1,0 +1,2 @@
+# Optional for offline preview; required for the explicit local Python UART bridge.
+pyserial==3.5

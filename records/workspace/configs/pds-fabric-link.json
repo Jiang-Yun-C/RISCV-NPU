@@ -1,0 +1,81 @@
+{
+  "schema": "pds-fabric-qualified-link-v1",
+  "project": "Demo V6 PG2L200H",
+  "transport": "native_PDS_PVC_XVC_Windows_ATK_HID",
+  "target": {
+    "device": "PG2L200H",
+    "package": "FBB676",
+    "speed_grade": "-6",
+    "idcode": "0x10603899",
+    "adapter_serial": "ATK 20210914",
+    "adapter_product": "ATK-HS-V2-CMSIS-DAP",
+    "VID": "04d8",
+    "PID": "00df",
+    "TCK_hz": 100000
+  },
+  "source_content_id": "3ebbf449cb622e28baa59e02e02da20ba79a4a4b03d3278aacfa650ecbcb413a",
+  "physical_binding": "configs/demo-v6-board-current.json",
+  "FIC": "exports/demo-v6-irq-offline-20261102-v1/hardware/demo-v6-irq-debug.fic",
+  "FIC_sha256": "942492fef6ac719f20162ce5f79baeaec686aa7a120fbeec1ecfa0491322c148",
+  "qualified_evidence": "evidence/DEMO_V6_FABRIC_LINK/20261102-v1",
+  "qualified_inventory": "evidence/DEMO_V6_FABRIC_LINK/20261102-v1/ARTIFACTS.json",
+  "qualified_inventory_sha256": "33f32610ba1acd051a481059886f6a46e67f94f22310c1168adf8393bd2aca1f",
+  "qualified_verifier": "variants/demo_v6_fabric_link_20261102_v1/verify.py",
+  "runner": "variants/demo_v6_fabric_link_20261102_v1/connect.py",
+  "implementation_sha256": {
+    "variants/demo_v6_fabric_link_20261102_v1/connect.py": "3ea97de08c4da404204bd23c38676b71ae93144e7855aad542d1246aa70e469a",
+    "variants/demo_v6_fabric_link_20261102_v1/host_bridge.py": "eca3d70f5486d1af3cf7b11eca54d92ce9d919ed1e5b9ccbaa4a11dabed70b3d",
+    "variants/demo_v6_fabric_link_20261102_v1/xvc_bridge_large.py": "2c0641b40234552db252adc9328c728e76b80db378291c984232109b59992e6b",
+    "variants/demo_v6_fabric_link_20261102_v1/guard.py": "00423c1d648eca53b906210bd730a416a9e39298da628cb657b1798b1b9ef11f",
+    "variants/demo_v6_fabric_link_20261102_v1/guard_large.py": "270f078bb8ab572cfe9cb30eaa1a5c93c49b1f960af4f28913f621b8ac32291c",
+    "variants/demo_v6_fabric_link_20261102_v1/windows_guarded_jtag.py": "f8718e24531520413139f55f16616501553faa702ca6ffafa9028e61aa4a0b51",
+    "variants/demo_v6_board_20261102_v1/windows_cmsis_jtag.py": "36a3f7655f591257d2dcff170c83b4c75541d868bb872a8b5105d6aeb4f3b2ad"
+  },
+  "external_files": {
+    "/usr/local/bin/pds2024-run": "15de07a88e9ed7caf1c06fbdbf02c8d196251449d9a6a7446522fa2558f3fcd6",
+    "/software/eda/pango/PDS_2024.2/bin/cdt_js": "f804b0151de7eb35a4cc502475e23b1aeed316c39578f8c8d983602ec7814ff2",
+    "/software/eda/pango/PDS_2024.2/bin/cdt_dbg": "83c9f105a9709bd629398bc6844f0aafd302ca23f6a0916253d66c9d7cdfcb1d",
+    "/mnt/c/Users/cyqh1/AppData/Local/Programs/Python/Python312/python.exe": "4d6f5f81a4bca11191c4c7c6b43632694d0a4ce74e068619d8fdc161d469859a",
+    "/mnt/c/codex_tmp/pds-board-probe-20261009-v1/python-deps/hid.cp312-win_amd64.pyd": "087c2d451657efaeb31cfa092436437f7208a04c4f8b4696b32b30c5801b7770"
+  },
+  "external_directories": [
+    "/mnt/c/codex_tmp/pds-board-probe-20261009-v1/python-deps"
+  ],
+  "evidence_root": "evidence/DEMO_V6_FABRIC_LINK",
+  "Windows_stage_root": "/mnt/c/codex_tmp",
+  "Windows_stage_prefix": "v6-fabric-",
+  "board_lock": "build/t27-physical-board.lock",
+  "defaults": {
+    "xvc_port": 25431,
+    "server_port": 65428,
+    "seconds": 3600
+  },
+  "guide": "docs/spec/demo-v6-fabric-atk-xvc.md",
+  "prohibited": [
+    "FPGA programming",
+    "Flash/NVM writes",
+    "FPGA reset/reload",
+    "UART commands"
+  ],
+  "physical_validation": "INHERITED_FROM_QUALIFIED_RECEIPT_NO_NEW_HARDWARE_REQUIRED_FOR_REGISTRATION",
+  "dependency_recovery": {
+    "source": "tools/pds_fabric_deps_20261103_v1",
+    "destination": "/mnt/c/codex_tmp/pds-board-probe-20261009-v1/python-deps",
+    "ABI": "CPython 3.12 Windows x86_64",
+    "policy": "Restore only missing exact files; do not overwrite changed qualified dependencies",
+    "files_sha256": {
+      "tools/pds_fabric_deps_20261103_v1/hid.cp312-win_amd64.pyd": "087c2d451657efaeb31cfa092436437f7208a04c4f8b4696b32b30c5801b7770",
+      "tools/pds_fabric_deps_20261103_v1/hidapi-0.15.0.dist-info/INSTALLER": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508",
+      "tools/pds_fabric_deps_20261103_v1/hidapi-0.15.0.dist-info/METADATA": "c8e97b79f9c0b2805941fa9cfc2b62760316bce0e55d88dc13f6e942b910b3c6",
+      "tools/pds_fabric_deps_20261103_v1/hidapi-0.15.0.dist-info/RECORD": "9cafe0ef17f6e8c199dbbd625549b04d7fcdf420c5838b1fafcbb86770140a99",
+      "tools/pds_fabric_deps_20261103_v1/hidapi-0.15.0.dist-info/REQUESTED": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tools/pds_fabric_deps_20261103_v1/hidapi-0.15.0.dist-info/WHEEL": "f143fdc7da6e588d0fd55fddecada831306a7de2cd9b6d424f367f3edaf43575",
+      "tools/pds_fabric_deps_20261103_v1/hidapi-0.15.0.dist-info/licenses/LICENSE-bsd.txt": "dc15d6ced1b80b69c7a2cdacd64e82c8e3d122b01085f6d13513d9a6bd3a8ef1",
+      "tools/pds_fabric_deps_20261103_v1/hidapi-0.15.0.dist-info/licenses/LICENSE-gpl3.txt": "0b383d5a63da644f628d99c33976ea6487ed89aaa59f0b3257992deac1171e6b",
+      "tools/pds_fabric_deps_20261103_v1/hidapi-0.15.0.dist-info/licenses/LICENSE-orig.txt": "a23996ef783cec2b5329da80899078bed76cf753f22a0381b75026eb36bab65d",
+      "tools/pds_fabric_deps_20261103_v1/hidapi-0.15.0.dist-info/licenses/LICENSE.txt": "c6cc9afd94b596557fccbde465d4d8a3d02f5a109a6f1f6b396f416977d02e1e",
+      "tools/pds_fabric_deps_20261103_v1/hidapi-0.15.0.dist-info/top_level.txt": "6d7c58dcd660932a2661f48478dd83e4057c5c5efd4cd1ff1f95a49c65262ce8"
+    }
+  },
+  "workflow_inventory": "evidence/DEMO_V6_FABRIC_WORKFLOW/20261103-v1/ARTIFACTS.json"
+}

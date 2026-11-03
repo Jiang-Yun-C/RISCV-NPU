@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "version": "2022.2-rc3",
+  "build": "113398",
+  "home": "/software/eda/pango/current",
+  "resolved_home": "/software/eda/pango/PDS_2022.2-rc3",
+  "entries": {
+    "gui": "/usr/local/bin/pds",
+    "shell": "/usr/local/bin/pds_shell",
+    "doctor": "/usr/local/bin/pds-doctor"
+  },
+  "binary_sha256": {
+    "pds": "ab5096252a5fd52b8e3a3b73bd175c5711aed9800cd5e7fb276540501888169a",
+    "pds_shell": "54ff3630f131843027b0ef48685d1911d16943124b3ddc504e2187d7ed5db27a"
+  },
+  "license": {
+    "path": "/software/eda/pango/licenses/pds-2022.2-bundled.lic",
+    "sha256": "b285315a32402809c626f85f803cad5af8f755c88c95f4f3b29e6147cd67f5b1",
+    "source": "/software/eda/pango/PDS_2022.2-rc3/ip/ip.lic",
+    "hostid": "ANY"
+  },
+  "installation_evidence": "/software/eda/pango/installation/20261008T194150Z-bundled-license",
+  "scope": "tool_readiness_only",
+  "sandbox_target": "Logos2 PG2L100H FBG676 -6; not the project board identity"
+}

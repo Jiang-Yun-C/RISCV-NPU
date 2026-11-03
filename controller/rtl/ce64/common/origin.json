@@ -1,0 +1,7 @@
+{
+  "source": "rtl/soc/nx_ddr_adapter.sv",
+  "source_sha256": "14f4cbe84b2b292ba77760823de558f0b5728451503e34f028b73ac7f32501a7",
+  "new_source": "rtl/ce64/common/nx_ce64_ddr_adapter.sv",
+  "original_T23_unchanged": true,
+  "new_qualification": "NOT_RUN"
+}

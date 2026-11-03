@@ -1,0 +1,15 @@
+{
+  "source": "firmware/boot/sd_loader/main.c",
+  "source_sha256": "5602b88c6d3569a90c178037b96d7cbe9a8e72d5b5d33bddb0177f436598caa8",
+  "uart_store_reference": "firmware/boot/uart_stream/pack.c",
+  "uart_store_reference_sha256": "75010aa69dda8a7f1d76d3786fa0eb13914b7cb74f62c17c053bfb4e9496d3cd",
+  "ported_file": "firmware/runtime/board/sd_loader_core.c",
+  "changes": [
+    "Aligned word stores, fence/DCACHE invalidate/fence.i and byte readback for app/directory/model/tokenizer",
+    "Fixed app base=entry=0xb4000000 and 8MiB limit",
+    "All original parser/alias/numeric/CRC/SHA/trust checks retained before seal",
+    "SD status and actual hardware seal required before entry",
+    "Host-only test hooks replace block I/O, never enabled in production",
+    "r after failure triggers real platform reset, no software-only retry"
+  ]
+}

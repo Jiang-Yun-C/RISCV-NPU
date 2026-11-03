@@ -1,0 +1,42 @@
+{
+  "schema": "demo-v5-minimal-console-current-v1",
+  "status": "PASS_HOST_MINIMAL_UI_AND_CACHE_HIT_ANIMATION",
+  "finished_utc": "2026-11-02T07:23:41.728948+00:00",
+  "source_root": "software/demo_v5_minimal_console_20261102_v1/host_console",
+  "host_content_sha256": "36763688bb5649295262e03b6cac33cbda9638d82d6717c43d2104a6aaea4d1d",
+  "evidence_root": "evidence/DEMO_V5_MINIMAL_CONSOLE/20261102-v1",
+  "archive": "exports/demo-v5-minimal-console-20261102-v1.zip",
+  "archive_sha256": "1a9cfa706a7f48abc4eb17e0f3f9ec168d7ffb3e2e5323ddcc8cfaa68200e8ee",
+  "windows_executable": "exports/demo-v5-minimal-console-20261102-v1/NexusRV-Assistant-v5.exe",
+  "exe_sha256": "d01bfb49a3a04c5b5ca98f5d18d74b84449f66233257bc750d8fde03c444a157",
+  "default_port": 8769,
+  "quick_buttons": false,
+  "trigger_hints": false,
+  "cache_hit_animation": true,
+  "cache_semantics": {
+    "reply": "Stored full reply",
+    "rhythm": "Stored verified model intent",
+    "on_off": "Stored fixed control instruction; current physical result still requires live device acknowledgement",
+    "current_model_inference_for_cache_hits": false
+  },
+  "counts": {
+    "hardware_actions": 0,
+    "physical_serial_opens": 0,
+    "new_model_requests": 0,
+    "main_CRAM": 0,
+    "maintenance_CRAM": 0,
+    "model_loads": 0,
+    "SD_updates": 0,
+    "Flash_writes": 0,
+    "NVM_writes": 0,
+    "resets": 0,
+    "reloads": 0,
+    "PDS": 0,
+    "W": 0,
+    "cumulative_main_configurations": 8,
+    "cumulative_model_load_triggers": 8
+  },
+  "active_owned_services": [],
+  "read_only_verify": "npu-python -B variants/demo_v5_minimal_console_20261102_v1/verify_current.py",
+  "final_manifest_sha256": "64c7516badd8b9ee2e6cfa01e4453424f3fe5091b367073d1496a722764b73e8"
+}

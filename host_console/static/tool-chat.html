@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NexusRV · 智能助手</title><link rel="stylesheet" href="tool-chat.css"><script type="module" src="tool-chat.js"></script>
+</head>
+<body><main>
+<header><div class="brand"><b>NEXUSRV</b><span>工控机智能助手</span></div><nav aria-label="对话操作"><a id="monitor-link" class="monitor-link" href="monitor.html" target="_blank" rel="noopener">运行监控 ↗</a><button id="clear-context" class="quiet" title="清除对话与输入内容，开始新的对话">清空当前上下文</button><button id="connection">连接设备</button></nav></header>
+<section class="intro"><small>本地智能 · 即说即用</small><h1>说一句，让设备行动。</h1><p>在这里提问，或描述你想完成的操作。</p></section>
+<section id="conversation" aria-label="对话内容" aria-live="polite"><article class="message system welcome"><span class="avatar">N</span><div><b>你好，有什么可以帮你？</b><p>直接输入你的问题或需求。</p></div></article></section>
+<p id="context-status" role="status" aria-live="polite"></p>
+<form id="composer"><textarea id="prompt" rows="2" placeholder="输入你的问题或需求…" aria-label="对话输入"></textarea><button id="send" type="submit">发送 ↑</button></form>
+<footer><span id="connection-status">设备未连接 · 使用时自动连接</span><span>Enter 发送 · Shift + Enter 换行</span></footer>
+<details id="records"><summary>使用说明与运行记录</summary><p>“缓存命中”表示使用已保存的回复或控制指令，“实时回复”表示由当前设备生成。设备操作的结果和进度依据当前反馈确认。</p><p>清空上下文会移除本页对话和输入内容；设备已连接时，同时清除设备的上下文。设备未连接时，将在下次连接后、执行新操作前完成清理。</p><button id="export">导出运行记录</button><button id="disconnect" disabled>断开设备</button><pre id="debug" hidden aria-hidden="true"></pre></details>
+</main></body></html>

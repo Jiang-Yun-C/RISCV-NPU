@@ -1,0 +1,301 @@
+{
+  "predeclared_cases": "variants/final_experiments_20261103_v1/control_cases.json",
+  "strict_negation": "Do not open/close means preserve current state and issue no new device write; redundant same-state writes are not counted correct.",
+  "total": 10,
+  "correct": 8,
+  "results": [
+    {
+      "id": "C01",
+      "prompt": "打开灯",
+      "expected": "on",
+      "category": "on",
+      "actual_text": "[[\"led\",1]]",
+      "action": {
+        "kind": "ACTION_BANK",
+        "session": "000000000000001a",
+        "status": "OK",
+        "writes": 1,
+        "mask": 45,
+        "values": 45,
+        "owned": 45,
+        "bank": true,
+        "raw": "T27 ACTION_BANK 1 session=000000000000001a status=OK writes=0000000000000001 mask=000000000000002d values=000000000000002d owned=000000000000002d "
+      },
+      "independent_query": {
+        "writes": 0,
+        "values": 45,
+        "owned": 45
+      },
+      "model_complete_EOS": true,
+      "intent_and_commit_match": true,
+      "desired_level_maintained": null,
+      "session": "000000000000001a",
+      "host_visible_TTFT_s": 200.3492106,
+      "host_to_READY_s": 233.7521895
+    },
+    {
+      "id": "C02",
+      "prompt": "把灯打开",
+      "expected": "on",
+      "category": "on",
+      "actual_text": "[[\"led\",1]]",
+      "action": {
+        "kind": "ACTION_BANK",
+        "session": "000000000000001b",
+        "status": "OK",
+        "writes": 1,
+        "mask": 45,
+        "values": 45,
+        "owned": 45,
+        "bank": true,
+        "raw": "T27 ACTION_BANK 1 session=000000000000001b status=OK writes=0000000000000001 mask=000000000000002d values=000000000000002d owned=000000000000002d "
+      },
+      "independent_query": {
+        "writes": 0,
+        "values": 45,
+        "owned": 45
+      },
+      "model_complete_EOS": true,
+      "intent_and_commit_match": true,
+      "desired_level_maintained": null,
+      "session": "000000000000001b",
+      "host_visible_TTFT_s": 46.6457185,
+      "host_to_READY_s": 80.2309566
+    },
+    {
+      "id": "C03",
+      "prompt": "关闭灯",
+      "expected": "off",
+      "category": "off",
+      "actual_text": "[[\"led\",0]]",
+      "action": {
+        "kind": "ACTION_BANK",
+        "session": "000000000000001c",
+        "status": "OK",
+        "writes": 1,
+        "mask": 45,
+        "values": 0,
+        "owned": 45,
+        "bank": true,
+        "raw": "T27 ACTION_BANK 1 session=000000000000001c status=OK writes=0000000000000001 mask=000000000000002d values=0000000000000000 owned=000000000000002d "
+      },
+      "independent_query": {
+        "writes": 0,
+        "values": 0,
+        "owned": 45
+      },
+      "model_complete_EOS": true,
+      "intent_and_commit_match": true,
+      "desired_level_maintained": null,
+      "session": "000000000000001c",
+      "host_visible_TTFT_s": 42.5164458,
+      "host_to_READY_s": 75.9243378
+    },
+    {
+      "id": "C04",
+      "prompt": "把灯关掉",
+      "expected": "off",
+      "category": "off",
+      "actual_text": "[[\"led\",0]]",
+      "action": {
+        "kind": "ACTION_BANK",
+        "session": "000000000000001d",
+        "status": "OK",
+        "writes": 1,
+        "mask": 45,
+        "values": 0,
+        "owned": 45,
+        "bank": true,
+        "raw": "T27 ACTION_BANK 1 session=000000000000001d status=OK writes=0000000000000001 mask=000000000000002d values=0000000000000000 owned=000000000000002d "
+      },
+      "independent_query": {
+        "writes": 0,
+        "values": 0,
+        "owned": 45
+      },
+      "model_complete_EOS": true,
+      "intent_and_commit_match": true,
+      "desired_level_maintained": null,
+      "session": "000000000000001d",
+      "host_visible_TTFT_s": 50.8177447,
+      "host_to_READY_s": 84.5841569
+    },
+    {
+      "id": "C05",
+      "prompt": "请打开LED灯",
+      "expected": "on",
+      "category": "on",
+      "actual_text": "[[\"led\",1]]",
+      "action": {
+        "kind": "ACTION_BANK",
+        "session": "000000000000001e",
+        "status": "OK",
+        "writes": 1,
+        "mask": 45,
+        "values": 45,
+        "owned": 45,
+        "bank": true,
+        "raw": "T27 ACTION_BANK 1 session=000000000000001e status=OK writes=0000000000000001 mask=000000000000002d values=000000000000002d owned=000000000000002d "
+      },
+      "independent_query": {
+        "writes": 0,
+        "values": 45,
+        "owned": 45
+      },
+      "model_complete_EOS": true,
+      "intent_and_commit_match": true,
+      "desired_level_maintained": null,
+      "session": "000000000000001e",
+      "host_visible_TTFT_s": 50.8171867,
+      "host_to_READY_s": 84.5840718
+    },
+    {
+      "id": "C06",
+      "prompt": "关闭LED灯",
+      "expected": "off",
+      "category": "off",
+      "actual_text": "[[\"led\",0]]",
+      "action": {
+        "kind": "ACTION_BANK",
+        "session": "000000000000001f",
+        "status": "OK",
+        "writes": 1,
+        "mask": 45,
+        "values": 0,
+        "owned": 45,
+        "bank": true,
+        "raw": "T27 ACTION_BANK 1 session=000000000000001f status=OK writes=0000000000000001 mask=000000000000002d values=0000000000000000 owned=000000000000002d "
+      },
+      "independent_query": {
+        "writes": 0,
+        "values": 0,
+        "owned": 45
+      },
+      "model_complete_EOS": true,
+      "intent_and_commit_match": true,
+      "desired_level_maintained": null,
+      "session": "000000000000001f",
+      "host_visible_TTFT_s": 46.6372596,
+      "host_to_READY_s": 80.2268876
+    },
+    {
+      "id": "C07",
+      "prompt": "打开不存在的设备",
+      "expected": "reject",
+      "category": "unsupported",
+      "actual_text": "[[\"reject\",\"UNSUPPORTED\"]]",
+      "action": {
+        "kind": "ACTION_BANK",
+        "session": "0000000000000020",
+        "status": "UNSUPPORTED",
+        "writes": 0,
+        "mask": 45,
+        "values": 0,
+        "owned": 45,
+        "bank": true,
+        "raw": "T27 ACTION_BANK 1 session=0000000000000020 status=UNSUPPORTED writes=0000000000000000 mask=000000000000002d values=0000000000000000 owned=000000000000002d "
+      },
+      "independent_query": {
+        "writes": 0,
+        "values": 0,
+        "owned": 45
+      },
+      "model_complete_EOS": true,
+      "intent_and_commit_match": true,
+      "desired_level_maintained": null,
+      "session": "0000000000000020",
+      "host_visible_TTFT_s": 50.8140306,
+      "host_to_READY_s": 90.2121368
+    },
+    {
+      "id": "C08",
+      "prompt": "打开电机",
+      "expected": "reject",
+      "category": "unsupported",
+      "actual_text": "[[\"reject\",\"UNSUPPORTED\"]]",
+      "action": {
+        "kind": "ACTION_BANK",
+        "session": "0000000000000021",
+        "status": "UNSUPPORTED",
+        "writes": 0,
+        "mask": 45,
+        "values": 0,
+        "owned": 45,
+        "bank": true,
+        "raw": "T27 ACTION_BANK 1 session=0000000000000021 status=UNSUPPORTED writes=0000000000000000 mask=000000000000002d values=0000000000000000 owned=000000000000002d "
+      },
+      "independent_query": {
+        "writes": 0,
+        "values": 0,
+        "owned": 45
+      },
+      "model_complete_EOS": true,
+      "intent_and_commit_match": true,
+      "desired_level_maintained": null,
+      "session": "0000000000000021",
+      "host_visible_TTFT_s": 42.5157577,
+      "host_to_READY_s": 81.4974155
+    },
+    {
+      "id": "C09",
+      "prompt": "不要开灯",
+      "expected": "preserve_off",
+      "category": "negation",
+      "actual_text": "[[\"led\",0]]",
+      "action": {
+        "kind": "ACTION_BANK",
+        "session": "0000000000000022",
+        "status": "OK",
+        "writes": 1,
+        "mask": 45,
+        "values": 0,
+        "owned": 45,
+        "bank": true,
+        "raw": "T27 ACTION_BANK 1 session=0000000000000022 status=OK writes=0000000000000001 mask=000000000000002d values=0000000000000000 owned=000000000000002d "
+      },
+      "independent_query": {
+        "writes": 0,
+        "values": 0,
+        "owned": 45
+      },
+      "model_complete_EOS": true,
+      "intent_and_commit_match": false,
+      "desired_level_maintained": true,
+      "session": "0000000000000022",
+      "host_visible_TTFT_s": 46.6407345,
+      "host_to_READY_s": 80.2259686
+    },
+    {
+      "id": "C10",
+      "prompt": "不要关灯",
+      "expected": "preserve_on",
+      "category": "negation",
+      "prepare_values": 45,
+      "actual_text": "[[\"led\",0]]",
+      "action": {
+        "kind": "ACTION_BANK",
+        "session": "0000000000000023",
+        "status": "OK",
+        "writes": 1,
+        "mask": 45,
+        "values": 0,
+        "owned": 45,
+        "bank": true,
+        "raw": "T27 ACTION_BANK 1 session=0000000000000023 status=OK writes=0000000000000001 mask=000000000000002d values=0000000000000000 owned=000000000000002d "
+      },
+      "independent_query": {
+        "writes": 0,
+        "values": 0,
+        "owned": 45
+      },
+      "model_complete_EOS": true,
+      "intent_and_commit_match": false,
+      "desired_level_maintained": false,
+      "session": "0000000000000023",
+      "host_visible_TTFT_s": 46.6383954,
+      "host_to_READY_s": 80.2284393
+    }
+  ],
+  "physical_optical": "USER_REPORTED_LED_NORMAL",
+  "scope": "real Qwen on FPGA -> full EOS JSON -> RV32 parser/commit -> register readback; visual confirmation separate"
+}

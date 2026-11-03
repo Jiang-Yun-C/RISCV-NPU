@@ -1,0 +1,1 @@
+#define NX_DIAG_CID "3ebbf449cb622e28baa59e02e02da20ba79a4a4b03d3278aacfa650ecbcb413a"

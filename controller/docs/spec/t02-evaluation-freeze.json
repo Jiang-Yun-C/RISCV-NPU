@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "frozen_at": "2026-10-03T02:41:47.560365+00:00",
+  "files": {
+    "configs/t02-baseline.json": "802a1238f20b272db4b2b1465202529ee45ee9bf19c9207739f75154b645592e",
+    "configs/t02-prompt.txt": "5ca2b98e4a2562dcea58272867a3b7534225c36581e02ad0e9b0652ca0e9cd28",
+    "configs/t02-demonstrations.json": "b53d8f4f9dfd1a8f3e678f4979ac8899bb7b73eb141c6a09bc5ca5cbd8406a91",
+    "docs/spec/t02-model-lock.json": "c3e9f05a90421a04e7b512b676c573d94ab3be43339d6d4031ab4495e18b89e9",
+    "tests/application/dev.jsonl": "87d678240d4934226684f70929f634c74c63f0b8adca56d10f85d7e245acfb2d",
+    "tests/application/heldout.jsonl": "5b511512026cf08b70c9449b2ac15e3426f3551e9dfbe5650e88e06b410d2f12",
+    "tests/application/dataset-lock.json": "0324213c44bcbeb162bf559aff181ffe2f0ea248cedac5326252960d7c666ed5",
+    "tests/application/score.py": "a91fd1dd16007702253426dea78ed9c7de760219b00eae0fff607a82e17ad8cc",
+    "scripts/t02_infer.py": "cd78ce18ca0d733321a25d970e8c4c2f82262f1cdd3c7b3f8b248ddbcfe17ffa",
+    "docs/spec/application-contract.md": "981ab6fdfbcee5fc9d43c8f28b2e4622eae2ac6f67fcb88ec06a0e0e42d72aa8",
+    "docs/spec/python-requirements.lock.txt": "debc28df5dce80b70a9e2ce5b54905bd3bf6b0e6b1b884045a7623dfe9df0f24"
+  },
+  "selected_dev_run": "evidence/T02/20261003T023916.880637Z-7c7c5d07",
+  "selected_dev_manifest_sha256": "11e41da745f121b34d01e7a6c17e8169b496426df9f3834907e9b283a84873b6",
+  "development_result": {
+    "metrics": {
+      "single": {
+        "passed": 5,
+        "total": 10,
+        "rate": 0.5
+      },
+      "legal": {
+        "passed": 24,
+        "total": 40,
+        "rate": 0.6
+      },
+      "conditional": {
+        "passed": 6,
+        "total": 10,
+        "rate": 0.6
+      },
+      "multi": {
+        "passed": 5,
+        "total": 10,
+        "rate": 0.5
+      },
+      "synonym": {
+        "passed": 8,
+        "total": 10,
+        "rate": 0.8
+      },
+      "illegal_device": {
+        "passed": 3,
+        "total": 5,
+        "rate": 0.6
+      },
+      "illegal": {
+        "passed": 4,
+        "total": 10,
+        "rate": 0.4
+      },
+      "out_of_range": {
+        "passed": 1,
+        "total": 5,
+        "rate": 0.2
+      }
+    },
+    "sensor_pairs": {
+      "passed": 2,
+      "total": 5,
+      "results": {
+        "dev-pair-0": true,
+        "dev-pair-1": false,
+        "dev-pair-2": false,
+        "dev-pair-3": false,
+        "dev-pair-4": true
+      }
+    },
+    "stop_reasons": {
+      "eos": 49,
+      "max_new_tokens": 1
+    },
+    "count": 50
+  },
+  "development_qualified": false,
+  "selection_reason": "v3 demonstrates counterfactual state effect and highest dev refusal rate among four candidates; quality remains below fixed targets",
+  "heldout_policy": "No prompt, model, threshold, scorer or quantization tuning from heldout; report failures without retuning"
+}

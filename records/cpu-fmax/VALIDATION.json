@@ -1,0 +1,13 @@
+{
+  "status": "PASS_CPU_FMAX_INDEPENDENT_RECHECK_V2",
+  "measurement_execution_id": "0ec17c316d65eda5e617059abfedb040ece1826f3b41c7670643c5ca4b5d0ea3",
+  "highest_pass_MHz": 231,
+  "nearest_failure_above_MHz": 232,
+  "frequencies": 11,
+  "PnR_seeds": 44,
+  "original_artifacts_sha256": "4d645a32751c893f0086d5679860b5e4f9a4214310d4f680a5f52c9c9148ef67",
+  "verifier": "variants/demo_v6_fmax_20261103_v1/verify_cpu_v2.py",
+  "verifier_sha256": "50a10545144645d16a33a813e1bf926482d0c478c5501ac00206a738c09d76d8",
+  "physical_actions": 0,
+  "EDA_rerun": false
+}

@@ -1,0 +1,132 @@
+[info] welcome to sbt 1.6.0 (Ubuntu Java 17.0.20)
+[info] loading project definition from /workspace/scratch/eea89c76f713/v3_cpu_repro/project/project
+[info] loading settings for project project from build.sbt ...
+[info] set current project to project (in build file:/workspace/scratch/eea89c76f713/v3_cpu_repro/project/)
+[info] compiling 100 Scala sources to /workspace/scratch/eea89c76f713/v3_cpu_repro/project/target/scala-2.12/classes ...
+[warn] /workspace/scratch/eea89c76f713/v3_cpu_repro/upstream/VexRiscv-baf7dc82f855eddaf5b0a20a6802c526f127e38a/src/main/scala/vexriscv/VexRiscv.scala:36:17: match may not be exhaustive.
+[warn] It would fail on the following input: None
+[warn]     plugins.find(_.getClass == clazz) match {
+[warn]                 ^
+[warn] /workspace/scratch/eea89c76f713/v3_cpu_repro/upstream/VexRiscv-baf7dc82f855eddaf5b0a20a6802c526f127e38a/src/main/scala/vexriscv/plugin/BranchPlugin.scala:159:5: match may not be exhaustive.
+[warn] It would fail on the following input: (FetchPredictionBus(_), DecodePredictionBus(_))
+[warn]     (fetchPrediction,decodePrediction) match {
+[warn]     ^
+[warn] 157 deprecations
+[warn] 17 deprecations (since 1.3.0)
+[warn] one deprecation (since ???)
+[warn] 21 deprecations (since SpinalHDL 1.3.1)
+[warn] 196 deprecations in total; re-run with -deprecation for details
+[warn] two feature warnings; re-run with -feature for details
+[warn] 8 warnings found
+[info] done compiling
+[info] running nexusrv.GenT09 /workspace/scratch/eea89c76f713/v3_cpu_repro/global hard global dynamic 16 8
+[Runtime] SpinalHDL v1.13.0    git head : d9d72474863badf47d8585d187f3e04ae4749c59
+[Runtime] JVM max memory : 2048.0MiB
+[Runtime] Current date : 2026.10.28 17:53:03
+[Progress] at 0.000 : Elaborate components
+[Progress] at 2.601 : Checks and transforms
+[Progress] at 3.953 : Generate Verilog to /workspace/scratch/eea89c76f713/v3_cpu_repro/global
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_writes : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] 315 signals were pruned. You can call printPruned on the backend report to get more informations.
+[Done] at 4.670
+T09_GENERATED profile=hard stages=5 cache_bytes=16384 ways=2 line=32 policy=global predictor=dynamic history_log2=8
+[success] Total time: 95 s (01:35), completed Oct 28, 2026, 5:53:08 PM
+[info] running nexusrv.GenT09 /workspace/scratch/eea89c76f713/v3_cpu_repro/rr hard rr dynamic 16 8
+[Runtime] SpinalHDL v1.13.0    git head : d9d72474863badf47d8585d187f3e04ae4749c59
+[Runtime] JVM max memory : 2048.0MiB
+[Runtime] Current date : 2026.10.28 17:53:09
+[Progress] at 0.000 : Elaborate components
+[Progress] at 2.651 : Checks and transforms
+[Progress] at 3.711 : Generate Verilog to /workspace/scratch/eea89c76f713/v3_cpu_repro/rr
+[Warning] toplevel/T09IBus_cache/t09Replacement : Mem[256*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/dataCache_1/t09Replacement : Mem[256*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_writes : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] 314 signals were pruned. You can call printPruned on the backend report to get more informations.
+[Done] at 4.217
+T09_GENERATED profile=hard stages=5 cache_bytes=16384 ways=2 line=32 policy=rr predictor=dynamic history_log2=8
+[success] Total time: 5 s, completed Oct 28, 2026, 5:53:13 PM
+[info] running nexusrv.GenT09 /workspace/scratch/eea89c76f713/v3_cpu_repro/lru hard lru dynamic 16 8
+[Runtime] SpinalHDL v1.13.0    git head : d9d72474863badf47d8585d187f3e04ae4749c59
+[Runtime] JVM max memory : 2048.0MiB
+[Runtime] Current date : 2026.10.28 17:53:14
+[Progress] at 0.000 : Elaborate components
+[Progress] at 8.154 : Checks and transforms
+[Progress] at 12.841 : Generate Verilog to /workspace/scratch/eea89c76f713/v3_cpu_repro/lru
+[Warning] toplevel/T09IBus_cache/t09Replacement : Mem[256*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/dataCache_1/t09Replacement : Mem[256*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_writes : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] 313 signals were pruned. You can call printPruned on the backend report to get more informations.
+[Done] at 17.431
+T09_GENERATED profile=hard stages=5 cache_bytes=16384 ways=2 line=32 policy=lru predictor=dynamic history_log2=8
+[success] Total time: 18 s, completed Oct 28, 2026, 5:53:31 PM
+[info] running nexusrv.GenT09 /workspace/scratch/eea89c76f713/v3_cpu_repro/btb hard global btb 16 8
+[Runtime] SpinalHDL v1.13.0    git head : d9d72474863badf47d8585d187f3e04ae4749c59
+[Runtime] JVM max memory : 2048.0MiB
+[Runtime] Current date : 2026.10.28 17:53:33
+[Progress] at 0.000 : Elaborate components
+[Progress] at 19.987 : Checks and transforms
+[Progress] at 22.098 : Generate Verilog to /workspace/scratch/eea89c76f713/v3_cpu_repro/btb
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_writes : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] 334 signals were pruned. You can call printPruned on the backend report to get more informations.
+[Done] at 22.759
+T09_GENERATED profile=hard stages=5 cache_bytes=16384 ways=2 line=32 policy=global predictor=btb history_log2=8
+[success] Total time: 24 s, completed Oct 28, 2026, 5:53:55 PM
+[info] running nexusrv.GenT09 /workspace/scratch/eea89c76f713/v3_cpu_repro/lru_btb hard lru btb 16 8
+[Runtime] SpinalHDL v1.13.0    git head : d9d72474863badf47d8585d187f3e04ae4749c59
+[Runtime] JVM max memory : 2048.0MiB
+[Runtime] Current date : 2026.10.28 17:53:56
+[Progress] at 0.000 : Elaborate components
+[Progress] at 3.464 : Checks and transforms
+[Progress] at 6.406 : Generate Verilog to /workspace/scratch/eea89c76f713/v3_cpu_repro/lru_btb
+[Warning] toplevel/T09IBus_cache/t09Replacement : Mem[256*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/dataCache_1/t09Replacement : Mem[256*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_target : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_hit : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] toplevel/FpuPlugin_fpu/rf_scoreboards_0_writes : Mem[32*1 bits].readAsync can only be write first into Verilog
+[Warning] 332 signals were pruned. You can call printPruned on the backend report to get more informations.
+[Done] at 9.449
+T09_GENERATED profile=hard stages=5 cache_bytes=16384 ways=2 line=32 policy=lru predictor=btb history_log2=8
+[success] Total time: 10 s, completed Oct 28, 2026, 5:54:05 PM

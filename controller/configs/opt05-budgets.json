@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "freeze_date": "2026-10-19",
+  "status": "FROZEN_BEFORE_OPT06_15_IMPLEMENTATION",
+  "authority": "User accepted recommended TTFT engineering targets in this OPT05 session; resource/sample limits are engineering choices under the task card.",
+  "targets_not_predictions": true,
+  "clock_hz": 125000000,
+  "decode_seconds_per_token_max": 2.0,
+  "decode_seconds_per_token_stretch": 1.0,
+  "cold_visible_ttft_formula": "2*P+2",
+  "warm_prefix_visible_ttft_formula": "2*(P-C)+2",
+  "ttft_clock_origin": "Complete input received; includes framing/tokenization, model work, greedy, incremental decode and UART to first complete readable UTF-8; model already loaded",
+  "boot_to_ready_seconds_max": 4200,
+  "first_cold_request_including_load_formula": "load_seconds + prefix_precompute_seconds + request_visible_ttft_seconds",
+  "prefix_precompute_seconds_max_formula": "2*C+2",
+  "sample_plan": {
+    "requests_per_workload_per_mode": 5,
+    "min_successful_requests_per_mode": 3,
+    "min_actual_decode_intervals_per_workload_per_mode": 20,
+    "min_actual_decode_intervals_per_request": 2,
+    "quantile_min_intervals": 100,
+    "early_eos": "Respect EOS, preserve actual G. INSUFFICIENT_SAMPLES if minimum not met; no forced tokens or substituted prompts.",
+    "historical_one_output_and_context_boundary": "Report latency/stop only; decode throughput null; excluded from decode sample minimum."
+  },
+  "resources": {
+    "whole_board_caps": {
+      "luts": 85000,
+      "registers": 82000,
+      "drm36k": 156,
+      "apm": 64,
+      "latches": 0
+    },
+    "reserved_under_caps": {
+      "luts": 8500,
+      "registers": 8200,
+      "drm36k": 16,
+      "apm": 7
+    },
+    "candidate_max": {
+      "luts": 76500,
+      "registers": 73800,
+      "drm36k": 140,
+      "apm": 57,
+      "latches": 0
+    },
+    "stack_total_bytes": 65536,
+    "stack_max_bytes": 57344,
+    "stack_reserved_bytes": 8192,
+    "ddr_total_bytes": 1073741824,
+    "ddr_unallocated_min_bytes": 67108864,
+    "address_contract": "Keep T10 regions; changed arenas require nonoverlap/overflow checks; no heap growth hidden by aggregate capacity."
+  },
+  "timeouts": {
+    "baseline_request_seconds": 86400,
+    "candidate_request_seconds_formula": "max(60,2*P+2+2*(Gmax-1)+30)",
+    "offline_command_seconds": 900,
+    "measurement_is_cooperative_timeout": true
+  },
+  "comparisons": {
+    "prefill_rows": [
+      1,
+      4
+    ],
+    "prefix_modes": [
+      "cold",
+      "warm_prefix"
+    ],
+    "fusion": [
+      false,
+      true
+    ],
+    "buffer_overlap": [
+      false,
+      true
+    ],
+    "single_change_ablation_required": true,
+    "full_factorial_required": false,
+    "all_modes_use_identical_prompt_ids": true
+  },
+  "quality": {
+    "thresholds": "configs/t05-thresholds.json",
+    "relaxation_allowed": false,
+    "performance_texts_are_not_quality_heldout": true
+  },
+  "board_gate": "NO_GO_PENDING_OFFLINE_EVIDENCE"
+}

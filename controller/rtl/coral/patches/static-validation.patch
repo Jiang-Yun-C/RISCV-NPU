@@ -1,0 +1,1021 @@
+--- a/fpnew_fma_multi.sv
++++ b/fpnew_fma_multi.sv
+@@ -216,8 +216,9 @@
+         assign trimmed_ops[op]       = operands_q[op][FP_WIDTH-1:0];
+         assign fmt_sign[fmt][op]     = operands_q[op][FP_WIDTH-1];
+         assign fmt_exponent[fmt][op] = signed'({1'b0, operands_q[op][MAN_BITS+:EXP_BITS]});
+-        assign fmt_mantissa[fmt][op] = {info_q[fmt][op].is_normal, operands_q[op][MAN_BITS-1:0]} <<
+-                                       (SUPER_MAN_BITS - MAN_BITS); // move to left of mantissa
++        // fmt_mantissa stores the fraction only; the consumer restores is_normal.
++        assign fmt_mantissa[fmt][op] = {operands_q[op][MAN_BITS-1:0],
++                                       {(SUPER_MAN_BITS - MAN_BITS){1'b0}}};
+       end
+     end else begin : inactive_format
+       assign info_q[fmt]                 = '{default: fpnew_pkg::DONT_CARE}; // format disabled
+@@ -731,19 +732,19 @@
+   // or right of the (non-carry) MSB of the sum.
+   always_comb begin : small_norm
+     // Default assignment, discarding carry bit
+-    {final_mantissa, sum_sticky_bits} = sum_shifted;
++    {final_mantissa, sum_sticky_bits} = sum_shifted[3*PRECISION_BITS+3:0];
+     final_exponent                    = normalized_exponent;
+ 
+     // The normalized sum has overflown, align right and fix exponent
+     if (sum_shifted[3*PRECISION_BITS+4]) begin // check the carry bit
+-      {final_mantissa, sum_sticky_bits} = sum_shifted >> 1;
++      {final_mantissa, sum_sticky_bits} = sum_shifted[3*PRECISION_BITS+4:1];
+       final_exponent                    = normalized_exponent + 1;
+     // The normalized sum is normal, nothing to do
+     end else if (sum_shifted[3*PRECISION_BITS+3]) begin // check the sum MSB
+       // do nothing
+     // The normalized sum is still denormal, align left - unless the result is not already subnormal
+     end else if (normalized_exponent > 1) begin
+-      {final_mantissa, sum_sticky_bits} = sum_shifted << 1;
++      {final_mantissa, sum_sticky_bits} = {sum_shifted[3*PRECISION_BITS+2:0], 1'b0};
+       final_exponent                    = normalized_exponent - 1;
+     // Otherwise we're denormal
+     end else begin
+@@ -828,7 +829,7 @@
+   fpnew_pkg::fp_format_e [0:NUM_NORM_REGS]                   norm_pipe_dst_fmt_q;
+   logic [0:NUM_NORM_REGS]                                    norm_pipe_eff_sub_q;
+   logic [0:NUM_NORM_REGS]                                    norm_pipe_of_before_round_q;
+-  logic [0:NUM_NORM_REGS][3*SUPER_EXP_BITS+4:0]              norm_pipe_sum_sticky_q;
++  logic [0:NUM_NORM_REGS][2*PRECISION_BITS+2:0]             norm_pipe_sum_sticky_q;
+   logic [0:NUM_NORM_REGS]                                    norm_pipe_res_is_spec_q;
+   fp_t  [0:NUM_NORM_REGS]                                    norm_pipe_spec_res_q;
+   fpnew_pkg::status_t [0:NUM_NORM_REGS]                      norm_pipe_spec_stat_q;
+--- a/fpnew_opgroup_multifmt_slice.sv
++++ b/fpnew_opgroup_multifmt_slice.sv
+@@ -539,7 +539,7 @@
+     assign conv_target_q = '0;
+   end
+ 
+-  if ((DivSqrtSel != fpnew_pkg::TH32) && !ExtRegEna) begin
++  if ((OpGroup == fpnew_pkg::DIVSQRT) && (DivSqrtSel != fpnew_pkg::TH32) && !ExtRegEna) begin
+     // Synch lanes if there is more than one
+     assign simd_synch_rdy  = EnableVectors ? &divsqrt_ready[NUM_DIVSQRT_LANES-1:0] : divsqrt_ready[0];
+     assign simd_synch_done = EnableVectors ? &divsqrt_done[NUM_DIVSQRT_LANES-1:0]  : divsqrt_done[0];
+--- a/fpnew_cast_multi.sv
++++ b/fpnew_cast_multi.sv
+@@ -418,6 +418,9 @@
+   // --------
+   // Casting
+   // --------
++  // All supported mantissa widths fit this signed exponent representation.
++  logic signed [INT_EXP_WIDTH-1:0] minimum_subnormal_exp;
++  assign minimum_subnormal_exp = INT_EXP_WIDTH'(-signed'(fpnew_pkg::man_bits(dst_fmt_q2)));
+   logic [INT_EXP_WIDTH-1:0] final_exp;        // after eventual adjustments
+ 
+   logic [2*INT_MAN_WIDTH:0]  preshift_mant;    // mantissa before final shift
+@@ -472,12 +475,12 @@
+         of_before_round = 1'b1;
+       // Denormalize underflowing values
+       end else if (destination_exp_q < 1 &&
+-                   destination_exp_q >= -signed'(fpnew_pkg::man_bits(dst_fmt_q2))) begin
++                   destination_exp_q >= minimum_subnormal_exp) begin
+         final_exp       = '0; // denormal result
+         denorm_shamt    = unsigned'(denorm_shamt + 1 - destination_exp_q); // adjust right shifting
+         uf_before_round = 1'b1;
+       // Limit the shift to retain sticky bits
+-      end else if (destination_exp_q < -signed'(fpnew_pkg::man_bits(dst_fmt_q2))) begin
++      end else if (destination_exp_q < minimum_subnormal_exp) begin
+         final_exp       = '0; // denormal result
+         denorm_shamt    = unsigned'(denorm_shamt + 2 + fpnew_pkg::man_bits(dst_fmt_q2)); // to sticky
+         uf_before_round = 1'b1;
+--- a/rvv_backend_decode_unit_ari_de2.sv
++++ b/rvv_backend_decode_unit_ari_de2.sv
+@@ -183,7 +183,7 @@
+   // generate uop valid
+   always_comb begin        
+     for(int i=0;i<`NUM_DE_UOP;i++) begin: GET_UOP_VALID
+-      uop_valid[i] = lcmd_valid & ({1'b1, uop_index_base} <= ({1'b1,uop_index_max}-i[`UOP_INDEX_WIDTH:0]));
++      uop_valid[i] = lcmd_valid & ({1'b1, uop_index_base} <= ({1'b1,uop_index_max}-(`UOP_INDEX_WIDTH+1)'(i)));
+     end
+   end
+ 
+--- a/rvv_backend_pmtrdt_unit_permutation.sv
++++ b/rvv_backend_pmtrdt_unit_permutation.sv
+@@ -274,7 +274,7 @@
+     always_comb begin
+       compress_vfirst = `VLMAX_MAX;
+       for (int j=0; j<`VLEN; j++)
+-        if (compress_vmsof[j]==1'b1) compress_vfirst = j[0+:`VL_WIDTH];
++        if (compress_vmsof[j]==1'b1) compress_vfirst = `VL_WIDTH'(j);
+     end
+     assign compress_overflow = compress_vfirst >= pmt_uop.vl;
+     assign compress_vs1_d = compress_vs1 & ~compress_vmsof;
+--- a/fpnew_fma.sv
++++ b/fpnew_fma.sv
+@@ -558,19 +558,19 @@
+   // or right of the (non-carry) MSB of the sum.
+   always_comb begin : small_norm
+     // Default assignment, discarding carry bit
+-    {final_mantissa, sum_sticky_bits} = sum_shifted;
++    {final_mantissa, sum_sticky_bits} = sum_shifted[3*PRECISION_BITS+3:0];
+     final_exponent                    = normalized_exponent;
+ 
+     // The normalized sum has overflown, align right and fix exponent
+     if (sum_shifted[3*PRECISION_BITS+4]) begin // check the carry bit
+-      {final_mantissa, sum_sticky_bits} = sum_shifted >> 1;
++      {final_mantissa, sum_sticky_bits} = sum_shifted[3*PRECISION_BITS+4:1];
+       final_exponent                    = normalized_exponent + 1;
+     // The normalized sum is normal, nothing to do
+     end else if (sum_shifted[3*PRECISION_BITS+3]) begin // check the sum MSB
+       // do nothing
+     // The normalized sum is still denormal, align left - unless the result is not already subnormal
+     end else if (normalized_exponent > 1) begin
+-      {final_mantissa, sum_sticky_bits} = sum_shifted << 1;
++      {final_mantissa, sum_sticky_bits} = {sum_shifted[3*PRECISION_BITS+2:0], 1'b0};
+       final_exponent                    = normalized_exponent - 1;
+     // Otherwise we're denormal
+     end else begin
+--- a/multi_fifo.sv
++++ b/multi_fifo.sv
+@@ -92,7 +92,6 @@
+   logic         [DEPTH-1:0]       pop_extend;
+ // ---code start------------------------------------------------------
+   genvar  i;  
+-  integer l,k;
+   
+   // fifo status
+   // valid data count
+@@ -134,10 +133,13 @@
+     end
+   endgenerate
+   // dataout
+-  always_comb begin
+-    pop_count = {(DEPTH_BITS)'(0), pop[0]};
+-    for (int j=1; j<N; j++) pop_count = pop_count + pop[j];
++  // Explicit prefix sum, including the original X propagation and count width.
++  logic [DEPTH_BITS:0] pop_sum [0:N];
++  assign pop_sum[0] = '0;
++  for (genvar j=0; j<N; j++) begin : gen_pop_sum
++    assign pop_sum[j+1] = pop_sum[j] + {(DEPTH_BITS)'(0), pop[j]};
+   end
++  assign pop_count = pop_sum[N];
+   
+   assign next_rptr = rptr + pop_count;
+   cdffr #(.T(logic[DEPTH_BITS-1:0])) u_rptr_reg (.q(rptr), .c(clear), .e(|pop), .d(next_rptr), .clk(clk), .rst_n(rst_n));
+@@ -190,31 +192,40 @@
+   endgenerate
+ 
+   // datain
+-  always_comb begin
+-    push_count = {(DEPTH_BITS)'(0), push[0]};
+-    for (int j=1; j<M; j++) push_count = push_count + push[j];
++  // Explicit prefix sum, including the original X propagation and count width.
++  logic [DEPTH_BITS:0] push_sum [0:M];
++  assign push_sum[0] = '0;
++  for (genvar j=0; j<M; j++) begin : gen_push_sum
++    assign push_sum[j+1] = push_sum[j] + {(DEPTH_BITS)'(0), push[j]};
+   end
++  assign push_count = push_sum[M];
+ 
+   assign next_wptr = wptr + push_count;
+   cdffr #(.T(logic[DEPTH_BITS-1:0])) u_wptr_reg (.q(wptr), .c(clear), .e(|push), .d(next_wptr), .clk(clk), .rst_n(rst_n));
+ 
+   generate
+     if (CHAOS_PUSH) begin
+-      always_comb begin
+-        push_seq = '0;
+-        pushRdy  = '0;
+-        datain_seq = '0;
+-        l = 0;
+-        for (k=0; k<M; k++) begin
+-          pushRdy[k]  = !almost_full[l];
+-          
+-          if (push[k]) begin
+-            push_seq[l] = 1'b1;
+-            datain_seq[l] = datain[k];
+-            l++;
+-          end
+-        end
+-      end
++      localparam COMPACT_BITS = $clog2(M+1);
++      logic [COMPACT_BITS-1:0] compact_count [0:M];
++      T [M-1:0] compact_data [0:M];
++      assign compact_count[0] = '0;
++      assign compact_data[0] = '0;
++      for (genvar k=0; k<M; k++) begin : gen_compact_input
++        // Preserve procedural-if X behavior using an exclusive, single update.
++        logic accepted_push;
++        always_comb begin
++          if (push[k]) accepted_push = 1'b1;
++          else         accepted_push = 1'b0;
++        end
++        assign compact_count[k+1] = compact_count[k] + COMPACT_BITS'(accepted_push);
++        assign pushRdy[k] = !almost_full[compact_count[k]];
++        for (genvar j=0; j<M; j++) begin : gen_compact_lane
++          assign compact_data[k+1][j] = (accepted_push && compact_count[k] == COMPACT_BITS'(j))
++                                      ? datain[k] : compact_data[k][j];
++        end
++        assign push_seq[k] = compact_count[M] > COMPACT_BITS'(k);
++      end
++      assign datain_seq = compact_data[M];
+     end else begin
+       assign push_seq = push;
+       assign pushRdy  = ~almost_full;
+--- a/RvvFrontEnd.sv
++++ b/RvvFrontEnd.sv
+@@ -86,12 +86,7 @@
+ 
+   // State, for time being lets do not state forwarding for timing
+   logic config_state_reduction;
+-  always_comb begin
+-    config_state_reduction = 1;
+-    for (int i = 0; i < N; i++) begin
+-      config_state_reduction = config_state_reduction & (!valid_inst_q[i]);
+-    end
+-  end
++  assign config_state_reduction = ~(|valid_inst_q);
+   assign config_state_valid = config_state_reduction;
+   assign config_state = config_state_q;
+ 
+@@ -648,22 +643,15 @@
+   RVVInstruction trap_data;
+   assign trap_valid_o = trap_occurred;
+   assign trap_data_o = trap_data;
+-  always_comb begin
+-    trap_occurred = (unaligned_trap_valid != 0);
+-    // Initialize all trap_data fields to some zero value
+-    trap_data.pc = '0;
+-    trap_data.bits = '0;
+-    trap_data.opcode = RVV;
+-    trap_data.rob_tag = '0;
+-
++  // Select the first trapping lane, preserving the original lowest-index priority.
++  function automatic RVVInstruction first_trap(input logic [N-1:0] valids, input RVVInstruction [N-1:0] instructions);
+     for (int i = 0; i < N; i++) begin
+-      if (unaligned_trap_valid[i]) begin
+-        trap_occurred = 1'b1;
+-        trap_data = unaligned_trap_data[i];
+-        break;
+-      end
+-    end
+-  end
++      if (valids[i]) return instructions[i];
++    end
++    return '{pc:'0, bits:'0, opcode:RVV, rob_tag:'0};
++  endfunction
++  assign trap_occurred = (unaligned_trap_valid != 0);
++  assign trap_data = first_trap(unaligned_trap_valid, unaligned_trap_data);
+ 
+   // Assertions
+ `ifndef SYNTHESIS
+--- a/rvv_backend_dispatch_structure_hazard.sv
++++ b/rvv_backend_dispatch_structure_hazard.sv
+@@ -37,33 +37,24 @@
+       // rd4 : uop1.vs2 or uop2
+       // rd5 : uop1.vs3 or uop2
+       // check structure hazard for uop2
+-      always_comb begin
+-        rd_index[0] = strct_uop[0].vs1_index;
+-        rd_index[1] = strct_uop[0].vs2_index;
+-        rd_index[2] = strct_uop[0].vd_index;
+-        rd_index[3] = strct_uop[1].vs1_index;
+-        rd_index[4] = strct_uop[1].vs2_index;
+-        rd_index[5] = strct_uop[1].vd_index;
+-        
+-        arch_hazard.vr_limit = 1'b1;
+-
+-        case(strct_uop[2].uop_class)
++      function automatic logic [`REGIDX_WIDTH-1:0] select_read_index(input int port_id, input STRCT_UOP_t [`NUM_DP_UOP-1:0] uops);
++        case(uops[2].uop_class)
+           XXX: begin
+-            arch_hazard.vr_limit = 'b0;
++
+           end
+ 
+           XXV,
+           XVX,
+           VXX: begin
+-            case(strct_uop[0].uop_class)
++            case(uops[0].uop_class)
+               XXV,
+               XVV: begin
+                 case(1'b1)
+-                  strct_uop[2].vs3_valid: rd_index[2] = strct_uop[2].vd_index;
+-                  strct_uop[2].vs2_valid: rd_index[2] = strct_uop[2].vs2_index;
+-                  default:                rd_index[2] = strct_uop[2].vs1_index;
+-                endcase
+-                arch_hazard.vr_limit = 'b0;
++                  uops[2].vs3_valid: begin if (port_id == 2) return uops[2].vd_index; end
++                  uops[2].vs2_valid: begin if (port_id == 2) return uops[2].vs2_index; end
++                  default:                begin if (port_id == 2) return uops[2].vs1_index; end
++                endcase
++
+               end
+ 
+               XXX,
+@@ -71,23 +62,23 @@
+               VXX,
+               VVX: begin
+                 case(1'b1)
+-                  strct_uop[2].vs3_valid: rd_index[0] = strct_uop[2].vd_index;
+-                  strct_uop[2].vs2_valid: rd_index[0] = strct_uop[2].vs2_index;
+-                  default:                rd_index[0] = strct_uop[2].vs1_index;
+-                endcase
+-                arch_hazard.vr_limit = 'b0;
++                  uops[2].vs3_valid: begin if (port_id == 0) return uops[2].vd_index; end
++                  uops[2].vs2_valid: begin if (port_id == 0) return uops[2].vs2_index; end
++                  default:                begin if (port_id == 0) return uops[2].vs1_index; end
++                endcase
++
+               end
+ 
+               VVV: begin 
+-                case(strct_uop[1].uop_class)
++                case(uops[1].uop_class)
+                   XXV,
+                   XVV: begin
+                     case(1'b1)
+-                      strct_uop[2].vs3_valid: rd_index[5] = strct_uop[2].vd_index;
+-                      strct_uop[2].vs2_valid: rd_index[5] = strct_uop[2].vs2_index;
+-                      default:                rd_index[5] = strct_uop[2].vs1_index;
++                      uops[2].vs3_valid: begin if (port_id == 5) return uops[2].vd_index; end
++                      uops[2].vs2_valid: begin if (port_id == 5) return uops[2].vs2_index; end
++                      default:                begin if (port_id == 5) return uops[2].vs1_index; end
+                     endcase
+-                    arch_hazard.vr_limit = 'b0;
++
+                   end
+ 
+                   XXX,
+@@ -95,14 +86,12 @@
+                   VXX,
+                   VVX: begin
+                     case(1'b1)
+-                      strct_uop[2].vs3_valid: rd_index[3] = strct_uop[2].vd_index;
+-                      strct_uop[2].vs2_valid: rd_index[3] = strct_uop[2].vs2_index;
+-                      default:                rd_index[3] = strct_uop[2].vs1_index;
++                      uops[2].vs3_valid: begin if (port_id == 3) return uops[2].vd_index; end
++                      uops[2].vs2_valid: begin if (port_id == 3) return uops[2].vs2_index; end
++                      default:                begin if (port_id == 3) return uops[2].vs1_index; end
+                     endcase
+-                    arch_hazard.vr_limit = 'b0;
+-                  end
+-
+-                  //VVV: arch_hazard.vr_limit = 'b1;
++
++                  end
+                 endcase
+               end
+             endcase
+@@ -110,104 +99,104 @@
+           
+           XVV,
+           VVX: begin
+-            case(strct_uop[0].uop_class)
++            case(uops[0].uop_class)
+               XXX,
+               VXX: begin
+-                rd_index[0] = strct_uop[2].vs1_valid ? strct_uop[2].vs1_index : 
+-                                                       strct_uop[2].vd_index ;
+-                rd_index[1] = strct_uop[2].vs2_index;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 0) return uops[2].vs1_valid ? uops[2].vs1_index : 
++                                                       uops[2].vd_index; end
++                begin if (port_id == 1) return uops[2].vs2_index; end
++
+               end
+ 
+               XXV: begin
+-                rd_index[2] = strct_uop[2].vs1_valid ? strct_uop[2].vs1_index : 
+-                                                       strct_uop[2].vd_index ;
+-                rd_index[1] = strct_uop[2].vs2_index ;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 2) return uops[2].vs1_valid ? uops[2].vs1_index : 
++                                                       uops[2].vd_index; end
++                begin if (port_id == 1) return uops[2].vs2_index; end
++
+               end
+ 
+               XVX: begin
+-                rd_index[0] = strct_uop[2].vs1_valid ? strct_uop[2].vs1_index : 
+-                                                       strct_uop[2].vd_index ;
+-                rd_index[2] = strct_uop[2].vs2_index ;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 0) return uops[2].vs1_valid ? uops[2].vs1_index : 
++                                                       uops[2].vd_index; end
++                begin if (port_id == 2) return uops[2].vs2_index; end
++
+               end
+ 
+               XVV,
+               VVX: begin
+-                case(strct_uop[1].uop_class)
++                case(uops[1].uop_class)
+                   XXX,
+                   VXX: begin
+-                    rd_index[3] = strct_uop[2].vs1_valid ? strct_uop[2].vs1_index : 
+-                                                           strct_uop[2].vd_index ;
+-                    rd_index[4] = strct_uop[2].vs2_index ;
+-                    arch_hazard.vr_limit = 'b0;
++                    begin if (port_id == 3) return uops[2].vs1_valid ? uops[2].vs1_index : 
++                                                           uops[2].vd_index; end
++                    begin if (port_id == 4) return uops[2].vs2_index; end
++
+                   end
+ 
+                   XXV: begin
+-                    rd_index[5] = strct_uop[2].vs1_valid ? strct_uop[2].vs1_index : 
+-                                                           strct_uop[2].vd_index ;
+-                    rd_index[4] = strct_uop[2].vs2_index ;
+-                    arch_hazard.vr_limit = 'b0;
++                    begin if (port_id == 5) return uops[2].vs1_valid ? uops[2].vs1_index : 
++                                                           uops[2].vd_index; end
++                    begin if (port_id == 4) return uops[2].vs2_index; end
++
+                   end
+ 
+                   XVX: begin
+-                    rd_index[3] = strct_uop[2].vs1_valid ? strct_uop[2].vs1_index : 
+-                                                           strct_uop[2].vd_index ;
+-                    rd_index[5] = strct_uop[2].vs2_index ;
+-                    arch_hazard.vr_limit = 'b0;
++                    begin if (port_id == 3) return uops[2].vs1_valid ? uops[2].vs1_index : 
++                                                           uops[2].vd_index; end
++                    begin if (port_id == 5) return uops[2].vs2_index; end
++
+                   end   
+ 
+                   VVX: begin
+-                    if (strct_uop[0].vs1_valid=='b0) 
+-                      rd_index[0] = strct_uop[2].vs2_index;
++                    if (uops[0].vs1_valid=='b0) 
++                      begin if (port_id == 0) return uops[2].vs2_index; end
+                     else 
+-                      rd_index[2] = strct_uop[2].vs2_index;
++                      begin if (port_id == 2) return uops[2].vs2_index; end
+                     
+-                    rd_index[3] = strct_uop[2].vs1_valid ? strct_uop[2].vs1_index : 
+-                                                           strct_uop[2].vd_index;
+-                    arch_hazard.vr_limit = 'b0;
++                    begin if (port_id == 3) return uops[2].vs1_valid ? uops[2].vs1_index : 
++                                                           uops[2].vd_index; end
++
+                   end
+ 
+                   XVV: begin
+-                    if (strct_uop[0].vs1_valid=='b0) 
+-                      rd_index[0] = strct_uop[2].vs2_index;
++                    if (uops[0].vs1_valid=='b0) 
++                      begin if (port_id == 0) return uops[2].vs2_index; end
+                     else 
+-                      rd_index[2] = strct_uop[2].vs2_index;
+-
+-                    rd_index[5] = strct_uop[2].vs1_valid ? strct_uop[2].vs1_index : 
+-                                                           strct_uop[2].vd_index;
+-                    arch_hazard.vr_limit = 'b0;
++                      begin if (port_id == 2) return uops[2].vs2_index; end
++
++                    begin if (port_id == 5) return uops[2].vs1_valid ? uops[2].vs1_index : 
++                                                           uops[2].vd_index; end
++
+                   end
+                 endcase
+               end
+ 
+               VVV: begin 
+-                case(strct_uop[1].uop_class)
++                case(uops[1].uop_class)
+                   XXX,
+                   VXX: begin
+-                    rd_index[3] = strct_uop[2].vs1_valid ? strct_uop[2].vs1_index : 
+-                                                           strct_uop[2].vd_index;
+-                    rd_index[4] = strct_uop[2].vs2_index ; 
+-                    arch_hazard.vr_limit = 'b0;
++                    begin if (port_id == 3) return uops[2].vs1_valid ? uops[2].vs1_index : 
++                                                           uops[2].vd_index; end
++                    begin if (port_id == 4) return uops[2].vs2_index; end 
++
+                   end
+ 
+                   XVX: begin
+-                    rd_index[3] = strct_uop[2].vs1_valid ? strct_uop[2].vs1_index : 
+-                                                           strct_uop[2].vd_index;
+-                    rd_index[5] = strct_uop[2].vs2_index ; 
+-                    arch_hazard.vr_limit = 'b0;
++                    begin if (port_id == 3) return uops[2].vs1_valid ? uops[2].vs1_index : 
++                                                           uops[2].vd_index; end
++                    begin if (port_id == 5) return uops[2].vs2_index; end 
++
+                   end
+ 
+                   XXV: begin
+-                    rd_index[4] = strct_uop[2].vs1_valid ? strct_uop[2].vs1_index : 
+-                                                           strct_uop[2].vd_index;
+-                    rd_index[5] = strct_uop[2].vs2_index ; 
+-                    arch_hazard.vr_limit = 'b0;
++                    begin if (port_id == 4) return uops[2].vs1_valid ? uops[2].vs1_index : 
++                                                           uops[2].vd_index; end
++                    begin if (port_id == 5) return uops[2].vs2_index; end 
++
+                   end
+ 
+                   VVV: begin
+-                    arch_hazard.vr_limit = 'b1;
++
+                   end
+                 endcase
+               end
+@@ -215,7 +204,7 @@
+           end
+ 
+           VVV: begin
+-            case({strct_uop[0].uop_class,strct_uop[1].uop_class})
++            case({uops[0].uop_class,uops[1].uop_class})
+               {XXX,XXX},
+               {XXX,XXV},
+               {XXX,XVX},
+@@ -223,10 +212,10 @@
+               {XXX,XVV},
+               {XXX,VVX},
+               {XXX,VVV}: begin
+-                rd_index[0] = strct_uop[2].vs1_index;
+-                rd_index[1] = strct_uop[2].vs2_index;
+-                rd_index[2] = strct_uop[2].vd_index;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 0) return uops[2].vs1_index; end
++                begin if (port_id == 1) return uops[2].vs2_index; end
++                begin if (port_id == 2) return uops[2].vd_index; end
++
+               end
+ 
+               {XXV,XXX},
+@@ -235,112 +224,358 @@
+               {XVV,XXX},
+               {VVX,XXX},
+               {VVV,XXX}: begin
+-                rd_index[3] = strct_uop[2].vs1_index;
+-                rd_index[4] = strct_uop[2].vs2_index;
+-                rd_index[5] = strct_uop[2].vd_index;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 3) return uops[2].vs1_index; end
++                begin if (port_id == 4) return uops[2].vs2_index; end
++                begin if (port_id == 5) return uops[2].vd_index; end
++
+               end
+ 
+               {XXV,VXX},
+               {XXV,VVX}: begin
+-                rd_index[1] = strct_uop[2].vs2_index;
+-                rd_index[2] = strct_uop[2].vd_index;
+-                rd_index[3] = strct_uop[2].vs1_index;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 1) return uops[2].vs2_index; end
++                begin if (port_id == 2) return uops[2].vd_index; end
++                begin if (port_id == 3) return uops[2].vs1_index; end
++
+               end
+               
+               {XXV,XXV},
+               {XXV,XVX},
+               {XXV,XVV}: begin
+-                rd_index[1] = strct_uop[2].vs2_index;
+-                rd_index[2] = strct_uop[2].vd_index;
+-                rd_index[5] = strct_uop[2].vs1_index;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 1) return uops[2].vs2_index; end
++                begin if (port_id == 2) return uops[2].vd_index; end
++                begin if (port_id == 5) return uops[2].vs1_index; end
++
+               end
+               
+               {XVX,VXX},
+               {XVX,VVX}: begin
+-                rd_index[0] = strct_uop[2].vs1_index;
+-                rd_index[2] = strct_uop[2].vd_index;
+-                rd_index[3] = strct_uop[2].vs2_index;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 0) return uops[2].vs1_index; end
++                begin if (port_id == 2) return uops[2].vd_index; end
++                begin if (port_id == 3) return uops[2].vs2_index; end
++
+               end
+ 
+               {XVX,XXV},
+               {XVX,XVX},
+               {XVX,XVV}: begin
+-                rd_index[0] = strct_uop[2].vs1_index;
+-                rd_index[2] = strct_uop[2].vd_index;
+-                rd_index[5] = strct_uop[2].vs2_index;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 0) return uops[2].vs1_index; end
++                begin if (port_id == 2) return uops[2].vd_index; end
++                begin if (port_id == 5) return uops[2].vs2_index; end
++
+               end
+ 
+               {VXX,VXX},
+               {VXX,VVX}: begin
+-                rd_index[0] = strct_uop[2].vs1_index;
+-                rd_index[1] = strct_uop[2].vs2_index;
+-                rd_index[3] = strct_uop[2].vd_index;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 0) return uops[2].vs1_index; end
++                begin if (port_id == 1) return uops[2].vs2_index; end
++                begin if (port_id == 3) return uops[2].vd_index; end
++
+               end
+ 
+               {VXX,XXV},
+               {VXX,XVX},
+               {VXX,XVV}: begin
+-                rd_index[0] = strct_uop[2].vs1_index;
+-                rd_index[1] = strct_uop[2].vs2_index;
+-                rd_index[5] = strct_uop[2].vd_index;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 0) return uops[2].vs1_index; end
++                begin if (port_id == 1) return uops[2].vs2_index; end
++                begin if (port_id == 5) return uops[2].vd_index; end
++
+               end
+ 
+               {XVV,VXX}: begin
+-                rd_index[2] = strct_uop[2].vd_index;
+-                rd_index[3] = strct_uop[2].vs1_index;
+-                rd_index[4] = strct_uop[2].vs2_index;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 2) return uops[2].vd_index; end
++                begin if (port_id == 3) return uops[2].vs1_index; end
++                begin if (port_id == 4) return uops[2].vs2_index; end
++
+               end
+ 
+               {XVV,XVX}: begin
+-                rd_index[2] = strct_uop[2].vs2_index;
+-                rd_index[3] = strct_uop[2].vs1_index;
+-                rd_index[5] = strct_uop[2].vd_index;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 2) return uops[2].vs2_index; end
++                begin if (port_id == 3) return uops[2].vs1_index; end
++                begin if (port_id == 5) return uops[2].vd_index; end
++
+               end
+ 
+               {XVV,XXV}: begin
+-                rd_index[2] = strct_uop[2].vs1_index;
+-                rd_index[4] = strct_uop[2].vs2_index;
+-                rd_index[5] = strct_uop[2].vd_index;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 2) return uops[2].vs1_index; end
++                begin if (port_id == 4) return uops[2].vs2_index; end
++                begin if (port_id == 5) return uops[2].vd_index; end
++
+               end
+ 
+               {VVX,VXX}: begin
+-                rd_index[0] = strct_uop[2].vd_index;
+-                rd_index[3] = strct_uop[2].vs1_index;
+-                rd_index[4] = strct_uop[2].vs2_index;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 0) return uops[2].vd_index; end
++                begin if (port_id == 3) return uops[2].vs1_index; end
++                begin if (port_id == 4) return uops[2].vs2_index; end
++
+               end
+ 
+               {VVX,XVX}: begin
+-                rd_index[0] = strct_uop[2].vs2_index;
+-                rd_index[3] = strct_uop[2].vs1_index;
+-                rd_index[5] = strct_uop[2].vd_index;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 0) return uops[2].vs2_index; end
++                begin if (port_id == 3) return uops[2].vs1_index; end
++                begin if (port_id == 5) return uops[2].vd_index; end
++
+               end
+ 
+               {VVX,XXV}: begin
+-                rd_index[0] = strct_uop[2].vs1_index;
+-                rd_index[4] = strct_uop[2].vs2_index;
+-                rd_index[5] = strct_uop[2].vd_index;
+-                arch_hazard.vr_limit = 'b0;
++                begin if (port_id == 0) return uops[2].vs1_index; end
++                begin if (port_id == 4) return uops[2].vs2_index; end
++                begin if (port_id == 5) return uops[2].vd_index; end
++
+               end
+ 
+               default: begin
+-                arch_hazard.vr_limit = 'b1;
++
+               end
+             endcase
+           end
+         endcase
++        case (port_id)
++          0: return uops[0].vs1_index;
++          1: return uops[0].vs2_index;
++          2: return uops[0].vd_index;
++          3: return uops[1].vs1_index;
++          4: return uops[1].vs2_index;
++          default: return uops[1].vd_index;
++        endcase
++      endfunction
++      function automatic logic select_vr_limit(input STRCT_UOP_t [`NUM_DP_UOP-1:0] uops);
++        case(uops[2].uop_class)
++          XXX: begin
++            return 'b0;
++          end
++
++          XXV,
++          XVX,
++          VXX: begin
++            case(uops[0].uop_class)
++              XXV,
++              XVV: begin
++                case(1'b1)
++                  uops[2].vs3_valid: begin end
++                  uops[2].vs2_valid: begin end
++                  default:                begin end
++                endcase
++                return 'b0;
++              end
++
++              XXX,
++              XVX,
++              VXX,
++              VVX: begin
++                case(1'b1)
++                  uops[2].vs3_valid: begin end
++                  uops[2].vs2_valid: begin end
++                  default:                begin end
++                endcase
++                return 'b0;
++              end
++
++              VVV: begin 
++                case(uops[1].uop_class)
++                  XXV,
++                  XVV: begin
++                    case(1'b1)
++                      uops[2].vs3_valid: begin end
++                      uops[2].vs2_valid: begin end
++                      default:                begin end
++                    endcase
++                    return 'b0;
++                  end
++
++                  XXX,
++                  XVX,
++                  VXX,
++                  VVX: begin
++                    case(1'b1)
++                      uops[2].vs3_valid: begin end
++                      uops[2].vs2_valid: begin end
++                      default:                begin end
++                    endcase
++                    return 'b0;
++                  end
++                endcase
++              end
++            endcase
++          end
++          
++          XVV,
++          VVX: begin
++            case(uops[0].uop_class)
++              XXX,
++              VXX: begin
++
++                return 'b0;
++              end
++
++              XXV: begin
++
++                return 'b0;
++              end
++
++              XVX: begin
++
++                return 'b0;
++              end
++
++              XVV,
++              VVX: begin
++                case(uops[1].uop_class)
++                  XXX,
++                  VXX: begin
++
++                    return 'b0;
++                  end
++
++                  XXV: begin
++
++                    return 'b0;
++                  end
++
++                  XVX: begin
++
++                    return 'b0;
++                  end   
++
++                  VVX: begin
++                    return 'b0;
++                  end
++
++                  XVV: begin
++                    return 'b0;
++                  end
++                endcase
++              end
++
++              VVV: begin 
++                case(uops[1].uop_class)
++                  XXX,
++                  VXX: begin
++
++                    return 'b0;
++                  end
++
++                  XVX: begin
++
++                    return 'b0;
++                  end
++
++                  XXV: begin
++
++                    return 'b0;
++                  end
++
++                  VVV: begin
++                    return 'b1;
++                  end
++                endcase
++              end
++            endcase
++          end
++
++          VVV: begin
++            case({uops[0].uop_class,uops[1].uop_class})
++              {XXX,XXX},
++              {XXX,XXV},
++              {XXX,XVX},
++              {XXX,VXX},
++              {XXX,XVV},
++              {XXX,VVX},
++              {XXX,VVV}: begin
++
++                return 'b0;
++              end
++
++              {XXV,XXX},
++              {XVX,XXX},
++              {VXX,XXX},
++              {XVV,XXX},
++              {VVX,XXX},
++              {VVV,XXX}: begin
++
++                return 'b0;
++              end
++
++              {XXV,VXX},
++              {XXV,VVX}: begin
++
++                return 'b0;
++              end
++              
++              {XXV,XXV},
++              {XXV,XVX},
++              {XXV,XVV}: begin
++
++                return 'b0;
++              end
++              
++              {XVX,VXX},
++              {XVX,VVX}: begin
++
++                return 'b0;
++              end
++
++              {XVX,XXV},
++              {XVX,XVX},
++              {XVX,XVV}: begin
++
++                return 'b0;
++              end
++
++              {VXX,VXX},
++              {VXX,VVX}: begin
++
++                return 'b0;
++              end
++
++              {VXX,XXV},
++              {VXX,XVX},
++              {VXX,XVV}: begin
++
++                return 'b0;
++              end
++
++              {XVV,VXX}: begin
++
++                return 'b0;
++              end
++
++              {XVV,XVX}: begin
++
++                return 'b0;
++              end
++
++              {XVV,XXV}: begin
++
++                return 'b0;
++              end
++
++              {VVX,VXX}: begin
++
++                return 'b0;
++              end
++
++              {VVX,XVX}: begin
++
++                return 'b0;
++              end
++
++              {VVX,XXV}: begin
++
++                return 'b0;
++              end
++
++              default: begin
++                return 'b1;
++              end
++            endcase
++          end
++        endcase
++        return 1'b1;
++      endfunction
++      for (genvar p=0; p<6; p++) begin : gen_read_port
++        assign rd_index[p] = select_read_index(p, strct_uop);
+       end
++      assign arch_hazard.vr_limit = select_vr_limit(strct_uop);
+ 
+ `else // DISPATCH2
+       // 4 read ports of VRF
+--- a/rvv_backend_rob.sv
++++ b/rvv_backend_rob.sv
+@@ -220,21 +220,31 @@
+        assign wind_uop_wptr[i] = uop_wptr+i;
+      end
+     
++     logic [`ROB_DEPTH-1:0] done_set, done_clear;
++     for (genvar entry=0; entry<`ROB_DEPTH; entry++) begin : gen_done_events
++       logic [`NUM_SMPORT-1:0] complete_match;
++       logic [`NUM_RT_UOP-1:0] retire_match;
++       for (genvar port=0; port<`NUM_SMPORT; port++) begin : gen_complete
++         assign complete_match[port] = wr_valid_pu2rob[port] &&
++                                      (wr_pu2rob[port].rob_entry == `ROB_DEPTH_WIDTH'(entry));
++       end
++       for (genvar lane=0; lane<`NUM_RT_UOP; lane++) begin : gen_retire
++         assign retire_match[lane] = rd_valid_rob2rt[lane] && rd_ready_rt2rob[lane] &&
++                                    (wind_uop_rptr[lane] == `ROB_DEPTH_WIDTH'(entry));
++       end
++       assign done_set[entry] = |complete_match;
++       assign done_clear[entry] = |retire_match;
++     end
++
+      always_ff @(posedge clk or negedge rst_n) begin
+         if (!rst_n)
+             uop_done <= '0;
+         else if (trap_flush_rvv)
+             uop_done <= '0;
+-        else begin
+-            for (int k=0; k<`NUM_RT_UOP; k++) begin
+-                if (rd_valid_rob2rt[k] && rd_ready_rt2rob[k])
+-                    uop_done[wind_uop_rptr[k]] <= 1'b0;
+-            end
+-            for (int k=0; k<`NUM_SMPORT; k++) begin
+-                if (wr_valid_pu2rob[k])
+-                    uop_done[wr_pu2rob[k].rob_entry] <= 1'b1;
+-            end
+-        end
++        else
++            // Preserve completion over retirement, including a same-entry collision.
++            // Flush cancels all completion events; no assumption of exclusivity here.
++            uop_done <= (uop_done & ~done_clear) | done_set;
+     end
+ 
+   `ifdef ASSERT_ON 
+--- a/rvv_backend_retire.sv
++++ b/rvv_backend_retire.sv
+@@ -314,13 +314,13 @@
+   for(j=0;j<`NUM_RT_UOP;j++) begin : gen_rt2rob_write
+     always_comb begin
+       `ifdef ZVE32F_ON
+-      if(w_xrf[j]|w_frf[j]) begin
++      if(w_xrf_valid[j]|w_frf_valid[j]) begin
+       `else
+-      if(w_xrf[j]) begin
++      if(w_xrf_valid[j]) begin
+       `endif
+-        rt2xrf_write_valid[j]           = w_xrf[j];     
++        rt2xrf_write_valid[j]           = w_xrf_valid[j];     
+         `ifdef ZVE32F_ON
+-        rt2frf_write_valid[j]           = w_frf[j]; 
++        rt2frf_write_valid[j]           = w_frf_valid[j]; 
+         `endif
+ 
+         `ifdef TB_SUPPORT

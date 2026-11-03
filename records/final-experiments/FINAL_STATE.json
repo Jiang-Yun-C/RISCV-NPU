@@ -1,0 +1,33 @@
+{
+  "status": "CLOSED_RETAINED_V6_READY_OFF",
+  "UART_closed": true,
+  "serial_lock_released": true,
+  "board_lock_released": true,
+  "LED_values": 0,
+  "LED_owned": 45,
+  "sealed_status": "0x307",
+  "source_content_id": "3ebbf449cb622e28baa59e02e02da20ba79a4a4b03d3278aacfa650ecbcb413a",
+  "configuration_media_counts": {
+    "main_CRAM": 0,
+    "maintenance_CRAM": 0,
+    "model_loads": 0,
+    "SD_write": 0,
+    "Flash_write": 0,
+    "NVM_write": 0,
+    "FPGA_reset": 0,
+    "reload": 0,
+    "PDS": 0
+  },
+  "cumulative_main_attempts": 11,
+  "cumulative_main_completed": 10,
+  "cumulative_model_load_triggers": 9,
+  "runtime_configuration_commands": [
+    ":stream 1",
+    ":prefix 1",
+    ":prefix 1",
+    ":prefix 1"
+  ],
+  "legacy_collector_configuration_commands_field": "Hardware configuration count only; stream/prefix runtime commands explicitly listed here",
+  "LED_control": "Authorized volatile stores occurred, including model actions and timer-driven blinking; not included in configuration/media zero counts",
+  "finished_epoch": 1793704439.3466523
+}

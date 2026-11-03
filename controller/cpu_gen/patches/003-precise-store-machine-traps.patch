@@ -1,0 +1,165 @@
+--- a/src/main/scala/vexriscv/ip/DataCache.scala
++++ b/src/main/scala/vexriscv/ip/DataCache.scala
+@@ -32,7 +32,8 @@
+                            directTlbHit : Boolean = false,
+                            mergeExecuteMemory : Boolean = false,
+                            asyncTagMemory : Boolean = false,
+-                           withWriteAggregation : Boolean = false){
++                           withWriteAggregation : Boolean = false,
++                           preciseStore : Boolean = false){
+ 
+   if(rfDataWidth == -1)  rfDataWidth = cpuDataWidth 
+   assert(!(mergeExecuteMemory && (earlyDataMux || earlyWaysHits)))
+@@ -262,6 +263,7 @@
+ case class DataCacheMemBus(p : DataCacheConfig) extends Bundle with IMasterSlave{
+   val cmd = Stream (DataCacheMemCmd(p))
+   val rsp = Flow (DataCacheMemRsp(p))
++  val storeRsp = p.preciseStore generate Flow(Bool())
+ 
+   val inv = p.withInvalidate generate Stream(Fragment(DataCacheInv(p)))
+   val ack = p.withInvalidate generate Stream(Fragment(DataCacheAck(p)))
+@@ -270,6 +272,7 @@
+   override def asMaster(): Unit = {
+     master(cmd)
+     slave(rsp)
++    if(p.preciseStore) slave(storeRsp)
+ 
+     if(p.withInvalidate) {
+       slave(inv)
+@@ -315,6 +318,10 @@
+ 
+     axi.r.ready := True
+     axi.b.ready := True
++    if(p.preciseStore){
++      storeRsp.valid := axi.b.fire
++      storeRsp.payload := !axi.b.isOKAY()
++    }
+   }.axi
+ 
+ 
+@@ -1068,6 +1075,20 @@
+       requestDataBypass.subdivideIn(p.rfDataWidth bits).foreach(_ := amo.resultReg)
+     }
+ 
++    // A store stays in the in-order WB stage until its own AXI B handshake.
++    // No younger instruction can retire or issue a store while WB is held.
++    // Cached data is changed only after successful completion, never on AW/W.
++    // The AXI slave owns rollback/atomicity of a rejected beat; we do not retry.
++    if(p.preciseStore) when(io.cpu.writeBack.isValid && request.wr){
++      io.mem.cmd.valid := !memCmdSent
++      io.cpu.writeBack.haltIt := !io.mem.storeRsp.valid
++      cpuWriteToCache := io.mem.storeRsp.valid && !io.mem.storeRsp.payload
++      when(!cpuWriteToCache){ dataWriteCmd.valid := False }
++      when(io.mem.storeRsp.valid && io.mem.storeRsp.payload){
++        io.cpu.writeBack.accessError := True
++      }
++    }
++
+     //remove side effects on exceptions
+     when(io.cpu.writeBack.isValid) {
+       when(consistancyHazard || mmuRsp.refilling || io.cpu.writeBack.accessError || io.cpu.writeBack.mmuException || io.cpu.writeBack.unalignedAccess) {
+--- a/src/main/scala/vexriscv/plugin/CsrPlugin.scala
++++ b/src/main/scala/vexriscv/plugin/CsrPlugin.scala
+@@ -1000,6 +1000,13 @@
+       val mtval = Reg(UInt(xlen bits))
+       val mcycle   = Reg(UInt(64 bits)) init(0)
+       val minstret = Reg(UInt(64 bits)) init(0)
++      val inhibitCycle, inhibitRetired = RegInit(False)
++      READ_WRITE(0x320, 0 -> inhibitCycle, 2 -> inhibitRetired)
++      READ_ONLY(0x310, B(0, 32 bits)) // RV32 mstatush: no endian/virtualization features.
++      onWrite(0x310){} // WARL zero
++      READ_ONLY(0xF15, B(0, 32 bits)) // no configuration structure
++      // MSIP is supplied by a device, just as MTIP and MEIP are.
++
+ 
+ 
+       val medeleg = supervisorGen generate new Area {
+@@ -1023,7 +1030,8 @@
+       //Machine CSR
+       READ_WRITE(CSR.MSTATUS, 7 -> mstatus.MPIE, 3 -> mstatus.MIE)
+       READ_ONLY(CSR.MIP, 11 -> mip.MEIP, 7 -> mip.MTIP)
+-      READ_WRITE(CSR.MIP, 3 -> mip.MSIP)
++      READ_ONLY(CSR.MIP, 3 -> mip.MSIP)
++      onWrite(CSR.MIP){} // read-only pending bits, writes ignored
+       READ_WRITE(CSR.MIE, 11 -> mie.MEIE, 7 -> mie.MTIE, 3 -> mie.MSIE)
+ 
+       r(CSR.MSTATUS, 11 -> mstatus.MPP)
+@@ -1040,7 +1048,9 @@
+         guardedWrite(CSR.MTVEC, 1 downto 0, List(0, 1), mtvec.mode)
+       }
+ 
+-      mepcAccess(CSR.MEPC, mepc)
++      // IALIGN=32: software cannot create a misaligned MRET target.
++      mepcAccess(CSR.MEPC, 2 -> mepc(31 downto 2))
++      mepc(1 downto 0) := 0
+       if(mscratchGen) READ_WRITE(CSR.MSCRATCH, mscratch)
+       mcauseAccess(CSR.MCAUSE, xlen-1 -> mcause.interrupt, 0 -> mcause.exceptionCode)
+       mbadaddrAccess(CSR.MBADADDR, mtval)
+@@ -1173,8 +1183,8 @@
+       val stagesFromExecute = pipeline.stages.dropWhile(_ != execute)
+ 
+       //Manage counters
+-      mcycle := mcycle + (if(withPrivilegedDebug) U(!debugMode || !debug.dcsr.stopcount) else U(1))
+-      when(lastStage.arbitration.isFiring) {
++      when(!inhibitCycle){ mcycle := mcycle + (if(withPrivilegedDebug) U(!debugMode || !debug.dcsr.stopcount) else U(1)) }
++      when(lastStage.arbitration.isFiring && !inhibitRetired) {
+         minstret := minstret + 1
+       }
+ 
+@@ -1385,6 +1395,12 @@
+         is(3){ xtvec := machineCsr.mtvec }
+       }
+ 
++      // Observation only; the same cycle as architectural trap entry.
++      out(hadException || interruptJump).setName("trace_trap")
++      out((!hadException).asBits ## B(0, 26 bits) ## trapCause.asBits.resize(5)).setName("trace_cause")
++      out(mepcCaptureStage.input(PC)).setName("trace_trap_pc")
++      out(machineCsr.mtval).setName("trace_mtval") // registered architectural CSR
++      out(machineCsr.mepc).setName("trace_mepc")
+       val trapEnterDebug = False
+       if(withPrivilegedDebug) trapEnterDebug setWhen(debug.doHalt || trapCauseEbreakDebug || !hadException && debug.doHalt || !debug.running)
+       when(hadException || interruptJump){
+@@ -1417,6 +1433,7 @@
+               mcause.interrupt := !hadException
+               mcause.exceptionCode := trapCause
+               mepc := mepcCaptureStage.input(PC)
++              mtval := 0
+               if(exceptionPortCtrl != null) when(hadException){
+                 mtval := exceptionPortCtrl.exceptionContext.badAddr
+               }
+@@ -1459,7 +1476,7 @@
+           lastStage.arbitration.flushNext := True
+           switch(input(INSTRUCTION)(29 downto 28)){
+             is(3){
+-              mstatus.MPP := U"00"
++              mstatus.MPP := (if(userGen) U"00" else U"11")
+               mstatus.MIE := mstatus.MPIE
+               mstatus.MPIE := True
+               jumpInterface.payload := mepc
+@@ -1554,6 +1571,7 @@
+         //Manage ECALL instructions
+         if(ecallGen) when(arbitration.isValid && input(ENV_CTRL) === EnvCtrlEnum.ECALL){
+           selfException.valid := True
++          selfException.badAddr := 0
+           switch(privilege) {
+             is(0) { selfException.code := 8 }
+             if(supervisorGen) is(1) { selfException.code := 9 }
+@@ -1565,6 +1583,7 @@
+         if(withEbreak) when(arbitration.isValid && input(ENV_CTRL) === EnvCtrlEnum.EBREAK && allowEbreakException){
+           selfException.valid := True
+           selfException.code := 3
++          selfException.badAddr := input(PC)
+         }
+ 
+ 
+--- a/src/main/scala/vexriscv/plugin/DBusCachedPlugin.scala
++++ b/src/main/scala/vexriscv/plugin/DBusCachedPlugin.scala
+@@ -333,6 +333,8 @@
+       }
+     })
+ 
++    if(this.config.preciseStore) cache.io.mem.storeRsp << dBus.storeRsp
++
+     if(withInvalidate) {
+       cache.io.mem.inv  << dBus.inv
+       cache.io.mem.ack  >> dBus.ack

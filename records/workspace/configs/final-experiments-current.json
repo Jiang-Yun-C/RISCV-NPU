@@ -1,0 +1,24 @@
+{
+  "schema": "final-four-experiments-current-v1",
+  "status": "PASS_EVIDENCE_REPLAY_CONTROL_SEMANTIC_FAILURES_RETAINED",
+  "execution_id": "bf6edc7186e1ac59593ae427eef5ac94635680f69323584b8ec3937a99ef58e9",
+  "source_content_id": "3ebbf449cb622e28baa59e02e02da20ba79a4a4b03d3278aacfa650ecbcb413a",
+  "report": "docs/reports/final-experiments-20261103-v1.md",
+  "validation": "evidence/FINAL_EXPERIMENTS/20261103-v1/VALIDATION.json",
+  "artifact_inventory": "evidence/FINAL_EXPERIMENTS/20261103-v1/ARTIFACTS.json",
+  "evidence": "evidence/FINAL_EXPERIMENTS/20261103-v1",
+  "verifier": "variants/final_experiments_20261103_v1/verify.py",
+  "full_real_EOS_requests": 18,
+  "cold_warm_pairs": 3,
+  "control_strict_correct": 8,
+  "control_total": 10,
+  "limits": [
+    "Negation: redundant off for do-not-open; incorrect off for do-not-close",
+    "No photo or calibrated optical/IRQ latency",
+    "Historical NPU RTL reductions are not new board speedup"
+  ],
+  "final_configuration": "V6_READY_OFF_OWNED45",
+  "new_main_configurations": 0,
+  "new_model_loads": 0,
+  "production_GO": false
+}

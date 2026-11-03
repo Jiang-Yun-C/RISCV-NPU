@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "producer": "T17",
+  "format": "NXU1",
+  "test_modes": [
+    "PROTOCOL_BOOT",
+    "PRELOAD"
+  ],
+  "address": 3019898880,
+  "entry": 3019898880,
+  "layout_id": "RV32_RAW_CONTIGUOUS",
+  "endianness": "little",
+  "dtype": "uint8",
+  "shape": [
+    2160
+  ],
+  "stride_bytes": [
+    1
+  ],
+  "group_size": "not_applicable",
+  "comparison": "bit_exact",
+  "files": {
+    "app-A.bin": "f8ef971a2f72700554df203c51010fef7c0856faa0a73913b505d0edac8fed80",
+    "app-B.bin": "ae8c3781a63f7d7ae5878c1f7511b3b69a1a8f94126ba0ddb872fc6f78ca8293",
+    "control/fixture.json": "76985087266c8aa0228d55e8890c9e07fd9bd4724daf403ba4092c211df29c46",
+    "control/golden.json": "eab3e531e1729de4ebdb7ae7969b9bb1876ded040b7e0c2d69e8686ef29045d2",
+    "preload/fixture.json": "276cd677e2016a2d910a4ac0405f15523b6b8646540dffb1f21a79514f64a7cb",
+    "preload/golden.json": "6b392943440065109d6cd173bed8c257a10ccc9dfec0ad1a211a48cb55c258f1",
+    "smoke/fixture.json": "899f9c9801757bc450fafec9c164c7b23e355d741faec4d1975e16dd4af20bdf",
+    "smoke/golden.json": "fbd2b69d9291918c283e4f65f7eca533f9df0803828b24f1f97baa83462fc5e6"
+  }
+}

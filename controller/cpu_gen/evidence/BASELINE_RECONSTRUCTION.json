@@ -1,0 +1,22 @@
+{
+  "status": "PASS_ALPHA_EQUIVALENT",
+  "original_sha256": "be3866488f1782aeecf6d52c4a8ea933edd56b937f078fae0ae4f23be29d2008",
+  "reconstructed_sha256": "2b0438d349ba9e0af963ac055d6c5afaa23eec93d082c9236bf0daa8bd71cdf9",
+  "method": "all text outside generated source-line identifiers exactly equal; identifier renaming bijective and consistent",
+  "renamed": {
+    "_zz_when_Fetcher_l521": "_zz_when_Fetcher_l518",
+    "when_Fetcher_l521": "when_Fetcher_l518",
+    "when_DataCache_l1131": "when_DataCache_l1130",
+    "when_DataCache_l1134": "when_DataCache_l1133",
+    "when_InstructionCache_l404": "when_InstructionCache_l401",
+    "when_InstructionCache_l405": "when_InstructionCache_l402",
+    "when_InstructionCache_l463": "when_InstructionCache_l460",
+    "when_InstructionCache_l463_1": "when_InstructionCache_l460_1",
+    "when_InstructionCache_l463_2": "when_InstructionCache_l460_2",
+    "when_InstructionCache_l463_3": "when_InstructionCache_l460_3",
+    "when_InstructionCache_l463_4": "when_InstructionCache_l460_4",
+    "when_InstructionCache_l463_5": "when_InstructionCache_l460_5",
+    "when_InstructionCache_l463_6": "when_InstructionCache_l460_6"
+  },
+  "not_claimed": "historical Scala full-file bytes recovered"
+}

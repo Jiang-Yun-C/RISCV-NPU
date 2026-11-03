@@ -1,0 +1,76 @@
+{
+  "scope": "RTL generation only, not physical timing or benchmark",
+  "upstream_sha256": "344f4177144e96cffdeab5230c688e443644df9fb0f7bc65f278126e509343d7",
+  "patches": {
+    "001-reconstructed-t09-baseline.patch": "b640db0a89726aaf66bc0d92ca4a03f399c1f5309ceb85b13a2c9f552c4c1744",
+    "002-per-set-cache-and-btb-reset.patch": "392abca0c42b0c8588d33cabe3c957c3eafcf6369e1dac0bc941bdf988b28289"
+  },
+  "generator_sha256": "798262800012bc96220d3307469d32fcd454c396ca87a580ca43aabb69796d45",
+  "build_sbt_sha256": "db5031935698c6d86a9b71a0315da1c47c8a2a5301ba52c5eb8b2af1066bc477",
+  "command": [
+    "java",
+    "-XX:ActiveProcessorCount=2",
+    "-Xmx2G",
+    "-Dnexusrv.vex.source=/workspace/scratch/eea89c76f713/v3_cpu_repro/upstream/VexRiscv-baf7dc82f855eddaf5b0a20a6802c526f127e38a",
+    "-Dsbt.boot.directory=/workspace/scratch/eea89c76f713/v3_cpu_dependencies/sbt-boot",
+    "-Dsbt.global.base=/workspace/scratch/eea89c76f713/v3_cpu_dependencies/sbt-global",
+    "-Dsbt.ivy.home=/workspace/scratch/eea89c76f713/v3_cpu_dependencies/ivy",
+    "-Dsbt.override.build.repos=true",
+    "-Dsbt.repository.config=/workspace/scratch/eea89c76f713/v3_cpu_dependencies/repositories",
+    "-jar",
+    "/workspace/scratch/eea89c76f713/v3_cpu_dependencies/sbt-launch-1.6.0.jar",
+    "runMain nexusrv.GenT09 /workspace/scratch/eea89c76f713/v3_cpu_repro/global hard global dynamic 16 8",
+    "runMain nexusrv.GenT09 /workspace/scratch/eea89c76f713/v3_cpu_repro/rr hard rr dynamic 16 8",
+    "runMain nexusrv.GenT09 /workspace/scratch/eea89c76f713/v3_cpu_repro/lru hard lru dynamic 16 8",
+    "runMain nexusrv.GenT09 /workspace/scratch/eea89c76f713/v3_cpu_repro/btb hard global btb 16 8",
+    "runMain nexusrv.GenT09 /workspace/scratch/eea89c76f713/v3_cpu_repro/lru_btb hard lru btb 16 8"
+  ],
+  "exit_code": 0,
+  "host_seconds": 166.84287635500368,
+  "cache_kib_each": 16,
+  "ways": 2,
+  "line_bytes": 32,
+  "history_log2": 8,
+  "variants": {
+    "global": {
+      "replacement": "global",
+      "prediction": "dynamic",
+      "files": {
+        "T09Cpu.v": "fe54f90d11f5cb522d63ac18159bb56d5c52b69ba94b945a89bb9dcfcd695d32",
+        "T09Cpu.v_toplevel_RegFilePlugin_regFile.bin": "b8b891b81fd1c062082faf97533834198d8a4c4b6867899d6218712132a8ed38"
+      }
+    },
+    "rr": {
+      "replacement": "rr",
+      "prediction": "dynamic",
+      "files": {
+        "T09Cpu.v": "1eec068ebd8700b16440613dee492bc9568e7938cfccfa948acfe1753630fcbc",
+        "T09Cpu.v_toplevel_RegFilePlugin_regFile.bin": "b8b891b81fd1c062082faf97533834198d8a4c4b6867899d6218712132a8ed38"
+      }
+    },
+    "lru": {
+      "replacement": "lru",
+      "prediction": "dynamic",
+      "files": {
+        "T09Cpu.v": "94fb8a4da7b1b06be210f31b39e9bc205460fcadbe36efc797a79acb53d39389",
+        "T09Cpu.v_toplevel_RegFilePlugin_regFile.bin": "b8b891b81fd1c062082faf97533834198d8a4c4b6867899d6218712132a8ed38"
+      }
+    },
+    "btb": {
+      "replacement": "global",
+      "prediction": "btb",
+      "files": {
+        "T09Cpu.v": "a1e0895464d811c1b8eb826a6ecd1bce273b6491bd078b7f873590fdb58b6917",
+        "T09Cpu.v_toplevel_RegFilePlugin_regFile.bin": "b8b891b81fd1c062082faf97533834198d8a4c4b6867899d6218712132a8ed38"
+      }
+    },
+    "lru_btb": {
+      "replacement": "lru",
+      "prediction": "btb",
+      "files": {
+        "T09Cpu.v": "a0cbe42552bb086777be826895c9ba64955619af84c9caafc7e63b3ef17c71f1",
+        "T09Cpu.v_toplevel_RegFilePlugin_regFile.bin": "b8b891b81fd1c062082faf97533834198d8a4c4b6867899d6218712132a8ed38"
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "numeric_version": "w8a8-g64-fp32-v1",
+  "policy": "Frozen before backend execution; all elementwise AND NRMSE gates must pass; nonfinite always fails; no post-failure relaxation.",
+  "integer": {"mismatches_allowed": 0},
+  "scale": {"bitwise_equal": true},
+  "metrics": {"elementwise": "abs(candidate-reference) <= atol + rtol*abs(reference)", "nrmse": "sqrt(mean(error^2))/max(sqrt(mean(reference^2)),1e-12)", "relative_floor": 1e-12},
+  "operators": {
+    "linear": {"atol": 0.0002, "rtol": 0.00002, "nrmse": 0.00002},
+    "embedding": {"atol": 0.000001, "rtol": 0.000001, "nrmse": 0.000001},
+    "rmsnorm": {"atol": 0.00002, "rtol": 0.00002, "nrmse": 0.00001},
+    "rope": {"atol": 0.00002, "rtol": 0.00002, "nrmse": 0.00001},
+    "softmax": {"atol": 0.000005, "rtol": 0.00002, "nrmse": 0.00001},
+    "attention": {"atol": 0.0002, "rtol": 0.00005, "nrmse": 0.00002},
+    "swiglu": {"atol": 0.0002, "rtol": 0.00005, "nrmse": 0.00002},
+    "residual": {"atol": 0.0002, "rtol": 0.00002, "nrmse": 0.00002}
+  },
+  "cumulative": {
+    "block": {"atol": 0.002, "rtol": 0.0002, "nrmse": 0.0001},
+    "kv": {"atol": 0.002, "rtol": 0.0002, "nrmse": 0.0001},
+    "logits_24_layers": {"atol": 0.01, "rtol": 0.001, "nrmse": 0.0005},
+    "teacher_forcing": {"steps": 8, "context_lengths": [1, 4, 8, 512], "token_ids_exact": true},
+    "argmax": "lowest token ID on exact tie; require equal argmax when reference top-two margin > 2*max_abs_error; record all other flips"
+  },
+  "quantization_quality": {
+    "comparison": "same adapted FP32 release, tokenizer, protocol, split, input and generation settings; percentage point differences, not relative percent",
+    "minimum_legal_success": 0.90,
+    "maximum_legal_drop_percentage_points": 3.0,
+    "minimum_refusal_success": 0.95,
+    "maximum_refusal_drop_percentage_points": 3.0,
+    "minimum_sensor_pair_success": 1.0,
+    "minimum_eos_fraction": 1.0,
+    "development_split": "tests/application/v2/dev.jsonl",
+    "heldout_policy": "never use v2 heldout for calibration, tuning or model selection; freeze before a final quality evaluation",
+    "qualification_task": "T11",
+    "operator_quantization_error": "report against original FP32 separately; arithmetic tolerance is only candidate versus identical quantized reference"
+  }
+}

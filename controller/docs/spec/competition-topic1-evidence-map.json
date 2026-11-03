@@ -1,0 +1,199 @@
+{
+  "schema": "competition-topic1-gap-map-v3",
+  "review_date": "2026-10-29",
+  "basis": {
+    "document": "全国大学生嵌入式芯片与系统设计竞赛2026 FPGA创新设计赛道选题指南（紫光同创）",
+    "topic": "选题一：基于紫光同创 RISCV 指令集 CPU 设计",
+    "printed_pages": [
+      8,
+      9
+    ],
+    "provided_text_sha256": "daea7adbc60721f2b1c72e39fc7cf74f2faa2639ab004c937b9ac21d4e0433c8",
+    "official_fixed_weights_available": false,
+    "priority_is_engineering_judgment": true
+  },
+  "reviewed_current_cpu_sha256": "be3866488f1782aeecf6d52c4a8ea933edd56b937f078fae0ae4f23be29d2008",
+  "requirements": [
+    {
+      "id": "B1_B2",
+      "requirement": "RV32I，至少三级流水线，数据冲突和分支处理",
+      "status": "CURRENT_SOURCE_PRESENT_LIMITED_VALIDATION",
+      "priority": "preserve_and_explain",
+      "evidence": [
+        "t27/cpu/T09Cpu.v",
+        "docs/spec/cpu-feature-matrix.md",
+        "firmware/cpu/start.S"
+      ],
+      "qualification": "Five-stage current RTL and historical directed-test documentation; not a complete ISA conformance claim."
+    },
+    {
+      "id": "B3",
+      "requirement": "UART/GPIO等基础外设",
+      "status": "UART_PRESENT_GPIO_CURRENT_APPLICATION_GAP",
+      "priority": "high",
+      "evidence": [
+        "rtl/ce64/nx_ce64_local.sv",
+        "board/mes2l676-200hp/nx_ce64_board_logic.sv",
+        "firmware/runtime/board/main.c",
+        "docs/spec/application-t20.md"
+      ],
+      "qualification": "Current production local module has UART but no T20 GPIO/PWM/I2C endpoint. T20 virtual peripherals are not current physical integration."
+    },
+    {
+      "id": "A1",
+      "requirement": "2路组相联I/D Cache与总线突发效率",
+      "status": "PER_SET_CACHE_AND_SRAM_PIPELINE_IMPLEMENTED_RTL_AB_PASSED",
+      "priority": "board_qualification",
+      "evidence": [
+        "t27/cpu/T09Cpu.v",
+        "docs/spec/cpu-feature-matrix.md",
+        "tests/cpu_rtl/cpu_main.cpp",
+        "cpu_gen/README.md",
+        "cpu_gen/patches/002-per-set-cache-and-btb-reset.patch",
+        "tests/local_memory_v3/run.py",
+        "tests/cpu_local_sram/run.py",
+        "scripts/prepare_competition_profile.py"
+      ],
+      "qualification": "Per-set empty-way-first/LRU plus production local SRAM pipeline have actual RTL execution evidence. Combined CPU+local SRAM uses behavioral external DDR; board frequency and DDR behavior remain unmeasured."
+    },
+    {
+      "id": "A2_PREDICT",
+      "requirement": "动态分支预测，如BTB",
+      "status": "FETCH_TARGET_BTB_OPTION_IMPLEMENTED_AND_EXECUTION_TESTED",
+      "priority": "board_qualification",
+      "evidence": [
+        "t27/cpu/T09Cpu.v",
+        "docs/spec/cpu-feature-matrix.md",
+        "cpu_gen/generated/lru_btb/T09Cpu.v",
+        "cpu_gen/src/main/scala/nexusrv/GenT09.scala",
+        "tests/cpu_variants/summarize.py"
+      ],
+      "qualification": "Historical CPU retains direction prediction; explicit enhanced profile selects upstream DYNAMIC_TARGET with deterministic startup clearing. Five directed CPU workloads and both short CoreMark seeds pass. New PDS timing/resources are pending."
+    },
+    {
+      "id": "A2_TRAP",
+      "requirement": "完整RISC-V异常/中断处理",
+      "status": "KNOWN_CURRENT_GAP",
+      "priority": "high",
+      "evidence": [
+        "t27/cpu/T09Cpu.v",
+        "docs/spec/cpu-feature-matrix.md",
+        "firmware/cpu/start.S",
+        "firmware/runtime/board/main.c",
+        "rtl/soc/nx_soc_ce64.sv"
+      ],
+      "qualification": "BRESP is assigned but has no consumer; data access-error path uses RRESP. Production startup disables IRQ, trap handler stops permanently, software IRQ tied zero. Historical injected IRQ coverage is not current board ISR qualification."
+    },
+    {
+      "id": "A3",
+      "requirement": "边缘AI单元，轻量大模型或YOLO，融合传感器或显示设备",
+      "status": "AI_SERVICE_PRESENT_PHYSICAL_APPLICATION_INCOMPLETE",
+      "priority": "high",
+      "evidence": [
+        "firmware/runtime/board/main.c",
+        "docs/spec/application-t26.md",
+        "firmware/application/i2c.c",
+        "software/demo_console/README.md"
+      ],
+      "qualification": "Current service runs model/accelerator path; sensor/wiring/actuator not selected or integrated in T26. Host web display must be described accurately; no FPGA-native display claim."
+    },
+    {
+      "id": "P1",
+      "requirement": "CoreMark/MHz、最高合规时钟、CoreMark/LUT",
+      "status": "SHORT_RTL_EVIDENCE_FORMAL_BOARD_RESULTS_PENDING",
+      "priority": "highest",
+      "evidence": [
+        "firmware/coremark/README.md",
+        "tests/cpu_rtl/README.md",
+        "scripts/build_t27_streaming.py",
+        "tests/cpu_local_sram/run.py",
+        "tests/cpu_variants/summarize.py",
+        "scripts/report_coremark_competition.py"
+      ],
+      "qualification": "Source-generated CPU variants and real local-SRAM A/B have same-binary dual-seed CRC evidence. All runs are short RTL regressions; formal board scores, new Fmax and LUT denominators remain null."
+    },
+    {
+      "id": "P2",
+      "requirement": "模型资源、时序、主频、AI延迟与识别率",
+      "status": "MEMORY_ACCEL_RUNTIME_AND_AUTOMATED_CAPTURE_IMPLEMENTED_BOARD_RESULTS_PENDING",
+      "priority": "highest",
+      "evidence": [
+        "software/competition_semantics/README.md",
+        "software/competition_semantics/cases.json",
+        "software/competition_semantics/evaluate.py",
+        "software/demo_console/static/protocol.js",
+        "docs/spec/application-v2-evaluation-freeze.json",
+        "tests/competition_memory/run_rtl.py",
+        "tests/production_streaming/test_enhancements.py",
+        "software/competition_semantics/collect.py",
+        "firmware/runtime/board/service_options.h",
+        "tests/competition_memory/run_pv_boundaries.py",
+        "tests/competition_memory/run_ce_production_page.py"
+      ],
+      "qualification": "Leased K/V tail, long PV through length512, finite/argmax, prefix reuse, integer phases, bounded timeout and cooperative cancellation are implemented with scoped RTL/native tests. No genuine full-model accuracy or physical board latency has been obtained. Current general FP output-backpressure gate remains FAIL/unresolved. Complete CE passing evidence uses a documented per-element FF simulation representation and fixed external guard/adapter inputs; it is not full SoC or physical DDR qualification. v4 fixes the reported short-PV production Y page crossing and equivalent P/V cases; synthetic production-address CE replay is not a full real-model W or first-Q board pass."
+    },
+    {
+      "id": "D1",
+      "requirement": "模块化代码、合理时序约束、完整注释及分析报告",
+      "status": "REPRODUCIBLE_GENERATOR_PROFILES_AND_IDENTIFIED_EVIDENCE_READY",
+      "priority": "medium",
+      "evidence": [
+        "docs/spec/competition-topic1-gap-review.md",
+        "docs/spec/project-scope.md",
+        "docs/spec/BUILD.md",
+        "scripts/build_cpu_variants.py",
+        "scripts/prepare_competition_profile.py",
+        "cpu_gen/evidence/BASELINE_RECONSTRUCTION.json"
+      ],
+      "qualification": "Bound claims to current source/build/measurement identities; historical PDS and board evidence do not automatically qualify new firmware."
+    },
+    {
+      "id": "D2",
+      "requirement": "利用ILA波形分析CoreMark关键算法的流水线效率",
+      "status": "PHYSICAL_ILA_CAPTURE_PENDING",
+      "priority": "highest",
+      "evidence": [
+        "t27/cpu/T09Cpu.v",
+        "docs/spec/cpu-feature-matrix.md",
+        "tests/cpu_rtl/README.md",
+        "rtl/ce64/common/nx_ce64_request_pmu.sv",
+        "docs/spec/request-pmu.md",
+        "tests/request_pmu/run.py"
+      ],
+      "qualification": "Atomic passive request-window CPU/bus counters are implemented and RTL-tested; prior trace tools remain available. Neither PMU simulation nor RTL traces substitutes for a current board ILA capture."
+    },
+    {
+      "id": "N1",
+      "requirement": "CoreMark设置迭代次数并保证不少于10秒",
+      "status": "FORMAL_TOOLS_READY_CURRENT_FORMAL_MEASUREMENT_PENDING",
+      "priority": "highest",
+      "evidence": [
+        "firmware/coremark/README.md",
+        "firmware/coremark/core_portme.c"
+      ],
+      "qualification": "Use actual completed timing and official CRC checks; do not promote short-run iteration-rate output to a formal score."
+    }
+  ],
+  "new_work_scope": {
+    "production_numerical_firmware_changed": true,
+    "rtl_changed": true,
+    "ui_changed": true,
+    "hardware_operations": false,
+    "public_development_cases": 24,
+    "paired_virtual_states": 5,
+    "real_model_accuracy_this_run": null,
+    "physical_sensor_or_actuator_pass_this_run": false,
+    "physical_timing_or_resources_this_run": null,
+    "formal_coremark_score_this_run": null,
+    "all_enhancement_profile": "scripts/prepare_competition_profile.py --profile enhanced",
+    "general_fp_output_backpressure": "FAIL_UNRESOLVED",
+    "full_ce_validation_scope": "Documented simulation representation, M1/M4 K/V and 65x7 PV with modeled DDR and fixed external guard/adapter status; not full SoC or full model.",
+    "pv_dma_page_boundary": "Fixed for short/long P reads and Y writes, plus short V row reads; same production descriptor/DMA rules retained. See verification/v4.",
+    "ordinary_text_first_q_root_cause": "OPEN"
+  },
+  "version": "2026-10-29-v4",
+  "reviewed_cpu_variants": {
+    "original": "be3866488f1782aeecf6d52c4a8ea933edd56b937f078fae0ae4f23be29d2008",
+    "enhanced_lru_btb": "a0cbe42552bb086777be826895c9ba64955619af84c9caafc7e63b3ef17c71f1"
+  }
+}

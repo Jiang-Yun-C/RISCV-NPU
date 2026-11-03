@@ -1,0 +1,30 @@
+{
+  "version": "host-minimal-console-20261102-v1",
+  "static_files": {
+    "app.js": "24ed66d07b78503df1b18262243e72894687ed52eb95b4ba1c65047f24c4172c",
+    "binding.json": "5d509d5403d8d38c219260c38f3009772dd6960b9cf6c5f87ca442acfb637ae0",
+    "demo-cache.js": "34fab950087ae9863577c1febc3e6f2ddfdf75cdcb33822be4562b1a1d9369fc",
+    "filming.css": "d1224780e10feb0f951477c36081edaa271c260170ed5cfa2ea37f4861a09c45",
+    "index.html": "6010887d8689d2d4dbd635f7c2a679da4aff888b20821ab58359d3c6d4aa0b4f",
+    "light-presets.js": "4a1e4a1a5fb8dbdc913c89f8fc488f401dd2823e240ccae822c2c778c205e948",
+    "mark.svg": "f1b65653172d1616f79d32a5940c0e6dc4abd3c66210da7e1ecdf223d272cabe",
+    "monitor-state.js": "a31c93f760c5f47e7a2e0937579f7676a869bd48b649264d8622696b2d43c6d9",
+    "monitor.css": "5cc3e8c818a0a54ba7442cb708a3ec7c63452ff9630b444e367453046f20736a",
+    "monitor.html": "6df25dc40dbdcc7adecb2da5b13df3cd237e19129b3bc38b88720e99479ba12b",
+    "monitor.js": "d3dcea5cf09f97a443ad619bf8825fd70ebce40c89593e6f4d1e08cac86119c1",
+    "prepared-qa.json": "f05e003616ab582c8ff88bbaf4b31fa8413c5c05f4765c3ad0c402296996c9af",
+    "prepared-tool-tokens.json": "fc6bae0cf2d583a66b6088698d2b27d7576c8a1d3015fd59ec9e60594efbd7f7",
+    "presentation.js": "2e178733cc9ec772734d23e3535ed771dd734fe6abfd539ac5efdf401608f131",
+    "protocol.js": "846a2889b0c58cd6469343eaa3ec051504fe94671a28a0f1e7f93d8491fa896b",
+    "replays.json": "fdf6225b6fba70f5e0105f9588ee3852f99593cf99953fd527ad734200cb3508",
+    "rhythm-model.json": "731952265fcc8c0b4a58050bdaf7951b8dc3787cded3aa4d2ce52b911f66ab52",
+    "styles.css": "98073b8bb37d6d6f1c75a90fa0a10f76935853494d2d307acae9524ffc632410",
+    "tool-chat.css": "c70d9134d6df4a3c35d57281f213398889b09d8f671f1bd29a187dca08b68360",
+    "tool-chat.html": "6010887d8689d2d4dbd635f7c2a679da4aff888b20821ab58359d3c6d4aa0b4f",
+    "tool-chat.js": "1f2b742441d727b11b220dddda226154b3a443556fcf1c3ff1f55dbbfc645699",
+    "tool-registry.json": "855e38fd2121a36ba50ea0af13db418157a99671c9052f0bc15579cea679e670",
+    "tool-tokens.js": "c5644c2e9c696f44b829736657649cbf6c5255758d3c432842f1ec2dea2ec651"
+  },
+  "historical_binding_only": true,
+  "automatic_UART_at_startup": false
+}

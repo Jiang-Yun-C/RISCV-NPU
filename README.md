@@ -1,12 +1,12 @@
 # NexusRV：RISC-V + NPU 智能工控机
 
-面向 FPGA 的 RISC-V 主控与 CE64 推理加速平台，提供本地语言模型推理、中文控制、设备回执和运行监控。灯控是平台的一个演示项目。
+RISC-V 主控与 CE64 推理加速平台，提供本地语言模型推理、中文控制、设备回执和运行监控。灯控是平台的一个演示项目。
 
-本仓库为 **2026-11-03 当前 Demo V6 代码快照**，用于比赛提交。控制器完整源码与当前实板版本一致，包含 1,046 个文件，原始内容逐项 SHA256 校验通过。
+本仓库为 **2026-11-03 当前 Demo V6 代码快照**。控制器完整源码与当前实板版本一致，包含 1,046 个文件，原始内容逐项 SHA256 校验通过。
 
 | 项目 | 当前版本 |
 | --- | --- |
-| FPGA | 紫光同创 Logos2 PG2L200H / FBB676 / -6，MES2L676-200HP |
+| 硬件平台 | 紫光同创 Logos2 PG2L200H / FBB676 / -6，MES2L676-200HP |
 | CPU | 5 级 RV32IMF，I/D 各 16 KiB 两路 LRU，BTB、FPU、机器异常与中断 |
 | NPU | CE64，共享 FP32 / SFU，单 scratch 生命周期与 owner/ACK 管理 |
 | 实板系统时钟 / UART | 125 MHz / 115200 baud |
@@ -19,7 +19,7 @@
 - [`controller/t27/cpu/T09Cpu.v`](controller/t27/cpu/T09Cpu.v)：本候选实际选用的 CPU；`cpu_gen/generated/` 同时保留历史生成变体。
 - [`controller/firmware/`](controller/firmware/)：应用、推理运行时、驱动、启动与认证相关源码。
 - [`host_console/`](host_console/)：当前简约展示台、实时回复与缓存命中标识、设备控制和独立监控页。
-- [`fpga/`](fpga/)：PDS 实现输入参考、约束、原生 Fabric 探针和触发配置。
+- [硬件实现参考](fpga/)：PDS 实现输入参考、约束、原生 Fabric 探针和触发配置。
 - [`records/`](records/)：源码冻结清单、原工作区版本绑定、构建记录和所选验证报告。
 - [`workspace_support/`](workspace_support/)：当前 Fabric 连接及板载 SD 维护脚本参考；使用时需要原合同登记的工具与本地资产。
 
@@ -56,7 +56,7 @@ python3 host_console/server.py --open
 
 ## 构建与外部依赖
 
-控制器原源码、Makefile 和历史脚本按原样保存。完整 FPGA 构建还需要对应 PDS 2024.2、器件库、厂商 DDR/PLL IP，以及记录中的 RISC-V/CPU 生成工具环境。`fpga/pds-inputs/rebuild-offline.tcl` 保留原实现配方；其 `vendor/` 等外部输入未放入公开仓库，不能在干净机器上直接视作完整可执行部署流程。
+控制器原源码、Makefile 和历史脚本按原样保存。完整硬件构建还需要对应 PDS 2024.2、器件库、厂商 DDR/PLL IP，以及记录中的 RISC-V/CPU 生成工具环境。[PDS 实现脚本](fpga/pds-inputs/rebuild-offline.tcl)保留原实现配方；其 `vendor/` 等外部输入未放入公开仓库，不能在干净机器上直接视作完整可执行部署流程。
 
 模型权重、完整 SD 镜像、位流/SVF、routed 数据库、EDA 安装与许可证、个人认证信息、全部历史候选和完整原始证据未包含。固件、ROM、位流和介质的认证摘要必须配套；此代码快照不替代部署包。
 
